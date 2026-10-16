@@ -334,8 +334,8 @@ textarea.txt{font:12px/1.3 ui-monospace,Menlo,Consolas,monospace;width:100%;heig
 .status-rings{display:flex;align-items:center;gap:12px;flex:none}
 .status-stat{display:flex;flex-direction:column;align-items:center;gap:5px}
 .status-label{font-size:10px;font-weight:600;white-space:nowrap}
-.status-ring{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#58a6e8 var(--progress),var(--line) 0);border:1px solid var(--line)}
-.status-ring>span{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:#58a6e8;font-size:9px;font-weight:800}
+.status-ring{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--ring-color,#58a6e8) var(--progress),var(--line) 0);border:1px solid var(--line)}
+.status-ring>span{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--ring-color,#58a6e8);font-size:9px;font-weight:800}
 .status-ring.locked{background:var(--surface2);border-style:dashed}
 .status-ring.locked>span{background:transparent;font-size:15px}
 @media(max-width:359px){.game-header{gap:6px;grid-template-columns:34px minmax(0,1fr) minmax(76px,auto)}.header-wallet .cash{font-size:17px}.game-header .clock{padding:6px}.game-header #ck{font-size:15px}.day-icon{font-size:18px}.status-rings{gap:7px}.bag-status{padding:12px;gap:8px}.bag-money .cash{font-size:20px}}
@@ -368,6 +368,9 @@ textarea.txt{font:12px/1.3 ui-monospace,Menlo,Consolas,monospace;width:100%;heig
 @media(max-width:359px){.customer-store .zone-heading{font-size:18px}.customer-store .shopping-zone{padding:9px}.shopping-aisles{gap:6px}.shopping-aisle{padding:7px}.customer-face{font-size:25px}.checkout-panel>.row{gap:4px}.checkout-panel h3{font-size:14px}}
 .customer-avatar{transition:left .25s linear,top .25s linear}.customer-avatar.entering .customer-face,.customer-avatar.toCheckout .customer-face,.customer-avatar.leaving .customer-face{animation:customer-walk .4s ease-in-out infinite alternate}@keyframes customer-walk{to{transform:translateY(-3px) rotate(5deg)}}
 .stock-art{font-size:38px;line-height:1.3}.sheet label{display:block;margin:12px 0;font-size:13px}.sheet label .txt{margin-top:6px}.shop-grid .bagcard small{font-size:10px;overflow-wrap:anywhere}
+.automation-panel{margin:0}.automation-panel h3{font-size:16px;margin-bottom:8px}.automation-row{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:43px;border-bottom:1px dashed var(--line)}.automation-row:last-child{border-bottom:0}.automation-row label{display:flex;align-items:center;gap:9px;flex:1;cursor:pointer;font-size:13px;min-height:40px}.automation-row input{width:18px;height:18px;flex:none;accent-color:var(--accent);cursor:pointer}.automation-settings{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--surface2)}.live-marker{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:130px;border:2px solid var(--accent);text-align:center}.live-marker small{font-size:10px;color:var(--ink2)}.live-panel{margin:0}.live-panel h3{font-size:16px;margin:0}.live-performance{display:flex;align-items:center;gap:12px;margin-top:14px}.live-face{font-size:35px}.live-performance small,.live-result small{display:block;font-size:11px;margin-top:4px}.live-result{padding:10px;border:1px solid var(--rc);border-radius:12px;background:color-mix(in srgb,var(--rc) 10%,var(--surface));font-size:13px}.live-waiting{margin-top:10px;font-size:12px;color:var(--ink2)}.customer-avatar.liveOpening .customer-bubble{animation:sp 1.1s linear infinite}.customer-avatar.liveReact .customer-face{animation:customer-wait .6s ease-in-out infinite}.status-ring[aria-label^="Độ HOT"]>span{font-size:10px}
+.guide-heading{font-size:17px;margin:18px 0 8px}.guide-steps{padding-left:24px;margin:10px 0}.guide-steps li{padding-left:4px;margin-bottom:14px}.guide-steps li::marker{font-family:var(--fd);font-weight:800;color:var(--accent)}.guide-steps b{font-family:var(--fd);font-size:16px}.guide-steps p{font-size:13px;line-height:1.65;color:var(--ink2);margin:5px 0}
+.shelf-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0 4px}.shelf-bar b{font-size:13px}.shelf-bar .chip{font-size:11px}.shelf-note{display:block;font-size:10px;margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -387,7 +390,7 @@ textarea.txt{font:12px/1.3 ui-monospace,Menlo,Consolas,monospace;width:100%;heig
 /* ============ CẤU HÌNH (chỉnh khi cân bằng game) ============ */
 const CFG={
   START_MONEY:1000000, MAX_LV:99,
-  DAY_START:480, DAY_END:1260, REAL_DAY_SEC:600,       // 8:00 -> 21:00 = 10 phút thực
+  DAY_START:480, DAY_END:1260, REAL_DAY_SEC:360,       // 8:00 -> 21:00 = 6 phút thực
   BAG_BASE:15000, SELL_FEE:0, PITY:90, XP_SCALE:3, UPGRADE_N:10,
   BANK_LV:15, BM_LV:20, TRADE_LV:15, APPRAISE_LV:30, AU_LV:25, DD_LV:35,
   MK_VOL_HOUR:0.45, MK_REV_HOUR:0.03, MK_VOL_DAY:0.6, MK_REV_DAY:0.08, MK_MIN:0.3, MK_MAX:3, BM_OPEN:600, BM_CLOSE:1080       // chợ đen 10:00 - 18:00
@@ -405,7 +408,7 @@ function loadSettings(){
 /* ----- thông tin liên hệ (điền dữ liệu thật vào đây) ----- */
 const CONTACT={zaloQR:'',fbUrl:'',donateQR:''};   /* zaloQR, donateQR: ảnh dạng data:image/...;base64,... */
 /* ----- gift code (mỗi mã dùng 1 lần cho mỗi save) ----- */
-const GIFT={ADMINDTA:{adminCard:true,msg:'Thẻ bài Admin'},BLINKBOX:{money:200000,msg:'200.000 ₫'},CHAOBAN:{bags:{0:5},msg:'5 Túi mù: Món Ăn'},DUONGTHANHAN:{money:500000,bags:{1:5},msg:'500.000 ₫ và 5 Túi mù: Nước Uống'}};
+const GIFT={ANCOP:{money:5000000,level:50,msg:'5.000.000 ₫ và cấp 50'},ADMINDTA:{adminCard:true,msg:'Thẻ bài Admin'}};
 /* ----- âm thanh (tổng hợp bằng WebAudio, không cần file) ----- */
 let AC=null;
 function sfx(n){
@@ -577,6 +580,8 @@ const COLS=[
 ,{name:'Naruto',icon:'🍥',hue:32,unlock:50,fee:500000,mult:8,items:
 '🍜 Konohamaru|📖 Iruka|🕶 Ebisu|💉 Shizune|🐷 Tonton|🎒 Moegi|🧣 Udon|🍥 Teuchi|🍜 Ayame|🗡 Hayate|🚬 Genma|🥋 Izumo|🥊 Kotetsu|🐍 Anko|🌸 Kurenai|🌸 Sakura|💜 Ino|🦌 Shikamaru|🍖 Choji|🤍 Hinata|🐕 Kiba|🐛 Shino|🛡 Tenten|💚 Rock Lee|👁 Neji|🎭 Kakashi|🏜 Gaara|🌬 Temari|🪆 Kankuro|🥋 Might Guy|🐸 Jiraiya|💪 Tsunade|🐍 Orochimaru|🌑 Itachi|⚡ Minato|🦊 Naruto Hokage Đệ Thất'}
 ];
+const COLLECTION_NAMES=['Món ăn','Đồ uống','Phụ kiện thời trang','Khủng long','Loài cá','Loài chim','Cây cỏ','Sách','Chó và mèo','Mô hình siêu nhân','Mô hình Gundam','Xe','Kỳ quan thế giới','Tiền các nước','Lá cờ các nước','Đá quý','Pokémon','Yu-Gi-Oh!','One Piece','Dragon Ball','Doraemon','Conan','Naruto'];
+COLS.forEach((c,ci)=>{c.name='BST '+COLLECTION_NAMES[ci];});
 const ITEMS=[];
 COLS.forEach((c,ci)=>{
   c.id=ci; c.byR=[[],[],[],[],[],[]];
@@ -605,13 +610,13 @@ function fmtClock(m){m=Math.floor(m===undefined?S.clock:m);return String(Math.fl
 function fmtDur(m){m=Math.max(0,Math.ceil(m));return m>=60?Math.floor(m/60)+'g '+String(m%60).padStart(2,'0')+'p':m+'p';}
 const xpNeed=L=>Math.round(30*Math.pow(L,1.35));
 const bagPrice=ci=>Math.round(CFG.BAG_BASE*COLS[ci].mult/500)*500;
-const COL_SHORT=['Món Ăn','Nước Uống','Phụ Kiện Thời Trang','Khủng Long','Loài Cá','Loài Chim','Cây Cỏ','Sách','Chó Và Mèo','Siêu Nhân','Gundam','Xe','Kỳ Quan Thế Giới','Tiền Các Nước','Lá Cờ Các Nước','Đá Quý','Pokémon','Yu-Gi-Oh!','One Piece','Dragon Ball','Doraemon','Conan','Naruto'];
+const COL_SHORT=COLLECTION_NAMES;
 const bagName=ci=>'Túi mù: '+COL_SHORT[ci];
 
 /* ============ BOX, KHO TỒN VÀ BỔ SUNG HÀNG ============ */
 const isPremium=ci=>ci>=16&&ci<=22;
 const boxSize=ci=>isPremium(ci)?8:12;
-const boxName=ci=>'Box '+COLS[ci].name+(isPremium(ci)?' · Cao cấp':'');
+const boxName=ci=>'Box: '+COLS[ci].name;
 const boxPrice=ci=>Math.round(bagPrice(ci)*boxSize(ci)*.72/5000)*5000;
 const bagMarket=ci=>Math.max(10,Math.round((S.bagP[ci]||bagPrice(ci))/10)*10);
 const bagChange=ci=>(bagMarket(ci)/(S.bagO[ci]||bagMarket(ci))-1)*100;
@@ -629,7 +634,7 @@ function bagRates(ci){
 }
 function buyBoxes(ci,qty){
   if(!COLS[ci]||!unlocked(ci))return 'BST này chưa mở khóa.';
-  if(!Number.isSafeInteger(qty)||qty<1||qty>10000)return 'Số lượng box không hợp lệ.';
+  if(!Number.isSafeInteger(qty)||qty<1||qty>Math.floor(Number.MAX_SAFE_INTEGER/boxPrice(ci)))return 'Số lượng box không hợp lệ.';
   const cost=boxPrice(ci)*qty;if(cost>S.money)return 'Không đủ tiền nhập box.';
   S.money-=cost;S.boxes[ci]=(S.boxes[ci]||0)+qty;S.day$.spent+=cost;
   logTx('Nhập '+qty+'× '+boxName(ci),-cost);return '';
@@ -642,6 +647,7 @@ function unpackBox(ci,qty=1){
 }
 function listBag(ci,qty,ask){
   if(!COLS[ci]||!Number.isSafeInteger(qty)||qty<1||qty>(S.bags[ci]||0))return {err:'Số túi mù không hợp lệ.'};
+  if(!canShelf('bag',ci,qty))return {err:shelfFull('bag')};
   ask=ask==null?askOf(bagMarket(ci),5):Math.round(Number(ask)/10)*10;
   if(!Number.isFinite(ask)||ask<10||ask>1e12)return {err:'Giá bán từ 10₫ đến 1.000 tỷ₫.'};
   S.bags[ci]-=qty;if(!S.bags[ci])delete S.bags[ci];
@@ -655,12 +661,13 @@ function restockNotice(key,message){
 }
 function autoRestock(force=false){
   const R=S.restock,H=S.customers;
-  if(!R.on||S.closed||(!force&&!isStoreOpen()))return;
+  if((!R.bagsOn&&!R.cardsOn)||S.closed||(!force&&!isStoreOpen()))return;
   if(!force&&H.time<R.next)return;R.next=H.time+15;
   const wallet=S.money,budget=Math.floor(wallet*R.budgetPct/100);let purchased=0,changed=false;
   // One purchase sweep has a single shared budget across all collections.
-  for(const key of Object.keys(R.watch)){
+  for(const key of (R.bagsOn?Object.keys(R.watch):[])){
     const ci=+key;if(!COLS[ci])continue;
+    if(!canShelf('bag',ci)){restockNotice('bag-capacity',shelfFull('bag'));continue;}
     if(S.listings.some(L=>L.kind==='bag'&&L.ci===ci&&L.qty>0))continue;
     if(!(S.bags[ci]>0)&&S.boxes[ci]>0){unpackBox(ci);changed=true;}
     if(!(S.bags[ci]>0)){
@@ -670,28 +677,25 @@ function autoRestock(force=false){
       }
     }
     if(S.bags[ci]>0){
-      const result=listBag(ci,S.bags[ci],R.watch[ci].ask);if(result.ok){changed=true;delete R.notice[key];}
+      const result=listBag(ci,Math.min(S.bags[ci],shelfFree('bag')),R.watch[ci].ask);if(result.ok){changed=true;delete R.notice[key];}
     }else restockNotice(key,'⚠️ Hết '+bagName(ci)+'. Không thể nhập box trong ngân sách '+R.budgetPct+'%.');
   }
-  const allowed=new Set(R.rarities);
+  const allowed=new Set(R.cardsOn?R.rarities:[]);
   for(const key of Object.keys(S.inv)){
     const id=+key,it=ITEMS[id];
     if(it&&S.inv[id]>0&&!isLocked(id)&&allowed.has(it.r)){
-      const quantity=S.inv[id],err=listItem(id,quantity,5);if(err.ok)changed=true;
+      const quantity=Math.min(S.inv[id],shelfFree('card')),err=quantity>0?listItem(id,quantity,5):{err:shelfFull('card')};if(err.ok)changed=true;else if(!canShelf('card',id))restockNotice('card-capacity',shelfFull('card'));
     }
   }
   // Appraised cards preserve their certificates and obey the same rarity/lock rules.
   for(const card of S.cert.slice()){
-    if(!isLocked(card.id)&&allowed.has(ITEMS[card.id].r)){if(listCert(card.uid,5).ok)changed=true;}
+    if(!isLocked(card.id)&&allowed.has(ITEMS[card.id].r)){if(listCert(card.uid,5).ok)changed=true;else if(!canShelf('card',card.id))restockNotice('card-capacity',shelfFull('card'));}
   }
+  if(shelfCount('bag')<shelfLimit('bag'))delete R.notice['bag-capacity'];
+  if(shelfCount('card')<shelfLimit('card'))delete R.notice['card-capacity'];
   if(!S.listings.length)restockNotice('empty','⚠️ Quầy đã hết hàng. Hãy kiểm tra Kho tồn, thẻ được phép bán hoặc nhập thêm box.');
   else delete R.notice.empty;
   if(changed){save();renderTop();if(ui.tab==='shop'&&$('#modal').hidden)renderView();}
-}
-function restockSettings(){
-  const R=S.restock;
-  sheet('<h2>📦 Bổ sung hàng</h2><p class="muted">Tự động thanh toán có công tắc riêng ở quầy. Bổ sung hàng chỉ chạy trong giờ mở cửa; có thể bấm Bổ sung ngay trong giai đoạn chuẩn bị.</p>'+togRow('Tự bổ sung hàng','Khi quầy hết túi: lấy túi trong kho → mở box đang có → nhập 1 box nếu ngân sách cho phép.','restockToggle',R.on)+
-    '<div class="kv"><span>Ngân sách tự nhập mỗi lượt (%)</span><input class="rin" id="restock-budget" type="number" min="0" max="100" step="1" value="'+R.budgetPct+'"></div><p class="muted">Tính trên số tiền đầu lượt, tổng chi không vượt mức này. 0% = chỉ dùng hàng có sẵn. Ưu tiên các BST đã từng được đăng bán.</p><h3>Túi mù tự bổ sung</h3><div class="chips">'+COLS.filter(c=>unlocked(c.id)||S.bags[c.id]||S.boxes[c.id]||R.watch[c.id]).map(c=>'<button class="chip'+(R.watch[c.id]?' on':'')+'" data-a="restockWatch" data-ci="'+c.id+'">'+c.icon+' '+esc(c.name)+'</button>').join('')+'</div><p class="muted">Giá tự bổ sung dùng mức giá đăng bán gần nhất; BST mới chọn mặc định giá thị trường +5%.</p><h3>Cho phép tự đăng bán thẻ</h3><p class="muted">Mặc định không bán thẻ tự động. Chỉ các bậc được chọn bên dưới mới được bán, giá thị trường +5%. Thẻ khóa luôn được giữ lại.</p><div class="chips">'+RAR.map((name,r)=>'<button class="chip'+(R.rarities.includes(r)?' on':'')+'" data-a="restockRarity" data-r="'+r+'">'+name+'</button>').join('')+'</div><div class="btnrow"><button class="btn" data-a="closeM">Đóng</button><button class="btn primary" data-a="restockSave">Lưu ngân sách</button><button class="btn" data-a="restockNow">Bổ sung ngay</button></div>');
 }
 function stockCards(entries,kind){
   return '<div class="shop-grid">'+entries.map(ci=>{const c=COLS[ci],isBox=kind==='box',qty=isBox?S.boxes[ci]:S.bags[ci];return '<button class="bagcard" data-a="'+(isBox?'boxOpen':'bagOpen')+'" data-c="'+ci+'"><span class="stock-art">'+(isBox?'📦':c.icon)+'</span><span class="bc-n">'+esc(isBox?boxName(ci):bagName(ci))+'</span><span class="bc-q">×'+qty+'</span><small>'+(isBox?boxSize(ci)+' túi / box':fmt(bagMarket(ci))+' ₫')+'</small></button>';}).join('')+'</div>';
@@ -708,13 +712,92 @@ function showBox(ci){
   sheet('<h2>📦 '+esc(boxName(ci))+'</h2><p class="muted">Đang có '+S.boxes[ci]+' box. Mỗi box chứa '+boxSize(ci)+' túi mù; túi nhận được nằm trong Kho tồn.'+(isPremium(ci)?' Xác suất từ Hiếm trở lên gấp đôi túi thường ở cùng mức may mắn.':'')+'</p><div class="btnrow"><button class="btn primary" data-a="boxUnpack" data-ci="'+ci+'" data-q="1">Mở 1 box</button><button class="btn" data-a="boxUnpack" data-ci="'+ci+'" data-q="all">Mở tất cả</button><button class="btn" data-a="closeM">Đóng</button></div>');
 }
 function showBagListing(ci){
-  if(!(S.bags[ci]>0))return;
-  const draft=ui.bagListing&&ui.bagListing.ci===ci?ui.bagListing:{ci,qty:1,ask:askOf(bagMarket(ci),5)};ui.bagListing=draft;
-  sheet('<h2>Đăng bán '+esc(bagName(ci))+'</h2><p class="muted">Trong kho: '+S.bags[ci]+' · Giá thị trường: '+fmt(bagMarket(ci))+' ₫. Giá mặc định +5%; có thể đặt giá theo ý muốn.</p><label>Số lượng<input class="txt" id="bag-list-qty" type="number" min="1" max="'+S.bags[ci]+'" step="1" value="'+Math.min(draft.qty,S.bags[ci])+'"></label><label>Giá bán / túi (₫)<input class="txt" id="bag-list-ask" type="number" min="10" max="1000000000000" step="10" value="'+draft.ask+'"></label><div class="btnrow"><button class="btn" data-a="bagOpen" data-c="'+ci+'">Quay lại</button><button class="btn primary" data-a="bagListConfirm" data-ci="'+ci+'">Đăng bán</button></div>');
+  const stock=S.bags[ci]||0;if(!stock)return;
+  const draft=ui.bagListing&&ui.bagListing.ci===ci?ui.bagListing:{ci,qty:1,ask:askOf(bagMarket(ci),5),pct:5};ui.bagListing=draft;
+  draft.qty=Math.min(Math.max(1,draft.qty),stock);
+  const free=shelfFree('bag'),full=draft.qty>free;
+  sheet('<h2>Đăng bán '+esc(bagName(ci))+'</h2><p class="muted">Trong kho: '+stock+' túi · Quầy còn '+free+' chỗ · Giá thị trường: '+fmt(bagMarket(ci))+' ₫.</p><h4>Số lượng: '+draft.qty+' túi</h4><div class="chips" style="margin:8px 0 14px">'+[1,5,10].map(q=>'<button class="chip'+(draft.qty===q?' on':'')+'" data-a="bagListQty" data-q="'+q+'"'+(q>stock?' disabled':'')+'>'+q+'</button>').join('')+'<button class="chip'+(draft.qty===stock?' on':'')+'" data-a="bagListQty" data-q="max">Tối đa hiện có ('+stock+')</button></div><h4>Giá so với thị trường</h4><div class="chips" style="margin:8px 0">'+[-5,-1,0,1,5,10].map(p=>'<button class="chip'+(draft.pct===p?' on':'')+'" data-a="bagListPrice" data-pct="'+p+'">'+(p>0?'+':'')+p+'%</button>').join('')+'</div><label>Hoặc tự nhập giá / túi (₫)<input class="txt" id="bag-list-ask" type="number" min="10" max="1000000000000" step="10" value="'+(draft.ask==null?'':draft.ask)+'" placeholder="Mặc định thị trường +5%"></label>'+(full?'<p class="muted">Không đủ sức chứa cho '+draft.qty+' túi. Chọn ít hơn hoặc nâng sức chứa quầy.</p>':'')+'<div class="btnrow"><button class="btn" data-a="bagOpen" data-c="'+ci+'">Quay lại</button><button class="btn primary" data-a="bagListConfirm" data-ci="'+ci+'"'+(full?' disabled':'')+'>Đăng bán '+draft.qty+' túi</button></div>');
 }
 function showBagListingDetails(uid){
   const L=S.listings.find(L=>L.uid===uid&&L.kind==='bag');if(!L)return;
   sheet('<h2>'+esc(bagName(L.ci))+'</h2><div class="kv"><span>Đang bán</span><b>×'+L.qty+'</b></div><div class="kv"><span>Thị trường</span><b>'+fmt(bagMarket(L.ci))+' ₫</b></div><label>Giá bán / túi<input class="txt" type="number" id="bag-reprice" min="10" max="1000000000000" step="10" value="'+L.ask+'"></label><div class="btnrow"><button class="btn primary" data-a="bagReprice" data-uid="'+uid+'">Đổi giá</button><button class="btn" data-a="listCancel" data-uid="'+uid+'">Gỡ về kho</button><button class="btn" data-a="closeM">Đóng</button></div>');
+}
+
+/* ============ TỰ ĐỘNG HÓA, LIVESTREAM VÀ HOT ============ */
+const LIVE_STATES=['toLive','liveWaiting','liveOpening','liveReact'];
+const liveCustomers=()=>S.customers.people.filter(c=>LIVE_STATES.includes(c.state));
+const liveWaiting=()=>S.customers.people.filter(c=>c.state==='liveWaiting').sort((a,b)=>a.since-b.since||a.uid-b.uid);
+function addHot(delta){S.hot=Math.max(0,Math.round((S.hot||0)+delta));ui.dirty=true;}
+function finishCustomerExit(c){
+  if(c.exitSettled)return;c.exitSettled=true;
+  if(c.paid&&c.exitHot){addHot(c.exitHot);logTx('HOT · '+c.name+' · '+(c.exitHot>0?'+':'')+c.exitHot+' HOT'+(c.liveResult?' (livestream)':' (mua hàng)'),0);}
+}
+function sendPaidCustomer(c,bags){
+  c.paid=true;c.exitSettled=false;c.liveBags=bags;c.exitHot=0;
+  if(S.live.enabled&&bags.length&&Math.random()*100<S.live.chance){
+    customerState(c,'toLive',2.5,'Nhờ cửa hàng mở túi giúp tôi nhé!');
+  }else{c.exitHot=1+Math.floor(Math.random()*3);customerState(c,'leaving',2.5,'Mua được hàng rồi, vui quá!');}
+}
+function rollCustomerLive(c){
+  const result={total:0,bestId:null,high:false,counts:[0,0,0,0,0,0]};
+  // Customer-owned bags use their collection odds. Player pity, XP and inventory are untouched.
+  for(const line of c.liveBags)for(let n=0;n<line.qty;n++){
+    const r=pickW(bagRates(line.ci),0),id=pick(COLS[line.ci].byR[r]);
+    result.total++;result.counts[r]++;
+    if(result.bestId==null||ITEMS[id].r>ITEMS[result.bestId].r)result.bestId=id;
+    if(r>=2)result.high=true;
+  }
+  c.liveResult=result;c.exitHot=result.high?3+Math.floor(Math.random()*3):-1;
+  c.satisfaction=result.high?'Vui vẻ':'Thất vọng';
+  customerState(c,'liveReact',S.live.reactionSec,result.high?'Tuyệt quá! Có thẻ giá trị cao!':'Hơi tiếc, lần này chưa có thẻ giá trị cao.');
+  S.live.last={name:c.name,face:c.face,...result,hot:c.exitHot};
+}
+function tickLive(){
+  const H=S.customers;let changed=false;
+  for(const c of H.people){
+    const elapsed=H.time-c.since;
+    if(c.state==='toLive'&&elapsed>=c.duration){customerState(c,'liveWaiting',0,'Tôi chờ mở túi tại livestream.');changed=true;}
+    else if(c.state==='liveOpening'&&elapsed>=c.duration){rollCustomerLive(c);changed=true;}
+    else if(c.state==='liveReact'&&elapsed>=c.duration){customerState(c,'leaving',2.5,c.line);changed=true;}
+  }
+  if(!H.people.some(c=>c.state==='liveOpening'||c.state==='liveReact')){
+    const first=liveWaiting()[0];
+    if(first){const count=first.liveBags.reduce((n,x)=>n+x.qty,0);customerState(first,'liveOpening',clamp(count*S.live.openSec,2,30),'Nhân viên đang mở '+count+' túi…');changed=true;}
+  }
+  return changed;
+}
+function autoCheckbox(label,action,checked,settings){
+  return '<div class="automation-row"><label><input type="checkbox" data-a="'+action+'"'+(checked?' checked':'')+'><span>'+label+'</span></label>'+(settings?'<button class="automation-settings" data-a="'+settings+'" aria-label="Cài đặt '+label+'">⚙️</button>':'')+'</div>';
+}
+function automationPanel(){
+  return '<div class="card automation-panel"><h3>Điều hành cửa hàng</h3>'+autoCheckbox('Tự động thanh toán','checkoutAuto',S.customers.auto)+autoCheckbox('Tự bổ sung túi mù','bagAutoToggle',S.restock.bagsOn,'bagAutoSettings')+autoCheckbox('Tự bổ sung thẻ item','cardAutoToggle',S.restock.cardsOn,'cardAutoSettings')+autoCheckbox('Tự livestream','liveAutoToggle',S.live.enabled,S.adminCard?'liveSettings':null)+'</div>';
+}
+function livePanelHTML(){
+  const active=S.customers.people.find(c=>c.state==='liveOpening'||c.state==='liveReact'),queue=liveWaiting();
+  let body='<p class="muted">'+(S.live.enabled?'Nhân viên sẵn sàng mở túi cho khách đã thanh toán.':'Đang tắt. Khách mua hàng và rời đi sau thanh toán.')+'</p>';
+  if(active){
+    const total=active.liveBags.reduce((n,L)=>n+L.qty,0),opening=active.state==='liveOpening';
+    body='<div class="live-performance"><span class="live-face">'+active.face+'</span><div><b>'+esc(active.name)+'</b><small>'+ (opening?'🌀 Đang mở '+total+' túi':(active.liveResult.high?'🤩 Vui vẻ':'😞 Thất vọng'))+'</small></div></div><p class="muted">“'+esc(active.line)+'”</p>';
+    if(!opening){const it=ITEMS[active.liveResult.bestId];body+='<div class="live-result r'+it.r+'">'+it.e+' '+esc(it.n)+'<small>'+total+' túi · '+(active.exitHot>0?'+':'')+active.exitHot+' HOT khi khách rời tiệm</small></div>';}
+  }
+  if(queue.length)body+='<div class="live-waiting">Đang chờ: '+queue.map(c=>c.face+' '+esc(c.name)).join(' · ')+'</div>';
+  if(!active&&S.live.last){const result=S.live.last,it=ITEMS[result.bestId];if(it)body+='<small class="muted">Lượt gần nhất: '+esc(result.name)+' · '+result.total+' túi · '+it.e+' '+esc(it.n)+'</small>';}
+  return '<div class="row"><h3>📹 Livestream</h3>'+(S.adminCard?'<button class="chip" data-a="liveSettings">⚙️ Cài đặt</button>':'')+'</div>'+body;
+}
+function hotCircle(){
+  const value=S.hot||0,progress=value/(value+100)*100;
+  return '<div class="status-stat"><span class="status-label">HOT</span><div class="status-ring" style="--progress:'+progress+'%;--ring-color:var(--accent)" role="img" aria-label="Độ HOT: '+value+' điểm"><span>'+ (value>=1000?(value/1000).toFixed(1)+'k':value)+'</span></div></div>';
+}
+function liveSettings(){
+  if(!S?.adminCard)return;
+  sheet('<h2>📹 Cài đặt livestream</h2><p class="muted">Khách đã mua túi có thể đến đây để nhân viên mở giúp. Kết quả thuộc về khách. Chỉ tắt livestream khi không có khách đang đến, chờ mở, mở túi hoặc phản ứng.</p><label>Tỉ lệ khách mua túi tham gia (%)<input class="txt" id="live-chance" type="number" min="0" max="100" value="'+S.live.chance+'"></label><label>Thời gian mở mỗi túi (giây)<input class="txt" id="live-seconds" type="number" min="0.5" max="5" step="0.5" value="'+S.live.openSec+'"></label><p class="muted">Tính kết quả trên toàn bộ lượt mở: có ít nhất một thẻ Hiếm trở lên được +3–5 HOT; không có bị −1 HOT. HOT không xuống dưới 0.</p><div class="btnrow"><button class="btn" data-a="closeM">Đóng</button><button class="btn primary" data-a="liveSave">Lưu</button></div>');
+}
+function restockSettings(mode){
+  mode=mode||ui.restockMode||'bag';ui.restockMode=mode;const R=S.restock;
+  if(mode==='card'){
+    sheet('<h2>🃏 Tự bổ sung thẻ</h2><p class="muted">Chỉ tự bán các bậc được chọn, giá thị trường +5%. Thẻ khóa luôn được giữ lại. Mặc định không cho phép bậc nào.</p><div class="chips">'+RAR.map((name,r)=>'<button class="chip'+(R.rarities.includes(r)?' on':'')+'" data-a="restockRarity" data-r="'+r+'">'+name+'</button>').join('')+'</div><div class="btnrow"><button class="btn" data-a="closeM">Đóng</button><button class="btn primary" data-a="restockNow">Bổ sung ngay</button></div>');return;
+  }
+  sheet('<h2>🎁 Tự bổ sung túi mù</h2><p class="muted">Khi quầy hết túi: lấy túi trong Kho tồn → mở box đang có → nhập box nếu đủ ngân sách. Chế độ chạy trong giờ cửa hàng hoạt động.</p><label>Ngân sách tự nhập mỗi lượt (%)<input class="txt" id="restock-budget" type="number" min="0" max="100" value="'+R.budgetPct+'"></label><p class="muted">Tổng tiền nhập trong một lượt không vượt mức này. 0% chỉ dùng hàng có sẵn. Giá bán dùng giá gần nhất hoặc mặc định thị trường +5%.</p><div class="chips">'+COLS.filter(c=>unlocked(c.id)||S.bags[c.id]||S.boxes[c.id]||R.watch[c.id]).map(c=>'<button class="chip'+(R.watch[c.id]?' on':'')+'" data-a="restockWatch" data-ci="'+c.id+'">'+c.icon+' '+esc(c.name)+'</button>').join('')+'</div><div class="btnrow"><button class="btn" data-a="closeM">Đóng</button><button class="btn primary" data-a="restockSave">Lưu ngân sách</button><button class="btn" data-a="restockNow">Bổ sung ngay</button></div>');
 }
 
 /* ============ TRẠNG THÁI ============ */
@@ -724,8 +807,8 @@ const ui={askId:null,askPct:5,bulkPct:5,feedI:0,back:'shop',last:{market:'bm',co
 
 function newState(name){
   const s={v:1,name,lvl:1,xp:0,lp:20.3,forced:0,money:CFG.START_MONEY,day:1,clock:CFG.DAY_START,
-    bags:{},boxes:{},bagP:{},bagO:{},restock:{on:false,budgetPct:20,rarities:[],watch:{},notice:{},next:0},inv:{},disc:{},market:{},pity:0,stats:{got:[0,0,0,0,0,0],bags:0,peak:CFG.START_MONEY},
-    day$:null,bm:null,au:null,trade:null,dd:null,ddCount:0,ddLast:null,cert:[],appr:[],uid:1,locked:{},rate:0.01,rateHist:[],capital:CFG.START_MONEY,news:[],codes:{},adConf:null,paidCols:{},sp:{gold:0,dia:0},chk:{last:0,streak:0},mkP:{},mkS:{},mkD:{},mkO:{},mkH:Array(COLS.length).fill(1),macro:1,hourN:0,safe:0,listings:[],sales:[],cost:{},autoLock:{},mkEv:[],ddWin:50,adRates:null,loans:[],bankrupt:false,closed:false,log:[],lastSum:null,customers:newCustomerState(),customerMax:null,customerBuyRate:null,dayStarted:false,adminCard:false,admin:false,overNote:false,savedAt:0};
+    bags:{},boxes:{},bagP:{},bagO:{},restock:{bagsOn:false,cardsOn:false,budgetPct:20,rarities:[],watch:{},notice:{},next:0},inv:{},disc:{},market:{},pity:0,stats:{got:[0,0,0,0,0,0],bags:0,peak:CFG.START_MONEY},
+    day$:null,bm:null,au:null,trade:null,dd:null,ddCount:0,ddLast:null,cert:[],appr:[],uid:1,locked:{},rate:0.01,rateHist:[],capital:CFG.START_MONEY,news:[],codes:{},adConf:null,paidCols:{},sp:{gold:0,dia:0},chk:{last:0,streak:0},mkP:{},mkS:{},mkD:{},mkO:{},mkH:Array(COLS.length).fill(1),macro:1,hourN:0,safe:0,listings:[],sales:[],cost:{},autoLock:{},mkEv:[],ddWin:50,adRates:null,loans:[],bankrupt:false,closed:false,log:[],lastSum:null,shelfSlots:{bags:36,cards:24},shopPaused:false,hot:0,live:{enabled:false,chance:40,openSec:1,reactionSec:3,last:null},customers:newCustomerState(),customerMax:null,customerBuyRate:null,dayStarted:false,adminCard:false,admin:false,overNote:false,savedAt:0};
   ITEMS.forEach(it=>{const pr=Math.round(it.anchor*(0.95+0.15*Math.random())/10)*10;s.mkP[it.id]=pr;s.mkO[it.id]=pr;s.mkS[it.id]=1;s.mkD[it.id]=1;});
   COLS.forEach(c=>{s.bagP[c.id]=bagPrice(c.id);s.bagO[c.id]=bagPrice(c.id);});
   return s;
@@ -733,9 +816,16 @@ function newState(name){
 function migrate(o){
   const d=newState(o.name||'Người chơi');
   const s=Object.assign(d,Object.fromEntries(Object.entries(o).filter(([key])=>key in d)));
+  s.shelfSlots={bags:Math.max(36,Math.floor(Number(o.shelfSlots?.bags)||36)),cards:Math.max(24,Math.floor(Number(o.shelfSlots?.cards)||24))};
+  if(s.bm?.v!==2)s.bm=null;
   s.boxes=s.boxes||{};s.bagP=s.bagP||{};s.bagO=s.bagO||{};
   COLS.forEach(c=>{if(!(s.bagP[c.id]>0))s.bagP[c.id]=bagPrice(c.id);if(!(s.bagO[c.id]>0))s.bagO[c.id]=s.bagP[c.id];});
-  s.restock=Object.assign({on:false,budgetPct:20,rarities:[],watch:{},notice:{},next:0},o.restock||{});
+  s.restock=Object.assign({bagsOn:false,cardsOn:false,budgetPct:20,rarities:[],watch:{},notice:{},next:0},o.restock||{});
+  if(o.restock?.on!=null){if(o.restock.bagsOn==null)s.restock.bagsOn=!!o.restock.on;if(o.restock.cardsOn==null)s.restock.cardsOn=!!o.restock.on;}
+  delete s.restock.on;
+  s.hot=Math.max(0,Math.round(Number(o.hot)||0));s.shopPaused=!!o.shopPaused;
+  s.live=Object.assign({enabled:false,chance:40,openSec:1,reactionSec:3,last:null},o.live||{});
+  s.live.chance=clamp(Number(s.live.chance)||0,0,100);s.live.openSec=clamp(Number(s.live.openSec)||1,.5,5);s.live.reactionSec=3;
   s.restock.budgetPct=clamp(Number(s.restock.budgetPct)||0,0,100);
   s.restock.rarities=(Array.isArray(s.restock.rarities)?s.restock.rarities:[]).filter(r=>Number.isInteger(r)&&r>=0&&r<=5);
   s.restock.watch=s.restock.watch||{};s.restock.notice={};s.restock.next=0;
@@ -779,6 +869,7 @@ function migrate(o){
   if(s.au&&!s.au.list) s.au=null;
   if(s.au&&s.au.list) s.au.list.forEach(a=>{a.busy=false;});
   if(!s.day$) s.day$={startWorth:s.money,spent:0,earned:0,bags:0,bestR:-1,bestId:null};
+  normalizeShelfStock(s);
   return s;
 }
 function save(){
@@ -808,6 +899,7 @@ const unlocked=ci=>S.lvl>=COLS[ci].unlock&&(!COLS[ci].fee||!!(S.paidCols&&S.paid
 const unlockedCols=()=>COLS.filter(c=>unlocked(c.id)).map(c=>c.id);
 const isOver=()=>S.clock>=CFG.DAY_END;
 const isStoreOpen=()=>!!S&&S.dayStarted&&!S.closed&&!S.bankrupt&&S.clock>=CFG.DAY_START&&!isOver();
+const isAcceptingCustomers=()=>isStoreOpen()&&!S.shopPaused;
 const EVENT_CLOSED='Sự kiện chỉ hoạt động trong giờ mở cửa hàng. Hãy bắt đầu ngày mới để tham gia.';
 
 const debtTotal=()=>(S.loans||[]).reduce((s,l)=>s+l.remaining,0);
@@ -964,9 +1056,10 @@ const CUSTOMER_FACES=['👩','👨','🧑','👩‍🦱','👨‍🦱','👱‍�
 const CUSTOMER_NAMES=['An','Bình','Chi','Dũng','Hà','Hải','Lan','Linh','Minh','Ngọc','Phúc','Thảo','Trang','Tú','Vy'];
 function newCustomerState(){return {time:0,next:4,auto:false,people:[],regulars:[],served:0,left:0};}
 const customerMax=()=>S.customerMax==null?10+5*Math.floor(S.lvl/10):S.customerMax;
-const customerBuyRate=()=>S.customerBuyRate==null?75:S.customerBuyRate;
+const customerBuyBase=()=>S.customerBuyRate==null?75:S.customerBuyRate;
+const customerBuyRate=()=>clamp(customerBuyBase()+Math.min(20,(S.hot||0)/25),0,100);
 const waitingCustomers=()=>S.customers.people.filter(c=>c.state==='waiting').sort((a,b)=>a.since-b.since||a.uid-b.uid);
-const pendingCustomers=()=>S.customers.people.filter(c=>['entering','browsing','toCheckout','waiting'].includes(c.state));
+const pendingCustomers=()=>S.customers.people.filter(c=>['entering','browsing','toCheckout','waiting',...LIVE_STATES].includes(c.state)||(c.state==='leaving'&&c.paid&&!c.exitSettled));
 function spawnCustomer(){
   const H=S.customers,returning=H.regulars.length&&Math.random()<.25?pick(H.regulars):null;
   const p=returning?CUSTOMER_TYPES[4]:CUSTOMER_TYPES[pickW(CUSTOMER_TYPES.map(x=>x.weight),0)];
@@ -1004,8 +1097,9 @@ function restoreCustomerCart(c){
 }
 function abandonCustomer(c){
   const hadItems=c.cart.length>0;restoreCustomerCart(c);S.customers.left++;
+  if(hadItems&&!c.waitPenalty){c.waitPenalty=true;addHot(-1);}
   customerState(c,'leaving',2.5,c.type==='picky'?'Chờ lâu quá! Tôi đi đây.':'Tôi có việc rồi, hẹn lần sau.');
-  if(hadItems){logTx(c.name+' rời hàng chờ, hàng đã trả về quầy',0);toast(c.face+' '+c.name+' bỏ chờ. Hàng đã trả về quầy.');}
+  if(hadItems){logTx(c.name+' rời hàng chờ, hàng đã trả về quầy · −1 HOT',0);toast(c.face+' '+c.name+' bỏ chờ. Hàng đã trả về quầy.');}
 }
 function checkoutCustomer(uid,automatic=false){
   const H=S.customers,c=H.people.find(c=>c.uid===uid);
@@ -1027,15 +1121,16 @@ function checkoutCustomer(uid,automatic=false){
     if(!H.regulars.some(r=>r.name===c.name&&r.face===c.face))H.regulars.push({name:c.name,face:c.face});
     H.regulars=H.regulars.slice(-20);
   }
-  c.cart=[];customerState(c,'leaving',2.5,'Cảm ơn, lần sau tôi lại ghé!');
+  const purchasedBags=c.cart.filter(L=>L.kind==='bag').map(L=>({ci:L.ci,qty:L.qty}));
+  c.cart=[];sendPaidCustomer(c,purchasedBags);
   S.stats.peak=Math.max(S.stats.peak,S.money);save();renderTop();
-  toast('💰 '+c.name+' thanh toán +'+fmt(net)+' ₫','good');return {ok:true,net};
+  return {ok:true,net};
 }
 function tickCustomers(dt){
   if(!S.dayStarted||S.closed||S.bankrupt)return;
   const H=S.customers;H.time+=dt;let changed=false;
-  if(isStoreOpen()&&H.time>=H.next){
-    H.next=H.time+7+Math.random()*7;
+  if(isAcceptingCustomers()&&H.time>=H.next){
+    H.next=H.time+(7+Math.random()*7)/(1+Math.min(S.hot||0,1000)/500);
     if(H.people.filter(c=>c.state!=='leaving').length<12){spawnCustomer();changed=true;}
   }
   for(const c of H.people.slice()){
@@ -1050,8 +1145,9 @@ function tickCustomers(dt){
       customerState(c,'waiting',c.patience,'Thanh toán giúp tôi nhé!');changed=true;
       if(!H.auto)toast(c.face+' '+c.name+' đang chờ thanh toán');
     }else if(c.state==='waiting'&&elapsed>=c.patience){abandonCustomer(c);changed=true;}
-    else if(c.state==='leaving'&&elapsed>=c.duration){H.people=H.people.filter(x=>x.uid!==c.uid);changed=true;}
+    else if(c.state==='leaving'&&elapsed>=c.duration){finishCustomerExit(c);H.people=H.people.filter(x=>x.uid!==c.uid);changed=true;}
   }
+  changed=tickLive()||changed;
   if(H.auto){const first=waitingCustomers()[0];if(first){checkoutCustomer(first.uid,true);changed=true;}}
   if(changed){ui.dirty=true;save();renderCheckoutShortcut();}
   updateCustomerUI(changed);
@@ -1062,14 +1158,16 @@ function customerPosition(c){
   if(c.state==='browsing')return [22+j*13,25+(j%2)*9];
   if(c.state==='toCheckout')return [35+(79-35)*progress,32+(70-32)*progress];
   if(c.state==='waiting'){const n=waitingCustomers().indexOf(c);return [Math.max(12,80-n*10),71];}
-  return [80+(48-80)*progress,71+(96-71)*progress];
+  if(c.state==='toLive')return [79+(22-79)*progress,71];
+  if(LIVE_STATES.includes(c.state))return [Math.min(44,16+Math.max(0,liveWaiting().indexOf(c))*8),71];
+  return [(c.liveResult?22:80)+(48-(c.liveResult?22:80))*progress,71+(96-71)*progress];
 }
 function customerSceneHTML(){
-  return S.customers.people.map(c=>{const [x,y]=customerPosition(c),waiting=c.state==='waiting';return '<button class="customer-avatar '+c.state+'" style="left:'+x+'%;top:'+y+'%" data-a="customerInfo" data-uid="'+c.uid+'" data-avatar="'+c.uid+'" aria-label="'+esc(c.name)+' · '+(waiting?'Chờ thanh toán':c.state==='browsing'?'Đang chọn hàng':'Đang di chuyển')+'"><span class="customer-bubble">'+(waiting?'💳':c.state==='browsing'?'💭':'')+'</span><span class="customer-face">'+c.face+'</span><small>'+esc(c.name)+'</small></button>';}).join('');
+  return S.customers.people.map(c=>{const [x,y]=customerPosition(c),waiting=c.state==='waiting';return '<button class="customer-avatar '+c.state+'" style="left:'+x+'%;top:'+y+'%" data-a="customerInfo" data-uid="'+c.uid+'" data-avatar="'+c.uid+'" aria-label="'+esc(c.name)+' · '+(waiting?'Chờ thanh toán':c.state==='browsing'?'Đang chọn hàng':'Đang di chuyển')+'"><span class="customer-bubble">'+(waiting?'💳':c.state==='liveOpening'?'🌀':c.state==='liveReact'?(c.liveResult.high?'🤩':'😞'):LIVE_STATES.includes(c.state)?'📹':c.state==='browsing'?'💭':'')+'</span><span class="customer-face">'+c.face+'</span><small>'+esc(c.name)+'</small></button>';}).join('');
 }
 function checkoutQueueHTML(){
   const queue=waitingCustomers();
-  return '<div class="row"><h3>🧾 Thanh toán <small>('+queue.length+')</small></h3><button class="chip'+(S.customers.auto?' on':'')+'" data-a="checkoutAuto" aria-pressed="'+S.customers.auto+'">Tự động: '+(S.customers.auto?'Bật':'Tắt')+'</button></div>'+
+  return '<div class="row"><h3>🧾 Thanh toán <small>('+queue.length+')</small></h3></div>'+
     (queue.length?'<div class="checkout-queue">'+queue.map((c,i)=>'<button class="queue-customer" data-a="customerInfo" data-uid="'+c.uid+'"><span>'+c.face+'</span><div><b>'+(i===0?'① ':'')+esc(c.name)+'</b><small>'+c.cart.reduce((n,L)=>n+L.qty,0)+' món · '+fmt(c.cart.reduce((n,L)=>n+L.ask*L.qty,0))+' ₫</small></div><small data-patience="'+c.uid+'">'+Math.max(0,Math.ceil(c.patience-(S.customers.time-c.since)))+'s</small></button>').join('')+'</div>':'<p class="muted">Chưa có khách chờ. Khách sẽ ghé quầy này sau khi chọn hàng.</p>');
 }
 function updateCustomerUI(changed){
@@ -1078,10 +1176,11 @@ function updateCustomerUI(changed){
     if(changed)scene.innerHTML=customerSceneHTML();
     else scene.querySelectorAll('[data-avatar]').forEach(el=>{const c=S.customers.people.find(c=>c.uid===+el.dataset.avatar);if(c){const [x,y]=customerPosition(c);el.style.left=x+'%';el.style.top=y+'%';}});
   }
+  const live=$('#live-panel');if(live&&changed)live.innerHTML=livePanelHTML();
   const queue=$('#checkout-queue-panel');if(queue&&changed)queue.innerHTML=checkoutQueueHTML();
   document.querySelectorAll('[data-patience]').forEach(el=>{const c=S.customers.people.find(c=>c.uid===+el.dataset.patience);el.textContent=c&&c.state==='waiting'?Math.max(0,Math.ceil(c.patience-(S.customers.time-c.since)))+'s':'Đã rời hàng';});
   if(changed&&ui.customerUid&&$('#modal').classList.contains('checkout-popup')&&!$('#modal').hidden)showCustomer(ui.customerUid);
-  if(changed&&ui.tab==='shop'&&$('#modal').hidden){const pos=$('#main').scrollTop;renderView();$('#main').scrollTop=pos;}
+  if(changed&&['shop','char'].includes(ui.tab)&&$('#modal').hidden){const pos=$('#main').scrollTop;renderView();$('#main').scrollTop=pos;}
 }
 function showCustomer(uid){
   ui.customerUid=uid;
@@ -1089,12 +1188,12 @@ function showCustomer(uid){
   const p=CUSTOMER_TYPES.find(p=>p.key===c.type),waiting=c.state==='waiting',first=waitingCustomers()[0]===c;
   sheet('<div class="customer-order"><div class="row"><h2>'+c.face+' '+esc(c.name)+'</h2><button class="chip" data-a="closeM">Đóng</button></div><small>'+p.name+' · Sức mua '+fmt(c.budget)+' ₫</small><p class="muted">“'+esc(c.line)+'”</p>'+
     c.cart.map(L=>'<div class="kv"><span>'+listingProduct(L).e+' '+esc(listingProduct(L).n)+(L.cert?' · '+scoreTxt(L.cert.score)+'/10đ':'')+' ×'+L.qty+'</span><b>'+fmt(L.ask*L.qty)+' ₫</b></div>').join('')+
-    (waiting?'<div class="kv"><b>Tổng đơn</b><b>'+fmt(c.cart.reduce((n,L)=>n+L.ask*L.qty,0))+' ₫</b></div><p class="muted">Còn <span data-patience="'+c.uid+'">'+Math.max(0,Math.ceil(c.patience-(S.customers.time-c.since)))+'s</span> chờ</p><button class="btn primary block" data-a="checkoutConfirm" data-uid="'+c.uid+'"'+(first?'':' disabled')+'>'+(first?'Hoàn tất đơn hàng':'Chờ khách phía trước thanh toán')+'</button>':'<p class="muted">'+(c.state==='leaving'?'Khách đang rời cửa hàng.':'Khách đang tham quan và lựa chọn sản phẩm.')+'</p>')+'</div>');
+    (waiting?'<div class="kv"><b>Tổng đơn</b><b>'+fmt(c.cart.reduce((n,L)=>n+L.ask*L.qty,0))+' ₫</b></div><p class="muted">Còn <span data-patience="'+c.uid+'">'+Math.max(0,Math.ceil(c.patience-(S.customers.time-c.since)))+'s</span> chờ</p><button class="btn primary block" data-a="checkoutConfirm" data-uid="'+c.uid+'"'+(first?'':' disabled')+'>'+(first?'Hoàn tất đơn hàng':'Chờ khách phía trước thanh toán')+'</button>':'<p class="muted">'+(c.state==='leaving'?'Khách đang rời cửa hàng.':LIVE_STATES.includes(c.state)?'Khách đang trải nghiệm livestream.':'Khách đang tham quan và lựa chọn sản phẩm.')+'</p>')+'</div>');
   $('#modal').classList.add('checkout-popup');
 }
 function shoppingEmptyLinks(){return '<div class="btnrow"><button class="btn" data-a="nav" data-k="kho">📦 Kho tồn</button><button class="btn primary" data-a="nav" data-k="supply">🛍️ Nhập hàng</button></div>';}
 function admCustomers(){
-  return '<div class="card"><h3>Khách hàng</h3><p class="muted">Mặc định tối đa 10 món/khách; mỗi 10 cấp tăng 5 món. Hiện tại: '+customerMax()+' món. Khách mua được túi mù và thẻ.</p><div class="kv"><span>Tối đa món/khách</span><input id="customer-max" class="rin" type="number" min="1" max="500" step="1" value="'+customerMax()+'"></div><div class="kv"><span>Tỉ lệ quyết định mua (%)</span><input id="customer-buy-rate" class="rin" type="number" min="0" max="100" value="'+customerBuyRate()+'"></div><p class="muted">Tỉ lệ quyết định mua áp dụng cho lượt ghé; giá bán, sức mua và tính cách tiếp tục ảnh hưởng lựa chọn hàng.</p><div class="btnrow"><button class="btn" data-a="customerDefaults">Mặc định</button><button class="btn primary" data-a="customerSettings">Áp dụng</button></div></div>';
+  return '<div class="card"><h3>Khách hàng</h3><p class="muted">Mặc định tối đa 10 món/khách; mỗi 10 cấp tăng 5 món. Hiện tại: '+customerMax()+' món. Khách mua được túi mù và thẻ.</p><div class="kv"><span>Tối đa món/khách</span><input id="customer-max" class="rin" type="number" min="1" max="500" step="1" value="'+customerMax()+'"></div><div class="kv"><span>Tỉ lệ quyết định mua (%)</span><input id="customer-buy-rate" class="rin" type="number" min="0" max="100" value="'+customerBuyBase()+'"></div><p class="muted">Tỉ lệ quyết định mua áp dụng cho lượt ghé; giá bán, sức mua và tính cách tiếp tục ảnh hưởng lựa chọn hàng.</p><div class="btnrow"><button class="btn" data-a="customerDefaults">Mặc định</button><button class="btn primary" data-a="customerSettings">Áp dụng</button></div></div>';
 }
 
 /* --- đăng bán --- */
@@ -1107,6 +1206,7 @@ const waitTxt=pr=>pr<0.01?'khó bán được':'trung bình ~'+Math.max(1,Math.r
 function listItem(id,qty,pc){
   if(isLocked(id)) return {err:LOCK_MSG};
   qty=Math.min(qty,S.inv[id]||0); if(qty<=0) return {err:'Bạn không có item này.'};
+  if(!canShelf('card',id,qty))return {err:shelfFull('card')};
   const ask=askOf(price(id),pc),cost=S.cost[id]!=null?S.cost[id]:price(id);
   S.inv[id]-=qty; if(S.inv[id]<=0) delete S.inv[id];
   S.listings.push({uid:S.uid++,id,qty,ask,cost,t:'Ngày '+S.day+' '+fmtClock()});
@@ -1115,6 +1215,7 @@ function listItem(id,qty,pc){
 }
 function listCert(uid,pc){
   const i=S.cert.findIndex(c=>c.uid===uid);if(i<0) return {err:'Không tìm thấy item.'};
+  if(!canShelf('card',S.cert[i].id))return {err:shelfFull('card')};
   const c=S.cert.splice(i,1)[0],ask=askOf(certPrice(c),pc);
   S.listings.push({uid:S.uid++,id:c.id,qty:1,ask,cost:c.cost!=null?c.cost:certPrice(c),cert:{uid:c.uid,score:c.score,mult:c.mult},t:'Ngày '+S.day+' '+fmtClock()});
   logTx('Đăng bán '+ITEMS[c.id].n+' ('+scoreTxt(c.score)+'/10đ) giá '+fmt(ask)+' ₫',0);
@@ -1129,27 +1230,69 @@ function cancelListing(uid){
 }
 
 /* --- chợ đen --- */
-function genBM(){
-  const un=unlockedCols(),offers=[];
-  for(let k=0;k<6;k++){
-    const ci=pick(un),r=pickW([60,28,10,2],2),id=pick(COLS[ci].byR[r]);
-    const disc=0.10+Math.random()*0.20;
-    const appear=CFG.BM_OPEN+Math.floor(Math.random()*300);
-    const end=Math.min(CFG.BM_CLOSE,appear+90+Math.floor(Math.random()*150));
-    offers.push({oid:S.day*100+k,id,price:Math.round(price(id)*(1-disc)/10)*10,qty:r>=5?1:1+Math.floor(Math.random()*3),appear,end});
-  }
-  offers.sort((a,b)=>a.appear-b.appear);
-  S.bm={day:S.day,offers};
+/* Shelf capacity counts individual units, including unpaid reservations. */
+const shelfKind=L=>L.kind==='bag'?'bag':'card';
+const shelfLimit=kind=>S.shelfSlots[kind==='bag'?'bags':'cards'];
+function shelfCount(kind){
+  return [...S.listings,...S.customers.people.flatMap(c=>c.cart||[])].reduce((n,L)=>n+(L.qty>0&&shelfKind(L)===kind?L.qty:0),0);
 }
-const bmActive=()=>isStoreOpen()&&S.bm&&S.bm.day===S.day&&S.lvl>=CFG.BM_LV&&S.clock>=CFG.BM_OPEN&&S.clock<CFG.BM_CLOSE?S.bm.offers.filter(o=>o.qty>0&&S.clock>=o.appear&&S.clock<o.end):[];
+const shelfFree=kind=>Math.max(0,shelfLimit(kind)-shelfCount(kind));
+const canShelf=(kind,id,qty=1)=>Number.isInteger(qty)&&qty>0&&qty<=shelfFree(kind);
+const shelfFull=kind=>'Quầy '+(kind==='bag'?'túi mù':'thẻ')+' không đủ sức chứa. Còn '+shelfFree(kind)+' chỗ; nâng sức chứa thêm 12 với 150.000₫ hoặc gỡ bớt hàng.';
+function shelfBar(kind){
+  return '<div class="shelf-bar"><b>'+shelfCount(kind)+'/'+shelfLimit(kind)+' '+(kind==='bag'?'túi':'thẻ')+'</b><button class="chip" data-a="shelfUpgrade" data-kind="'+kind+'">Sức chứa +12 · 150.000₫</button></div><small class="shelf-note">Tính tổng từng túi/thẻ, không phân biệt loại. Hàng khách đang giữ được tính đến khi thanh toán để bảo đảm chỗ trả lại.</small>';
+}
+function normalizeShelfStock(state){
+  let returned=0;
+  for(const kind of ['bag','card']){
+    const reserved=state.customers.people.reduce((n,c)=>n+(c.cart||[]).filter(L=>shelfKind(L)===kind).reduce((m,L)=>m+L.qty,0),0);
+    let available=Math.max(0,state.shelfSlots[kind==='bag'?'bags':'cards']-reserved);
+    for(const L of state.listings){
+      if(shelfKind(L)!==kind)continue;
+      const keep=Math.min(L.qty,available),extra=L.qty-keep;available-=keep;L.qty=keep;if(!extra)continue;returned+=extra;
+      if(kind==='bag')state.bags[L.ci]=(state.bags[L.ci]||0)+extra;
+      else if(L.cert)state.cert.push({uid:L.cert.uid,id:L.id,score:L.cert.score,mult:L.cert.mult,cost:L.cost});
+      else{const old=state.inv[L.id]||0,cost=L.cost==null?state.mkP[L.id]:L.cost;state.cost[L.id]=old?Math.round(((state.cost[L.id]??cost)*old+cost*extra)/(old+extra)):cost;state.inv[L.id]=old+extra;state.disc[L.id]=1;}
+    }
+  }
+  state.listings=state.listings.filter(L=>L.qty>0);
+  if(returned){state.log.unshift({t:'Ngày '+state.day+' · '+fmtClock(state.clock),x:'Áp dụng sức chứa theo số lượng: '+returned+' món dư đã trả về Kho tồn / Túi',d:0});state.log=state.log.slice(0,30);}
+}
+function upgradeShelf(kind){
+  if(kind!=='bag'&&kind!=='card')return 'Quầy không hợp lệ.';
+  if(S.money<150000)return 'Không đủ 150.000₫ để nâng cấp.';
+  S.money-=150000;S.shelfSlots[kind==='bag'?'bags':'cards']+=12;S.day$.spent+=150000;
+  logTx('Nâng cấp quầy '+(kind==='bag'?'túi mù':'thẻ')+' sức chứa +12',-150000);return '';
+}
+function genBM(){
+  const un=unlockedCols(),rounds=[],offers=[],span=(CFG.BM_CLOSE-CFG.BM_OPEN)/3;
+  for(let batch=0;batch<3;batch++){
+    const appear=CFG.BM_OPEN+batch*span,end=CFG.BM_OPEN+(batch+1)*span;
+    const round={batch,appear,end,offers:[]},used=new Set(),n=3+Math.floor(Math.random()*3);
+    for(let k=0;k<n;k++){
+      const pool=un.flatMap(ci=>COLS[ci].byR.slice(2).flat()).filter(id=>!used.has(id));
+      const available=[2,3,4,5].filter(r=>pool.some(id=>ITEMS[id].r===r));
+      if(!available.length)break;
+      const rarity=available[pickW(available.map(r=>[60,28,10,2][r-2]),0)];
+      const id=pick(pool.filter(id=>ITEMS[id].r===rarity));used.add(id);
+      const offer={oid:S.day*100+batch*10+k,batch,id,price:Math.round(price(id)*(1-(.1+Math.random()*.2))/10)*10,qty:1,appear,end};
+      round.offers.push(offer);offers.push(offer);
+    }
+    rounds.push(round);
+  }
+  S.bm={v:2,day:S.day,rounds,offers};
+}
+const bmCurrent=()=>S.bm&&S.bm.v===2&&S.bm.day===S.day?S.bm.rounds.find(r=>S.clock>=r.appear&&S.clock<r.end):null;
+const bmActive=()=>{const round=bmCurrent();return isStoreOpen()&&S.lvl>=CFG.BM_LV&&round?round.offers.filter(o=>o.qty>0):[];};
 function bmBuy(oid){
   if(!isStoreOpen())return {err:EVENT_CLOSED};
-  const o=S.bm.offers.find(x=>x.oid===oid);
-  if(!o||o.qty<=0||S.clock<o.appear||S.clock>=o.end||S.clock>=CFG.BM_CLOSE) return {err:'Món này đã hết hạn hoặc hết hàng.'};
-  if(S.money<o.price) return {err:'Không đủ tiền.'};
-  S.money-=o.price; S.day$.spent+=o.price; o.qty--;
-  const isNew=giveItem(o.id,o.price);
-  logTx('Săn chợ đen: '+ITEMS[o.id].n,-o.price);
+  const round=bmCurrent();
+  if(S.lvl<CFG.BM_LV||!round)return {err:'Chợ đen chưa mở hoặc lượt này đã kết thúc.'};
+  const o=round.offers.find(o=>o.oid===oid&&o.qty>0);
+  if(!o)return {err:'Món hàng không thuộc lượt hiện tại hoặc đã hết hàng.'};
+  if(S.money<o.price)return {err:'Không đủ tiền.'};
+  S.money-=o.price;S.day$.spent+=o.price;o.qty=0;
+  const isNew=giveItem(o.id,o.price);logTx('Săn chợ đen: '+ITEMS[o.id].n,-o.price);
   return {id:o.id,isNew};
 }
 
@@ -1435,6 +1578,7 @@ function startDay(n){
   const first=n===1;
   S.customers.people.forEach(restoreCustomerCart);
   S.customers.people=[];S.customers.next=S.customers.time+4;
+  S.shopPaused=false;
   S.dayStarted=false;S.closed=false;
   S.day=n;rollRate(first);S.clock=CFG.DAY_START;S.overNote=false;
   if(!first){S.lp+=(baseLP()-S.lp)*0.2;fmNight();}
@@ -1444,7 +1588,7 @@ function startDay(n){
 }
 function endDay(){
   if(S.closed&&S.lastSum)return S.lastSum;
-  S.customers.people.forEach(restoreCustomerCart);S.customers.people=[];
+  S.customers.people.forEach(c=>{restoreCustomerCart(c);finishCustomerExit(c);});S.customers.people=[];
   if(S.dd)ddResolve();
   if(S.dayStarted)runHoursTo(CFG.DAY_END);
   const d=S.day$;
@@ -1720,12 +1864,13 @@ function lockedCard(t,lv,txt){
 }
 
 function viewBM(){
-  if(S.lvl<CFG.BM_LV) return lockedCard('Chợ đen',CFG.BM_LV,'Hàng hiếm, giảm giá 10–30%, chỉ mở một lần mỗi ngày.');
-  const intro='<div class="card"><h3>Chợ đen</h3><p class="muted" style="margin:0">Mở một lần mỗi ngày, từ '+fmtClock(CFG.BM_OPEN)+' đến '+fmtClock(CFG.BM_CLOSE)+'. Hàng từ hiếm trở lên xuất hiện ngẫu nhiên, giá thấp hơn thị trường và số lượng có hạn.</p></div>';
+  if(S.lvl<CFG.BM_LV) return lockedCard('Chợ đen',CFG.BM_LV,'Mỗi ngày 3 lượt, mỗi lượt 3–5 món khác nhau; mỗi món chỉ săn được 1 lần.');
+  const intro='<div class="card"><h3>Chợ đen</h3><p class="muted" style="margin:0">Làm mới 3 lượt mỗi ngày: 10:00, 12:40 và 15:20; đóng lúc 18:00. Mỗi lượt ngẫu nhiên 3–5 thẻ từ Hiếm trở lên, giảm giá 10–30%. Có thể săn tất cả các món trong lượt, mỗi món 1 lần, hoặc chờ lượt sau.</p></div>';
   if(S.clock<CFG.BM_OPEN) return intro+'<div class="card empty"><b>Chợ đen chưa mở</b>Mở lúc '+fmtClock(CFG.BM_OPEN)+' (còn <span data-cd="'+CFG.BM_OPEN+'">'+fmtDur(CFG.BM_OPEN-S.clock)+'</span>).</div>';
   if(S.clock>=CFG.BM_CLOSE) return intro+'<div class="card empty"><b>Chợ đen đã đóng</b>Hẹn bạn vào ngày mai.</div>';
+  const round=bmCurrent(),next=S.bm?.rounds?.find(r=>r.appear>S.clock);
   const act=bmActive();
-  if(!act.length) return intro+'<div class="card empty"><b><span class="pulse"></span>Đang chờ hàng về</b>Món mới có thể xuất hiện bất cứ lúc nào. Chợ đóng sau <span data-cd="'+CFG.BM_CLOSE+'">'+fmtDur(CFG.BM_CLOSE-S.clock)+'</span>.</div>';
+  if(!act.length)return intro+'<div class="card empty"><b>Đã săn hết hàng lượt '+(round?round.batch+1:'')+'</b>'+(next?'Chờ lượt tiếp theo lúc '+fmtClock(next.appear)+'.':'Hẹn bạn vào ngày mai.')+'</div>';
   return intro+act.map(o=>{
     const it=ITEMS[o.id],mk=price(o.id),d=Math.round((1-o.price/mk)*100),own=S.inv[o.id]||0;
     return '<div class="card offer"><button class="tile r'+it.r+'" data-a="item" data-id="'+o.id+'" style="pointer-events:none"><span class="t-e">'+it.e+'</span></button>'+
@@ -1774,13 +1919,14 @@ function viewShopTab(){
   if(ui.sub.shop==='sell')return '<button class="back" data-a="shopHome">‹ Về cửa hàng</button><h2 class="page-heading">Khu mua sắm</h2><div class="card"><h3>🎁 Khu bán túi mù</h3>'+viewSell('bag')+'</div><div class="card"><h3>💎 Khu bán thẻ</h3>'+viewSell('card')+'</div>';
   const bags=S.listings.filter(L=>L.kind==='bag'),cards=S.listings.filter(L=>L.kind!=='bag');
   const preview=cards.slice(0,4).map(L=>'<span class="store-preview-item r'+listingProduct(L).r+'">'+listingProduct(L).e+'</span>').join('');
-  return '<section class="store-hub customer-store" aria-label="Cửa hàng của bạn"><div class="store-floor"><div class="store-zone shopping-zone"><span class="zone-heading"><span class="zone-icon">🏪</span><b>KHU MUA SẮM</b></span><div class="shopping-aisles"><div class="shopping-aisle"><button class="aisle-open" data-a="shopSales"><b>🎁 Túi mù</b><span class="store-preview">🎁</span><small>'+bags.reduce((n,L)=>n+L.qty,0)+' túi đang bán · Xem →</small></button>'+(!bags.length?shoppingEmptyLinks():'')+'</div><div class="shopping-aisle"><button class="aisle-open" data-a="shopSales"><b>💎 Thẻ</b><span class="store-preview">'+(preview||'<span class="store-empty-icon">🃏</span>')+'</span><small>'+cards.reduce((n,L)=>n+L.qty,0)+' thẻ đang bán · Xem →</small></button>'+(!cards.length?shoppingEmptyLinks():'')+'</div></div></div><div class="store-lower"><div class="store-zone coming-zone live-zone"><span class="zone-icon">📹</span><b>LIVESTREAM</b><span class="coming-badge">🔒 Sắp ra mắt</span></div><div class="store-zone checkout-zone checkout-marker"><span class="zone-icon">🧾</span><b>THANH TOÁN</b><small>Khách xếp hàng tại đây</small></div></div><div class="store-door">🚪 LỐI VÀO / RA</div><div id="customer-layer" class="customer-layer">'+customerSceneHTML()+'</div></div><button class="btn block" data-a="restockSettings">📦 Bổ sung hàng: '+(S.restock.on?'Tự động':'Thủ công')+'</button><div id="checkout-queue-panel" class="checkout-panel">'+checkoutQueueHTML()+'</div><p class="muted store-status">'+(isStoreOpen()?'🟢 Đang mở cửa · Khách vào theo thời gian':isOver()?'🌙 Ngừng đón khách mới · Vẫn phục vụ hàng chờ':'📋 Chuẩn bị · Nhập box và sắp hàng trước khi mở cửa')+'</p><button class="btn primary store-supply" data-a="nav" data-k="supply">📦 NHẬP HÀNG ↗</button></section>';
+  return '<section class="store-hub customer-store" aria-label="Cửa hàng của bạn"><button class="btn block" data-a="pauseShop"'+(!isStoreOpen()?' disabled':'')+'>'+(S.shopPaused?'▶ Tiếp tục đón khách':'⏸ Tạm đóng cửa hàng')+'</button><div class="store-floor"><div class="store-zone shopping-zone"><span class="zone-heading"><span class="zone-icon">🏪</span><b>KHU MUA SẮM</b></span><div class="shopping-aisles"><div class="shopping-aisle"><button class="aisle-open" data-a="shopSales"><b>🎁 Túi mù</b><span class="store-preview">🎁</span><small>'+bags.reduce((n,L)=>n+L.qty,0)+' túi · '+shelfCount('bag')+'/'+shelfLimit('bag')+' sức chứa · Xem →</small></button>'+(!bags.length?shoppingEmptyLinks():'')+'</div><div class="shopping-aisle"><button class="aisle-open" data-a="shopSales"><b>💎 Thẻ</b><span class="store-preview">'+(preview||'<span class="store-empty-icon">🃏</span>')+'</span><small>'+cards.reduce((n,L)=>n+L.qty,0)+' thẻ · '+shelfCount('card')+'/'+shelfLimit('card')+' sức chứa · Xem →</small></button>'+(!cards.length?shoppingEmptyLinks():'')+'</div></div></div><div class="store-lower"><div class="store-zone live-zone live-marker"><span class="zone-icon">📹</span><b>LIVESTREAM</b><small>'+liveCustomers().length+' khách · '+(S.live.enabled?'Đang mở':'Đang tắt')+'</small></div><div class="store-zone checkout-zone checkout-marker"><span class="zone-icon">🧾</span><b>THANH TOÁN</b><small>Khách xếp hàng tại đây</small></div></div><div class="store-door">🚪 LỐI VÀO / RA</div><div id="customer-layer" class="customer-layer">'+customerSceneHTML()+'</div></div>'+automationPanel()+'<div id="live-panel" class="card live-panel">'+livePanelHTML()+'</div><div id="checkout-queue-panel" class="checkout-panel">'+checkoutQueueHTML()+'</div><p class="muted store-status">'+(isStoreOpen()?(S.shopPaused?'⏸ Tạm đóng cửa · Đồng hồ vẫn chạy':'🟢 Đang mở cửa · Khách vào theo thời gian'):isOver()?'🌙 Ngừng đón khách mới · Vẫn phục vụ hàng chờ':'📋 Chuẩn bị · Nhập box và sắp hàng trước khi mở cửa')+'</p><button class="btn primary store-supply" data-a="nav" data-k="supply">📦 NHẬP HÀNG ↗</button></section>';
 }
 const kfmt=n=>n>=1e6?(n/1e6).toFixed(1).replace('.',',')+'tr':n>=1e3?Math.round(n/1e3)+'k':String(n);
 function viewSell(kind){
   const list=kind?S.listings.filter(L=>kind==='bag'?L.kind==='bag':L.kind!=='bag'):S.listings;
-  if(!list.length)return '<p class="muted">Quầy chưa có hàng. Chọn hàng trong '+(kind==='bag'?'Kho tồn':'Túi nhân vật')+' để đăng bán.</p>'+shoppingEmptyLinks()+(kind!=='bag'?'<button class="btn block" data-a="nav" data-k="char" data-sub="bag">🎒 Túi thẻ</button>':'');
-  return '<p class="muted">Khách chọn hàng theo giá, tính cách và sức mua. Tiền được cộng khi thanh toán.</p><div class="slots">'+list.map(L=>{const it=listingProduct(L);return '<button class="slot lst r'+it.r+'" data-a="listOpen" data-uid="'+L.uid+'" aria-label="'+esc(it.n)+'"><span class="t-e">'+it.e+'</span><span class="lp">'+kfmt(L.ask)+'</span><span class="sq">'+(L.cert?scoreTxt(L.cert.score):'×'+L.qty)+'</span></button>';}).join('')+'</div>';
+  const capacity=kind?shelfBar(kind):shelfBar('bag')+shelfBar('card');
+  if(!list.length)return capacity+'<p class="muted">Quầy chưa có hàng. Chọn hàng trong '+(kind==='bag'?'Kho tồn':'Túi nhân vật')+' để đăng bán.</p>'+shoppingEmptyLinks()+(kind!=='bag'?'<button class="btn block" data-a="nav" data-k="char" data-sub="bag">🎒 Túi thẻ</button>':'');
+  return capacity+'<p class="muted">Khách chọn hàng theo giá, tính cách và sức mua. Tiền được cộng khi thanh toán.</p><div class="slots">'+list.map(L=>{const it=listingProduct(L);return '<button class="slot lst r'+it.r+'" data-a="listOpen" data-uid="'+L.uid+'" aria-label="'+esc(it.n)+'"><span class="t-e">'+it.e+'</span><span class="lp">'+kfmt(L.ask)+'</span><span class="sq">'+(L.cert?scoreTxt(L.cert.score):'×'+L.qty)+'</span></button>';}).join('')+'</div>';
 }
 function showListing(uid){
   const bag=S.listings.find(L=>L.uid===uid&&L.kind==='bag');if(bag){showBagListingDetails(uid);return;}
@@ -1879,7 +2025,7 @@ function progressCircle(label,value,locked){
 }
 function viewBagInv(){
   const xpPct=S.lvl>=CFG.MAX_LV?100:clamp(S.xp/xpNeed(S.lvl)*100,0,100);
-  return '<div class="card bag-status"><div class="bag-money"><small>Tiền đang có</small><div class="cash">'+fmt(S.money)+' ₫</div></div><div class="status-rings">'+progressCircle('XP',xpPct)+progressCircle('May mắn',luckDisp())+progressCircle('HOT',0,true)+'</div></div>'+adminCardHTML()+'<h3 class="page-heading">🎒 Túi thẻ của bạn</h3>'+viewItems();
+  return '<div class="card bag-status"><div class="bag-money"><small>Tiền đang có</small><div class="cash">'+fmt(S.money)+' ₫</div></div><div class="status-rings">'+progressCircle('XP',xpPct)+progressCircle('May mắn',luckDisp())+hotCircle()+'</div></div>'+adminCardHTML()+'<h3 class="page-heading">🎒 Túi thẻ của bạn</h3>'+viewItems();
 }
 function viewChar(){
   const head=seg('char',[['bag','Túi'],['log','Nhật ký']]);
@@ -1981,7 +2127,7 @@ function after(){
 /* ============ SHEETS ============ */
 function showBuy(){
   const c=COLS[ui.buy.c],q=ui.buy.q,total=boxPrice(c.id)*q;
-  sheet('<h2>📦 '+esc(boxName(c.id))+'</h2><p class="muted">'+boxSize(c.id)+' túi / box · Giá sỉ '+fmt(boxPrice(c.id))+' ₫ / box (cố định). Tổng giá túi cơ bản: '+fmt(bagPrice(c.id)*boxSize(c.id))+' ₫. '+(isPremium(c.id)?'Xác suất từ Hiếm trở lên gấp đôi box thường.':'')+'</p><h4>Số box</h4><div class="chips">'+[1,5,10,20].map(n=>'<button class="chip'+(q===n?' on':'')+'" data-a="buyQ" data-q="'+n+'">×'+n+'</button>').join('')+'</div><div class="kv"><span>Thành tiền</span><b>'+fmt(total)+' ₫</b></div><div class="kv"><span>Nhận vào Kho tồn</span><b>'+q+' box</b></div><div class="btnrow"><button class="btn" data-a="closeM">Hủy</button><button class="btn primary" data-a="buyOk"'+(S.money<total?' disabled':'')+'>Nhập box</button></div>');
+  sheet('<h2>📦 '+esc(boxName(c.id))+'</h2><p class="muted">'+boxSize(c.id)+' túi / box · Giá sỉ '+fmt(boxPrice(c.id))+' ₫ / box (cố định). Tổng giá túi cơ bản: '+fmt(bagPrice(c.id)*boxSize(c.id))+' ₫. '+(isPremium(c.id)?'Xác suất từ Hiếm trở lên gấp đôi box thường.':'')+'</p><h4>Số box: '+q+'</h4><div class="chips">'+[1,5,10].map(n=>'<button class="chip" data-a="buyQ" data-q="'+n+'"'+(q+n>Math.floor(S.money/boxPrice(c.id))?' disabled':'')+'>+'+n+'</button>').join('')+'<button class="chip" data-a="buyMax"'+(Math.floor(S.money/boxPrice(c.id))<1?' disabled':'')+'>+ Tối đa ('+Math.floor(S.money/boxPrice(c.id))+')</button><button class="chip" data-a="buyOne">Về 1 box</button></div><div class="kv"><span>Thành tiền</span><b>'+fmt(total)+' ₫</b></div><div class="kv"><span>Nhận vào Kho tồn</span><b>'+q+' box</b></div><div class="btnrow"><button class="btn" data-a="closeM">Hủy</button><button class="btn primary" data-a="buyOk"'+(S.money<total?' disabled':'')+'>Nhập box</button></div>');
 }
 function showBag(ci){
   const c=COLS[ci],n=S.bags[ci]||0;
@@ -2137,10 +2283,23 @@ function renderTitle(msg){
    (sv?'<div class="muted" style="margin-top:8px">Cấp '+sv.lvl+' · Ngày '+sv.day+' · '+fmt(sv.money)+' ₫</div>':'<div class="muted" style="margin-top:8px">Vốn ban đầu '+fmt(CFG.START_MONEY)+' ₫</div>')+
    '<button class="btn primary block" data-a="start">'+(sv?'TIẾP TỤC':'BẮT ĐẦU')+'</button></div>'+
    '<button class="btn block tbtn" data-a="resetTitle">KHỞI ĐẦU MỚI</button>'+
+   '<button class="btn block tbtn" data-a="helpOpen">📖 HƯỚNG DẪN</button>'+
    '<button class="btn block tbtn" data-a="contactOpen">LIÊN HỆ VÀ ỦNG HỘ</button>'+
    '<button class="btn block tbtn" data-a="settingsOpen">CÀI ĐẶT</button>'+
    (storageOK?'':'<div class="warn">Trình duyệt đang chặn lưu trữ: tiến trình có thể không được giữ lại khi đóng trang.</div>')+
    '<p class="muted" style="margin-top:16px;text-align:center;font-size:12.5px">Ý tưởng và phát triển bởi duongthanhan ©2026 · '+VERSION+'</p></div>';
+}
+function showHelp(){
+  sheet('<div class="row"><h2>📖 Hướng dẫn chơi</h2><button class="chip" data-a="closeM" aria-label="Đóng hướng dẫn">Đóng</button></div><p class="muted">Điều hành cửa hàng: nhập box giá sỉ, bán túi mù và thẻ, phục vụ khách, kiếm lời và hoàn thành BST.</p>'+
+    '<h3 class="guide-heading">Một ngày kinh doanh</h3><ol class="guide-steps">'+
+    '<li><b>Nhập box</b><p>Vào Nhập hàng, chọn BST và số box. Box được đưa vào Kho tồn. Box thường chứa 12 túi; box cao cấp của các BST hoạt hình chứa 8 túi và có xác suất từ Hiếm trở lên gấp đôi.</p></li>'+
+    '<li><b>Mở box và chuẩn bị hàng</b><p>Trong Kho tồn, bấm box để nhận túi mù. Bấm túi để chọn đăng bán hoặc xé túi nhận thẻ. Thẻ mở được nằm ở Nhân vật → Túi.</p></li>'+
+    '<li><b>Trưng bày túi mù và thẻ</b><p>Đăng bán túi từ Kho tồn, chọn số lượng và giá; bỏ trống giá thì mặc định thị trường +5%. Muốn bán thẻ, vào Nhân vật → Túi, chọn thẻ rồi đăng bán. Hàng xuất hiện tại Cửa hàng → Khu mua sắm. Quầy túi chứa tổng 36 túi, quầy thẻ chứa tổng 24 thẻ, không phân biệt loại hay BST. Mỗi lần tăng sức chứa thêm 12 tốn 150.000₫.</p></li>'+
+    '<li><b>Mở cửa đón khách</b><p>Ngày mới là giai đoạn chuẩn bị, đồng hồ chưa chạy. Sắp hàng xong, bấm BẮT ĐẦU NGÀY X. Từ 08:00 đến 21:00 tương đương 6 phút thực. Có thể tạm đóng cửa để dừng khách mới; thời gian vẫn chạy và khách trong tiệm vẫn được phục vụ.</p></li>'+
+    '<li><b>Thanh toán và livestream</b><p>Khách chọn hàng rồi xếp hàng ở quầy thanh toán. Bấm khách đứng đầu hàng, xem đơn và chọn Hoàn tất đơn hàng để nhận tiền. Khách hết kiên nhẫn sẽ bỏ đi, trả hàng về quầy và làm giảm 1 HOT.</p><p>Bật Tự livestream để một số khách mua túi đến nhờ nhân viên mở. Xét toàn bộ túi của khách: có ít nhất một thẻ từ Hiếm trở lên được +3–5 HOT; không có bị −1 HOT. Thẻ này thuộc về khách. Khách mua hàng và rời đi không livestream được +1–3 HOT. HOT không xuống dưới 0; HOT cao giúp thu hút khách và tăng khả năng mua hàng.</p></li>'+
+    '<li><b>Kết toán và sang ngày mới</b><p>Đến 21:00, tiệm ngừng đón khách mới. Hoàn tất hàng chờ và livestream, rồi bấm HÃY KẾT THÚC NGÀY để xem thu chi, lời/lỗ và trả nợ nếu có. Chọn Sang ngày tiếp theo để trở lại Cửa hàng trong giai đoạn chuẩn bị.</p></li></ol>'+
+    '<h3 class="guide-heading">Các chế độ tự động</h3><p class="muted">Trong Cửa hàng, bật/tắt từng checkbox: Tự động thanh toán, Tự bổ sung túi mù, Tự bổ sung thẻ item và Tự livestream. Nút ⚙️ mở tùy chỉnh; cài đặt livestream chỉ dành cho người có Thẻ bài Admin.</p><p class="muted">Tự bổ sung túi dùng hàng trong kho trước, rồi mới nhập box trong giới hạn ngân sách (mặc định 20% tiền đầu mỗi lượt). Thẻ chỉ tự bán ở các bậc đã cho phép; thẻ khóa luôn được giữ. Chỉ tắt livestream khi không còn khách đang đến, chờ mở, mở túi hoặc phản ứng.</p>'+
+    '<h3 class="guide-heading">Sự kiện, cộng đồng và BST</h3><p class="muted">Người chơi có thể tham gia Giao dịch đen, Chợ đen, Đấu giá và Đu đỉnh khi đạt cấp yêu cầu và trong giờ cửa hàng hoạt động; một số sự kiện có khung giờ riêng. Chợ đen có 3 lượt/ngày (10:00, 12:40, 15:20), mỗi lượt 3–5 thẻ khác nhau; mỗi thẻ được săn 1 lần, có thể mua tất cả hoặc chờ lượt sau. Cộng đồng có Ngân hàng và Thẩm định, không bị ràng buộc bởi giờ mở cửa.</p><p class="muted">Xé túi của mình để nhận thẻ, XP và ghi nhận vào Kho tồn → BST. Mỗi BST có 36 thẻ với 6 độ hiếm. Khám phá đủ các thẻ để hoàn thành BST; bán hay dùng thẻ đã khám phá không xóa ghi nhận. Một số BST cần đủ cấp và trả phí mở khóa. Có 10 thẻ giống nhau thì có thể nâng thành một thẻ ngẫu nhiên ở bậc hiếm cao hơn trong cùng BST (trừ Huyền thoại).</p><p class="muted">Game tự lưu trên trình duyệt. Dùng Hệ thống → Sao lưu để giữ mã tiến trình khi cần chuyển thiết bị.</p><button class="btn primary block" data-a="closeM">Đã hiểu</button>');
 }
 function showSettings(){
   sheet('<h2>Cài đặt</h2>'+togRow('Âm thanh game','Bật hoặc tắt hiệu ứng âm thanh','setSound',SET.sound)+'<button class="btn block" style="margin-top:12px" data-a="closeM">Đóng</button>');
@@ -2172,17 +2331,30 @@ function startNew(name){
 
 /* ============ SỰ KIỆN ============ */
 const A={
+  pauseShop(){if(!isStoreOpen())return;S.shopPaused=!S.shopPaused;save();renderView();toast(S.shopPaused?'Tạm ngừng đón khách mới. Thời gian vẫn chạy.':'Đã tiếp tục đón khách.');},
+  shelfUpgrade(d){const kind=d.kind;if(!['bag','card'].includes(kind))return;confirmBox('Nâng cấp quầy '+(kind==='bag'?'túi mù':'thẻ')+'?', 'Chi 150.000₫ để tăng từ '+shelfLimit(kind)+' lên '+(shelfLimit(kind)+12)+' túi/thẻ. Mỗi lần nâng cấp tiếp theo vẫn 150.000₫.','Nâng cấp',()=>{const err=upgradeShelf(kind);closeModal();if(err)toast(err,'bad');else{after();toast('Đã thêm 12 ô trưng bày','good');}});},
   boxOpen(d){showBox(+d.c);},
   boxUnpack(d){const ci=+d.ci,n=unpackBox(ci,d.q==='all'?S.boxes[ci]:+d.q);if(!n)return;after();showBag(ci);toast('Đã nhận '+n+' túi mù vào Kho tồn','good');},
   bagListOpen(d){ui.bagListing=null;showBagListing(+d.ci);},
-  bagListConfirm(d){const ci=+d.ci,result=listBag(ci,Number($('#bag-list-qty').value),$('#bag-list-ask').value.trim()===''?null:Number($('#bag-list-ask').value));if(result.err){toast(result.err,'bad');return;}closeModal();after();toast('Đã đưa túi mù lên quầy','good');},
-  bagReprice(d){const L=S.listings.find(L=>L.uid===+d.uid&&L.kind==='bag');if(!L)return;const price=Math.round(Number($('#bag-reprice').value)/10)*10;if(!Number.isFinite(price)||price<10||price>1e12){toast('Giá bán không hợp lệ','bad');return;}L.ask=price;S.restock.watch[L.ci]={ask:price};after();showBagListingDetails(L.uid);},
+  bagListQty(d){const draft=ui.bagListing;if(!draft)return;const q=d.q==='max'?S.bags[draft.ci]:Number(d.q);if(!Number.isInteger(q)||q<1||q>(S.bags[draft.ci]||0))return;draft.qty=q;showBagListing(draft.ci);},
+  bagListPrice(d){const draft=ui.bagListing,p=Number(d.pct);if(!draft||![-5,-1,0,1,5,10].includes(p))return;draft.pct=p;draft.ask=askOf(bagMarket(draft.ci),p);showBagListing(draft.ci);},
+  bagListConfirm(d){const ci=+d.ci,draft=ui.bagListing;if(!draft||draft.ci!==ci)return;const result=listBag(ci,draft.qty,$('#bag-list-ask').value.trim()===''?null:Number($('#bag-list-ask').value));if(result.err){toast(result.err,'bad');return;}closeModal();after();toast('Đã đưa túi mù lên quầy','good');},
+  bagReprice(d){const L=S.listings.find(L=>L.uid===+d.uid&&L.kind==='bag');if(!L)return;const price=Math.round(Number($('#bag-reprice').value)/10)*10;if(!Number.isFinite(price)||price<10||price>1e12){toast('Giá bán không hợp lệ','bad');return;}L.ask=price;S.restock.watch[L.ci]={ask:price};closeModal();after();},
   restockSettings(){restockSettings();},
-  restockToggle(){S.restock.on=!S.restock.on;S.restock.next=0;save();restockSettings();},
+  bagAutoToggle(){S.restock.bagsOn=!S.restock.bagsOn;S.restock.next=0;save();renderView();},
+  cardAutoToggle(){S.restock.cardsOn=!S.restock.cardsOn;S.restock.next=0;save();renderView();},
+  bagAutoSettings(){restockSettings('bag');},
+  cardAutoSettings(){restockSettings('card');},
+  liveAutoToggle(){
+    if(S.live.enabled&&liveCustomers().length){toast('Phục vụ xong tất cả khách livestream mới có thể tắt.');renderView();return;}
+    S.live.enabled=!S.live.enabled;save();renderView();
+  },
+  liveSettings(){liveSettings();},
+  liveSave(){if(!S?.adminCard)return;const chance=Number($('#live-chance').value),seconds=Number($('#live-seconds').value);if(!Number.isFinite(chance)||chance<0||chance>100||!Number.isFinite(seconds)||seconds<.5||seconds>5){toast('Nhập tỉ lệ 0–100% và thời gian 0,5–5 giây.','bad');return;}S.live.chance=chance;S.live.openSec=seconds;save();liveSettings();toast('Đã lưu cài đặt livestream','good');},
   restockRarity(d){const r=+d.r;if(!Number.isInteger(r)||r<0||r>5)return;const a=S.restock.rarities;S.restock.rarities=a.includes(r)?a.filter(x=>x!==r):a.concat(r);save();restockSettings();},
   restockWatch(d){const ci=+d.ci;if(!COLS[ci])return;if(S.restock.watch[ci])delete S.restock.watch[ci];else S.restock.watch[ci]={ask:askOf(bagMarket(ci),5)};save();restockSettings();},
   restockSave(){const pct=Number($('#restock-budget').value);if(!Number.isFinite(pct)||pct<0||pct>100){toast('Ngân sách từ 0–100%','bad');return;}S.restock.budgetPct=pct;save();restockSettings();toast('Đã lưu ngân sách','good');},
-  restockNow(){if(!S.restock.on){toast('Bật tự bổ sung hàng trước.');return;}const value=Number($('#restock-budget').value);if(Number.isFinite(value)&&value>=0&&value<=100)S.restock.budgetPct=value;autoRestock(true);save();restockSettings();},
+  restockNow(){if(!(ui.restockMode==='card'?S.restock.cardsOn:S.restock.bagsOn)){toast('Bật chế độ tự bổ sung tương ứng trước.');return;}const input=ui.restockMode==='card'?null:$('#restock-budget'),value=input?Number(input.value):S.restock.budgetPct;if(Number.isFinite(value)&&value>=0&&value<=100)S.restock.budgetPct=value;autoRestock(true);save();restockSettings();},
   customerInfo(d){showCustomer(+d.uid);},
   checkoutAuto(){S.customers.auto=!S.customers.auto;save();renderView();toast('Thanh toán tự động: '+(S.customers.auto?'Bật':'Tắt'));},
   checkoutConfirm(d){const result=checkoutCustomer(+d.uid);closeModal();refresh();if(result.err)toast(result.err,'bad');},
@@ -2225,6 +2397,7 @@ const A={
     ui.last[['bank','ap'].includes(g)?'community':'market']=g;ui.sub.market=g;A.nav({k:CM_SUBS.includes(g)?'community':'market'});
   },
   setSound(){SET.sound=!SET.sound;saveSettings();if(ui.screen==='title')showSettings();else renderView();},
+  helpOpen(){showHelp();},
   settingsOpen(){showSettings();},
   contactOpen(){showContact();},
   resetTitle(){confirmBox('Khởi đầu mới?','Dữ liệu đã lưu sẽ bị xóa và bạn bắt đầu lại từ đầu.','Xóa và chơi mới',()=>{try{localStorage.removeItem(KEY);}catch(e){}closeModal();renderTitle();},true);},
@@ -2237,6 +2410,7 @@ const A={
     if(S.codes[code]){toast('Bạn đã dùng gift code này rồi','bad');return;}
     S.codes[code]=1;
     if(g.adminCard){S.adminCard=true;S.admin=true;}
+    if(g.level&&S.lvl<g.level){const old=S.lvl;S.lvl=g.level;S.xp=0;S.lp=Math.min(100,S.lp+.3*(S.lvl-old));onLevelUp(old,S.lvl);}
     if(g.money){S.money+=g.money;logTx('Gift code '+code,g.money);}
     if(g.bags) for(const k in g.bags) S.bags[k]=(S.bags[k]||0)+g.bags[k];
     toast('🎁 Nhận thưởng: '+g.msg,'good');after();
@@ -2274,7 +2448,9 @@ const A={
   charBack(){ui.tab=ui.back||'market';renderNav();renderView();$('#main').scrollTop=0;},
   sub(d){ui.selMode=false;ui.sel={};ui.sub[d.t]=d.k;if(d.t==='market')ui.last[CM_SUBS.includes(d.k)?'community':'market']=d.k;if(d.t==='kho')ui.bstCol=null;renderView();$('#main').scrollTop=0;},
   buy(d){ui.buy={c:+d.c,q:1};showBuy();},
-  buyQ(d){ui.buy.q=+d.q;showBuy();},
+  buyQ(d){const n=+d.q;if(![1,5,10].includes(n))return;ui.buy.q=Math.min(Math.floor(S.money/boxPrice(ui.buy.c)),ui.buy.q+n);ui.buy.q=Math.max(1,ui.buy.q);showBuy();},
+  buyMax(){ui.buy.q=Math.max(1,Math.floor(S.money/boxPrice(ui.buy.c)));showBuy();},
+  buyOne(){ui.buy.q=1;showBuy();},
   colBuy(d){
     const ci=+d.c,c=COLS[ci];
     if(S.lvl<c.unlock){toast('Cần đạt cấp '+c.unlock,'bad');return;}
@@ -2438,9 +2614,9 @@ const A={
   selKeep(d){ui.selKeep=d.v==='1';showBulk();},
   selSellOk(){
     const L=bulkList();if(!L.length)return;
-    let ok=0;L.forEach(({id,n})=>{const r=listItem(id,n,ui.bulkPct);if(r.ok)ok++;});
+    let ok=0,error='';L.forEach(({id,n})=>{const r=listItem(id,n,ui.bulkPct);if(r.ok)ok++;else error=r.err;});
     ui.selMode=false;ui.sel={};closeModal();
-    toast('📦 Đã đăng bán '+ok+' loại item','good');after();
+    if(ok)toast('📦 Đã đăng bán '+ok+' loại thẻ','good');if(error)toast(error,'bad');after();
   },
   tradeAsk(d){
     const oid=+d.oid,o=S.trade&&S.trade.offers?S.trade.offers.find(x=>x.oid===oid):null;if(!o||o.status!=='open')return;
@@ -2568,6 +2744,8 @@ document.addEventListener('click',e=>{
   if(f){sfx('tap');f(el.dataset);return;}
 });
 document.addEventListener('input',e=>{
+  if(e.target.id==='bag-list-ask'&&ui.bagListing){ui.bagListing.ask=e.target.value.trim()===''?null:Number(e.target.value);ui.bagListing.pct=null;document.querySelectorAll('[data-a="bagListPrice"]').forEach(el=>el.classList.remove('on'));}
+
   if(e.target.id==='admin-search'&&S&&S.adminCard){
     ui.adminSearch=e.target.value;
     const results=$('#admin-search-results');
