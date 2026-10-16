@@ -480,7 +480,9 @@ function applyBase(){
   const base=cf('base'),sp=cf('spread');
   ITEMS.forEach(it=>{const hh=((it.id*9301+49297)%233280)/233280;it.anchor=Math.round(bagPrice(it.ci)*base[it.r]*(1+2*sp*hh)/10)*10;});
 }
-const RATES={1:[58,27,10,4,0.9,0.1],2:[55,28,11,4.5,1.3,0.2],3:[52,29,12.5,5,1.2,0.3],4:[48,30,13.5,6,2.0,0.5],5:[44,30,15,7,3.2,0.8]};
+const RATES={1:[58,27,10,4,0.9,0.1],2:[55,29,10.5,4.3,1,0.2],3:[52,31,11,4.5,1.2,0.3],4:[51,30.5,11.25,5,1.85,0.4],5:[49,31,11.5,5.5,2.5,0.5]};
+const ORDINARY_DROP={trash:0.0005,god:0.0002};
+function ordinaryDropKind(roll){return roll<ORDINARY_DROP.trash?'trash':roll<ORDINARY_DROP.trash+ORDINARY_DROP.god?'god':'card';}
 
 /* ============ DỮ LIỆU BỘ SƯU TẬP (15 thường | 10 phổ thông | 5 hiếm | 3 cực hiếm | 2 cực phẩm | 1 huyền thoại) ============ */
 const COLS=[
@@ -780,9 +782,9 @@ function rollCustomerLive(c){
   const result={total:0,bestId:null,high:false,trash:0,god:0,bestGodKey:null,counts:[0,0,0,0,0,0]};
   // Customer-owned bags use their collection odds. Player pity, XP and inventory are untouched.
   for(const line of c.liveBags)for(let n=0;n<line.qty;n++){
-    const specialRoll=Math.random();
-    if(specialRoll<.01){result.total++;result.trash++;continue;}
-    if(specialRoll<.02){result.total++;result.god++;result.high=true;result.bestGodKey=result.bestGodKey||'god:'+line.ci+':'+Math.floor(Math.random()*3);continue;}
+    const specialKind=ordinaryDropKind(Math.random());
+    if(specialKind==='trash'){result.total++;result.trash++;continue;}
+    if(specialKind==='god'){result.total++;result.god++;result.high=true;result.bestGodKey=result.bestGodKey||'god:'+line.ci+':'+Math.floor(Math.random()*3);continue;}
     const r=pickW(bagRates(line.ci),0),id=pick(COLS[line.ci].byR[r]);
     result.total++;result.counts[r]++;
     if(result.bestId==null||ITEMS[id].r>ITEMS[result.bestId].r)result.bestId=id;
@@ -1066,7 +1068,7 @@ function upgradeCamera(){
 function supermarketEquipment(){return '<div class="card"><h3>📹 Camera an ninh</h3><p class="muted">Cần cấp 5 · Giá 500.000 ₫. Cấp 1 nhận diện tên trộm màu đỏ; nâng cấp để cảnh báo và tự đánh đuổi. Mỗi lần nâng cấp 500.000 ₫; không thu phí hằng ngày.</p>'+(S.camera.level?'<b>Đã sở hữu · Cấp '+S.camera.level+'</b>'+(S.camera.level<3?'<button class="btn block" data-a="cameraUpgrade">Nâng cấp · 500.000 ₫</button>':''):'<button class="btn primary" data-a="cameraBuy"'+(S.lvl<5||S.money<500000?' disabled':'')+'>Mua Camera · 500.000 ₫</button>')+'</div>';}
 function godCollectionHTML(ci){
   const owned=key=>(S.godCards[key]||0)>0||S.godCert.some(c=>c.key===key)||S.godAppr.some(c=>c.key===key);
-  return '<h4 class="rh">✨ God-item · 3 thẻ ẩn</h4><p class="muted">Có thể nhận từ túi mù thường (1%), túi cao cấp của GOD-BOX (mặc định 3%, Admin chỉnh được), Hoàng kim hoặc Kim cương (2%). Không tính vào tiến độ 36 thẻ.</p><div class="tiles">'+Object.values(GOD_ITEMS).filter(it=>it.ci===ci).map(it=>{const known=S.admin||owned(it.key),cert=S.godCert.find(c=>c.key===it.key);return '<button class="tile '+(known?'god-glow':'unk god-hidden')+'" data-a="godPreview" data-key="'+it.key+'"'+(cert?' data-uid="'+cert.uid+'"':'')+'><span class="t-e">'+(known?it.e:'❔')+'</span><span class="t-n">'+(known?esc(it.n):'??')+'</span><span class="t-d">'+(known?'God-item':'Chưa khám phá')+'</span></button>';}).join('')+'</div>';
+  return '<h4 class="rh">✨ God-item · 3 thẻ ẩn</h4><div class="tiles">'+Object.values(GOD_ITEMS).filter(it=>it.ci===ci).map(it=>{const known=S.admin||owned(it.key),cert=S.godCert.find(c=>c.key===it.key);return '<button class="tile '+(known?'god-glow':'unk god-hidden')+'" data-a="godPreview" data-key="'+it.key+'"'+(cert?' data-uid="'+cert.uid+'"':'')+'><span class="t-e">'+(known?it.e:'❔')+'</span><span class="t-n">'+(known?esc(it.n):'??')+'</span><span class="t-d">'+(known?'God-item':'Chưa khám phá')+'</span></button>';}).join('')+'</div>';
 }
 function showGodReward(r,actions){const it=GOD_ITEMS[r.key];sheet('<div class="god-detail god-glow"><span class="god-emblem">'+it.e+'</span><h2>'+esc(it.n)+'</h2><b>✨ GOD-ITEM'+(r.isNew?' · MỚI':'')+'</b><p>'+fmt(godPrice(r.key))+' ₫ · +'+r.xp+' XP</p><p class="muted">Thẻ ẩn · Chỉ sưu tầm và thẩm định</p>'+actions+'</div>');sfxRare(5);}
 function gainGod(ci){
@@ -1229,9 +1231,9 @@ async function prepareBalanceDownload(file){
 /* Collectible-only trash cards deliberately live outside ITEMS and every trading pool. */
 const trashName=ci=>'Thẻ rác '+COLS[ci].name;
 function trashTile(ci,preview=false){const qty=S.trashCards[ci]||0;return '<button class="tile trash-card'+(!qty&&preview?' trash-preview':'')+'" data-a="trashInfo" data-ci="'+ci+'"><span class="t-e">🗑️</span><span class="t-n">'+esc(trashName(ci))+'</span><span class="t-q">'+(qty?'×'+qty:'Chưa sở hữu')+'</span><span class="t-d">0 ₫ · Chỉ sưu tầm</span></button>';}
-function trashCollectionHTML(ci){return '<h4 class="rh" style="color:var(--ink2)">🗑️ Thẻ rác sưu tầm</h4><p class="muted">1% khi xé túi mù thường của BST này. Giá trị 0 ₫, không tính vào 36 thẻ chính. Không giao dịch, bán, cược, ghép, thẩm định hoặc gán nợ.</p><div class="tiles">'+trashTile(ci,true)+'</div>';}
+function trashCollectionHTML(ci){return '<h4 class="rh" style="color:var(--ink2)">🗑️ Thẻ rác sưu tầm</h4><div class="tiles">'+trashTile(ci,true)+'</div>';}
 function trashInventoryHTML(){const ids=Object.keys(S.trashCards).map(Number).filter(ci=>COLS[ci]&&S.trashCards[ci]>0);return ids.length?'<div class="card"><h3>🗑️ Thẻ rác sưu tầm</h3><div class="tiles">'+ids.map(ci=>trashTile(ci)).join('')+'</div></div>':'';}
-function showTrashInfo(ci){if(!COLS[ci])return;sheet('<h2>🗑️ '+esc(trashName(ci))+'</h2><div class="kv"><span>Đang có</span><b>'+ (S.trashCards[ci]||0)+'</b></div><div class="kv"><span>Giá trị</span><b>0 ₫</b></div><p class="muted">Chỉ để sưu tầm. Tỉ lệ 1% khi mở túi mù thường của '+esc(COLS[ci].name)+'. Không tính vào 36 thẻ chính, không thể giao dịch, bán, cược, ghép, thẩm định hoặc dùng trả nợ.</p><button class="btn block" data-a="closeM">Đóng</button>');}
+function showTrashInfo(ci){if(!COLS[ci])return;sheet('<h2>🗑️ '+esc(trashName(ci))+'</h2><div class="kv"><span>Đang có</span><b>'+ (S.trashCards[ci]||0)+'</b></div><div class="kv"><span>Giá trị</span><b>0 ₫</b></div><p class="muted">Chỉ để sưu tầm. Tỉ lệ 0,05% khi mở túi mù thường của '+esc(COLS[ci].name)+'. Không tính vào 36 thẻ chính, không thể giao dịch, bán, cược, ghép, thẩm định hoặc dùng trả nợ.</p><button class="btn block" data-a="closeM">Đóng</button>');}
 function showTrashReveal(result,actions){sheet('<div class="trash-reveal"><span class="god-emblem">🗑️</span><h2>'+esc(trashName(result.ci))+'</h2><p>0 ₫'+(result.isNew?' · <b>MỚI</b>':'')+'</p><p class="muted">Thẻ sưu tầm ngoài BST · Không giao dịch hoặc thẩm định</p>'+actions+'</div>');}
 /* ============ TRẠNG THÁI ============ */
 let S=null;
@@ -1423,9 +1425,9 @@ function rollRarity(ci){
 function openBag(ci){
   if(!(S.bags[ci]>0)) return null;
   S.bags[ci]--; if(S.bags[ci]<=0) delete S.bags[ci];
-  const specialRoll=Math.random();
-  if(specialRoll<.01){const isNew=!(S.trashCards[ci]>0);S.trashCards[ci]=(S.trashCards[ci]||0)+1;S.stats.bags++;S.day$.bags++;S.pity=Math.min(CFG.PITY-1,S.pity+1);logTx('Xé túi: '+trashName(ci)+' · 0 ₫',0);return {kind:'trash',ci,r:-1,isNew,xp:0};}
-  if(specialRoll<.02){S.stats.bags++;S.day$.bags++;S.pity=0;return {...gainGod(ci),ci};}
+  const specialKind=ordinaryDropKind(Math.random());
+  if(specialKind==='trash'){const isNew=!(S.trashCards[ci]>0);S.trashCards[ci]=(S.trashCards[ci]||0)+1;S.stats.bags++;S.day$.bags++;S.pity=Math.min(CFG.PITY-1,S.pity+1);logTx('Xé túi: '+trashName(ci)+' · 0 ₫',0);return {kind:'trash',ci,r:-1,isNew,xp:0};}
+  if(specialKind==='god'){S.stats.bags++;S.day$.bags++;S.pity=0;return {...gainGod(ci),ci};}
   const r=rollRarity(ci);
   const id=pick(COLS[ci].byR[r]);
   S.pity=r>=2?0:S.pity+1;
@@ -2545,7 +2547,7 @@ function admAct(){
 }
 // Add future usable items here to expose them in the Admin catalog.
 const ADMIN_ITEMS=[
-  ...COLS.map(c=>({key:'trash'+c.id,name:trashName(c.id),icon:'🗑️',desc:'Thẻ sưu tầm giá 0 ₫, tỉ lệ 1% từ túi thường. Không giao dịch, thẩm định hoặc ghép.',count:()=>S.trashCards[c.id]||0,grant:()=>S.trashCards[c.id]=(S.trashCards[c.id]||0)+1})),
+  ...COLS.map(c=>({key:'trash'+c.id,name:trashName(c.id),icon:'🗑️',desc:'Thẻ sưu tầm giá 0 ₫, tỉ lệ 0,05% từ túi thường. Không giao dịch, thẩm định hoặc ghép.',count:()=>S.trashCards[c.id]||0,grant:()=>S.trashCards[c.id]=(S.trashCards[c.id]||0)+1})),
   {key:'camera',name:'Camera an ninh',icon:'📹',desc:'Thiết bị an ninh cấp 1. Bật/tắt tại điều hành cửa hàng, nâng tối đa cấp 3. Không có phí hằng ngày.',count:()=>S.camera.level?1:0,grant:()=>{if(!S.camera.level)S.camera={level:1,on:false};}},
   {key:'gold',name:'Túi mù hoàng kim lấp lánh',icon:'✨',desc:'Nhận một item ngẫu nhiên từ cực hiếm trở lên trong các bộ sưu tập đã mở khóa.',count:()=>S.sp.gold,grant:()=>S.sp.gold++,undo:()=>S.sp.gold--},
   {key:'dia',name:'Túi mù kim cương lấp lánh',icon:'💎',desc:'Chọn một bộ sưu tập đã mở khóa, nhận một item ngẫu nhiên từ cực hiếm trở lên.',count:()=>S.sp.dia,grant:()=>S.sp.dia++,undo:()=>S.sp.dia--},
@@ -2611,7 +2613,7 @@ function showBag(ci){
   const c=COLS[ci],n=S.bags[ci]||0;
   if(!n){closeModal();return;}
   sheet('<div class="row" style="justify-content:flex-start;gap:14px">'+bagSVG(c.hue,c.icon,84)+'<div><h2>'+bagName(c.id)+'</h2><div class="qty">×'+n+'</div><div class="muted">Thị trường: '+fmt(bagMarket(ci))+' ₫</div><div class="muted">Bảo hiểm hiếm: '+S.pity+'/'+CFG.PITY+' túi</div></div></div>'+
-   '<p class="muted">1% ra '+esc(trashName(ci))+'. 1% ra God-item. 98% còn lại áp dụng tỉ lệ độ hiếm bên dưới.</p><h4 style="margin:12px 0 4px">Tỉ lệ rơi hiện tại ('+stars()+' sao)</h4>'+rateRows(ci)+
+   '<p class="muted">0,05% ra '+esc(trashName(ci))+'. 0,02% ra God-item. 99,93% còn lại áp dụng tỉ lệ độ hiếm bên dưới.</p><h4 style="margin:12px 0 4px">Tỉ lệ rơi hiện tại ('+stars()+' sao)</h4>'+rateRows(ci)+
    '<button class="btn primary block" style="margin-top:10px" data-a="bagListOpen" data-ci="'+ci+'">Đăng bán túi mù</button><div class="btnrow"><button class="btn" data-a="tear1" data-c="'+ci+'">Xé 1 túi</button><button class="btn" data-a="tearN" data-c="'+ci+'"'+(n<2?' disabled':'')+'>Xé nhanh ×'+Math.min(10,n)+'</button></div>'+
    '<button class="btn block" style="margin-top:8px" data-a="closeM">Đóng</button>');
 }
@@ -2785,9 +2787,9 @@ function showHelp(){
     '<li><b>Thanh toán và livestream</b><p>Khách chọn hàng rồi xếp hàng ở quầy thanh toán. Bấm khách đứng đầu hàng, xem đơn và chọn Hoàn tất đơn hàng để nhận tiền. Khách hết kiên nhẫn sẽ bỏ đi, trả hàng về quầy và làm giảm 1 HOT.</p><p>Bật Tự livestream để một số khách mua túi đến nhờ nhân viên mở. Xét toàn bộ túi của khách: có ít nhất một thẻ từ Hiếm trở lên được +3–5 HOT; không có bị −1 HOT. Thẻ này thuộc về khách. Khách mua hàng và rời đi không livestream được +1–3 HOT. HOT không xuống dưới 0; HOT cao giúp thu hút khách và tăng khả năng mua hàng.</p></li>'+
     '<li><b>Kết toán và sang ngày mới</b><p>Đến 21:00, tiệm ngừng đón khách mới. Hoàn tất hàng chờ và livestream, rồi bấm HÃY KẾT THÚC NGÀY để xem thu chi, lời/lỗ và trả nợ nếu có. Chọn Sang ngày tiếp theo để trở lại Cửa hàng trong giai đoạn chuẩn bị.</p></li></ol>'+
     '<h3 class="guide-heading">VIP, trộm và camera</h3><p class="muted">Mỗi 3–5 ngày có khách VIP tên vàng, sức mua tối đa và được báo trước trong ngày. Mỗi 3–5 ngày cũng có thể có 1–3 kẻ giấu mặt lấy 3–10 túi mù rồi rời đi không thanh toán. Bấm kẻ trộm trước khi thoát để đánh đuổi, trả túi về quầy. Cuối ngày có báo cáo thất thoát.</p><p class="muted">Cấp 5 có thể mua Camera an ninh tại Siêu thị với 500.000₫, nâng cấp thêm 500.000₫ mỗi lần. Bật ở điều hành cửa hàng: cấp 1 đánh dấu tên trộm đỏ, cấp 2 cảnh báo tại Cửa hàng, cấp 3 tự đánh đuổi. Camera không tính phí nhân viên.</p>'+
-    '<h3 class="guide-heading">Đấu thẻ và God-item</h3><p class="muted">Đấu trường cấp 40 có hai hạng Cực hiếm/Cực phẩm, thẻ có giá thị trường cao hơn thắng. Thách đấu Huyền thoại cấp 50 chỉ nhận thẻ đã thẩm định, điểm cao hơn thắng. Mỗi sự kiện tối đa 3 lượt/ngày: hai bên úp thẻ 5 giây rồi lật, thắng nhận thẻ đối phương, hòa trả lại thẻ; thẻ khóa và God-item không thể cược.</p><p class="muted">Mỗi BST có thêm 3 God-item bí ẩn ngoài 36 thẻ thường, xem trước dạng ?? tại BST. Túi cao cấp từ GOD-BOX có thể cho God-item; túi thường có 1%, túi cao cấp của GOD-BOX mặc định 3% (Admin chỉnh được), Hoàng kim và Kim cương có 2% mỗi túi. God-item chỉ sưu tầm và thẩm định.</p>'+
+    '<h3 class="guide-heading">Đấu thẻ và God-item</h3><p class="muted">Đấu trường cấp 40 có hai hạng Cực hiếm/Cực phẩm, thẻ có giá thị trường cao hơn thắng. Thách đấu Huyền thoại cấp 50 chỉ nhận thẻ đã thẩm định, điểm cao hơn thắng. Mỗi sự kiện tối đa 3 lượt/ngày: hai bên úp thẻ 5 giây rồi lật, thắng nhận thẻ đối phương, hòa trả lại thẻ; thẻ khóa và God-item không thể cược.</p><p class="muted">Mỗi BST có thêm 3 God-item bí ẩn ngoài 36 thẻ thường, xem trước dạng ?? tại BST. Túi cao cấp từ GOD-BOX có thể cho God-item; túi thường có 0,02%, túi cao cấp của GOD-BOX mặc định 3% (Admin chỉnh được), Hoàng kim và Kim cương có 2% mỗi túi. God-item chỉ sưu tầm và thẩm định.</p>'+
     '<h3 class="guide-heading">Các chế độ tự động</h3><p class="muted">Trong Cửa hàng, bật/tắt từng checkbox: Tự động thanh toán, Tự bổ sung túi mù, Tự bổ sung thẻ item và Tự livestream. Nút ⚙️ mở tùy chỉnh; cài đặt livestream chỉ dành cho người có Thẻ bài Admin. Mỗi chế độ dùng trong ngày tính riêng phí nhân viên theo doanh thu khi kết ngày: mặc định 1%, tăng 1 điểm % mỗi 10 cấp (LV10: 2%, LV20: 3%…). Admin có thể chỉnh phí cơ bản. Thiếu tiền sẽ gán nợ bằng thẻ như ngân hàng.</p><p class="muted">Tự bổ sung túi dùng hàng trong kho trước, rồi mới nhập box trong giới hạn ngân sách (mặc định 20% tiền đầu mỗi lượt). Thẻ chỉ tự bán ở các bậc đã cho phép; thẻ khóa luôn được giữ. Chỉ tắt livestream khi không còn khách đang đến, chờ mở, mở túi hoặc phản ứng.</p>'+
-    '<h3 class="guide-heading">Sự kiện, cộng đồng và BST</h3><p class="muted">Người chơi có thể tham gia Giao dịch đen, Chợ đen, Đấu giá và Đu đỉnh khi đạt cấp yêu cầu và trong giờ cửa hàng hoạt động; một số sự kiện có khung giờ riêng. Chợ đen có 3 lượt/ngày (10:00, 12:40, 15:20), mỗi lượt 3–5 thẻ khác nhau; mỗi thẻ được săn 1 lần, có thể mua tất cả hoặc chờ lượt sau. Cộng đồng có Ngân hàng và Thẩm định, không bị ràng buộc bởi giờ mở cửa.</p><p class="muted">Xé túi của mình để nhận thẻ, XP và ghi nhận vào Kho tồn → BST. Mỗi BST có 36 thẻ với 6 độ hiếm. Khám phá đủ các thẻ để hoàn thành BST; bán hay dùng thẻ đã khám phá không xóa ghi nhận. Một số BST cần đủ cấp và trả phí mở khóa. Có 10 thẻ giống nhau thì có thể nâng thành một thẻ ngẫu nhiên ở bậc hiếm cao hơn trong cùng BST (trừ Huyền thoại).</p><p class="muted">Mỗi BST còn có một Thẻ rác giá 0₫, tỉ lệ 1% từ túi mù thường, xem trước tại BST; thẻ này chỉ sưu tầm và không tính vào 36 thẻ chính.</p><p class="muted">Game tự lưu trên trình duyệt. Dùng Hệ thống → Sao lưu để giữ mã tiến trình khi cần chuyển thiết bị.</p><button class="btn primary block" data-a="closeM">Đã hiểu</button>');
+    '<h3 class="guide-heading">Sự kiện, cộng đồng và BST</h3><p class="muted">Người chơi có thể tham gia Giao dịch đen, Chợ đen, Đấu giá và Đu đỉnh khi đạt cấp yêu cầu và trong giờ cửa hàng hoạt động; một số sự kiện có khung giờ riêng. Chợ đen có 3 lượt/ngày (10:00, 12:40, 15:20), mỗi lượt 3–5 thẻ khác nhau; mỗi thẻ được săn 1 lần, có thể mua tất cả hoặc chờ lượt sau. Cộng đồng có Ngân hàng và Thẩm định, không bị ràng buộc bởi giờ mở cửa.</p><p class="muted">Xé túi của mình để nhận thẻ, XP và ghi nhận vào Kho tồn → BST. Mỗi BST có 36 thẻ với 6 độ hiếm. Khám phá đủ các thẻ để hoàn thành BST; bán hay dùng thẻ đã khám phá không xóa ghi nhận. Một số BST cần đủ cấp và trả phí mở khóa. Có 10 thẻ giống nhau thì có thể nâng thành một thẻ ngẫu nhiên ở bậc hiếm cao hơn trong cùng BST (trừ Huyền thoại).</p><p class="muted">Mỗi BST còn có một Thẻ rác giá 0₫, tỉ lệ 0,05% từ túi mù thường, xem trước tại BST; thẻ này chỉ sưu tầm và không tính vào 36 thẻ chính.</p><p class="muted">Game tự lưu trên trình duyệt. Dùng Hệ thống → Sao lưu để giữ mã tiến trình khi cần chuyển thiết bị.</p><button class="btn primary block" data-a="closeM">Đã hiểu</button>');
 }
 function showSettings(){
   sheet('<h2>Cài đặt</h2>'+togRow('Âm thanh game','Bật hoặc tắt hiệu ứng âm thanh','setSound',SET.sound)+'<button class="btn block" style="margin-top:12px" data-a="closeM">Đóng</button>');
@@ -2825,7 +2827,7 @@ const A={
   liveControl(){showLiveControl();},
   balancePublish(){showPublishBalance();},
   balanceWrite(){return writeLocalBalance();},
-  godPreview(d){const key=d.key,owned=S.godCards[key]>0||S.godCert.some(c=>c.key===key)||S.godAppr.some(c=>c.key===key);if(!GOD_ITEMS[key])return;if(!S.admin&&!owned){sheet('<h2>❔ God-item bí ẩn</h2><p class="muted">Một thẻ ẩn của '+esc(COLS[GOD_ITEMS[key].ci].name)+'. Có thể nhận từ túi mù thường (1%), túi cao cấp của GOD-BOX (mặc định 3%, Admin chỉnh được), Hoàng kim hoặc Kim cương (2%). Túi thường: 1%. Hoàng kim/Kim cương: 2%. Túi cao cấp từ GOD-BOX: mặc định 3%, Admin chỉnh được.</p><button class="btn block" data-a="closeM">Đóng</button>');return;}if(S.godAppr.some(c=>c.key===key)&&!S.godCards[key]&&!d.uid){const it=GOD_ITEMS[key];sheet('<h2>'+it.e+' '+esc(it.n)+'</h2><p class="muted">Đang gửi thẩm định.</p><button class="btn" data-a="closeM">Đóng</button>');return;}showGodCard(key,+d.uid);},
+  godPreview(d){const key=d.key,owned=S.godCards[key]>0||S.godCert.some(c=>c.key===key)||S.godAppr.some(c=>c.key===key);if(!GOD_ITEMS[key])return;if(!S.admin&&!owned){sheet('<h2>❔ God-item bí ẩn</h2><p class="muted">Một thẻ ẩn của '+esc(COLS[GOD_ITEMS[key].ci].name)+'. Túi thường: 0,02%. Hoàng kim/Kim cương: 2%. Túi cao cấp từ GOD-BOX: mặc định 3%, Admin chỉnh được.</p><button class="btn block" data-a="closeM">Đóng</button>');return;}if(S.godAppr.some(c=>c.key===key)&&!S.godCards[key]&&!d.uid){const it=GOD_ITEMS[key];sheet('<h2>'+it.e+' '+esc(it.n)+'</h2><p class="muted">Đang gửi thẩm định.</p><button class="btn" data-a="closeM">Đóng</button>');return;}showGodCard(key,+d.uid);},
   cameraBuy(){const e=buyCamera();after();toast(e||'Đã mua Camera an ninh. Bật tại điều hành cửa hàng.',e?'bad':'good');},
   cameraUpgrade(){confirmBox('Nâng cấp Camera?','Chi 500.000 ₫ để nâng Camera an ninh thêm 1 cấp.','Nâng cấp',()=>{const e=upgradeCamera();closeModal();after();if(e)toast(e,'bad');});},
   cameraToggle(){if(!S.camera.level)return;S.camera.on=!S.camera.on;cameraSweep();after();},
