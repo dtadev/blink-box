@@ -13,7 +13,7 @@
   --bg:#eceffd; --surface:#ffffff; --surface2:#f2f3fd; --ink:#1b1940; --ink2:#5d5c85; --line:#dbdff4;
   --accent:#ff3d86; --accent-ink:#ffffff; --gold:#ffb800; --teal:#0fb5a3; --bad:#d93a40; --good:#14954f;
   --shadow:0 6px 22px rgba(40,30,110,.10); --overlay:rgba(18,12,48,.62);
-  --r0:#8b90a8; --r1:#2fae67; --r2:#3a86ff; --r3:#9a5cff; --r4:#ff8420; --r5:#ffb800;
+  --r0:#2fae67; --r1:#3a86ff; --r2:#9a5cff; --r3:#e43d50; --r4:#ff8420; --r5:#ffb800;
   --fd:'Baloo 2','Be Vietnam Pro',system-ui,sans-serif;
   --fb:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   color-scheme:light;
@@ -24,7 +24,7 @@
     --bg:#13112a; --surface:#1f1c3f; --surface2:#2a2652; --ink:#f2f0ff; --ink2:#a9a6d6; --line:#38336b;
     --accent:#ff5c9b; --accent-ink:#1b1030; --gold:#ffc83a; --teal:#2bd4c1; --bad:#ff6b70; --good:#3ddc84;
     --shadow:0 6px 22px rgba(0,0,0,.35); --overlay:rgba(5,3,20,.72);
-    --r0:#9aa0bd; --r1:#43c47c; --r2:#5b9bff; --r3:#b087ff; --r4:#ff9a45; --r5:#ffc83a;
+    --r0:#43c47c; --r1:#5b9bff; --r2:#b087ff; --r3:#ff586b; --r4:#ff9a45; --r5:#ffc83a;
     color-scheme:dark;
   }
 }
@@ -32,7 +32,7 @@
   --bg:#13112a; --surface:#1f1c3f; --surface2:#2a2652; --ink:#f2f0ff; --ink2:#a9a6d6; --line:#38336b;
   --accent:#ff5c9b; --accent-ink:#1b1030; --gold:#ffc83a; --teal:#2bd4c1; --bad:#ff6b70; --good:#3ddc84;
   --shadow:0 6px 22px rgba(0,0,0,.35); --overlay:rgba(5,3,20,.72);
-  --r0:#9aa0bd; --r1:#43c47c; --r2:#5b9bff; --r3:#b087ff; --r4:#ff9a45; --r5:#ffc83a;
+  --r0:#43c47c; --r1:#5b9bff; --r2:#b087ff; --r3:#ff586b; --r4:#ff9a45; --r5:#ffc83a;
   color-scheme:dark;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -374,6 +374,36 @@ textarea.txt{font:12px/1.3 ui-monospace,Menlo,Consolas,monospace;width:100%;heig
 .store-identity{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:12px}.store-identity h2{font-size:18px;overflow-wrap:anywhere;margin:0 0 7px}.store-identity .btn{font-size:12px;padding:9px 11px}.store-identity small{display:block;font-size:10px;color:var(--ink2);margin-top:5px}.store-state{display:inline-block;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700;background:var(--surface)}.store-state.open{color:var(--good)}.store-state.paused{color:var(--gold)}.store-state.closed{color:var(--ink2)}
 .god-glow{--rc:var(--gold);position:relative;border:2px solid transparent!important;background:linear-gradient(var(--surface),var(--surface)) padding-box,conic-gradient(from var(--god-angle),#ffd65c,#ff58bb,#b18aff,#58e9ed,#ffd65c) border-box;animation:god-border 5s linear infinite;box-shadow:0 0 14px #e8b83c28}.god-glow:after{content:'✦';position:absolute;top:3px;right:6px;color:var(--gold);font-size:12px;pointer-events:none;animation:god-sparkle 1.8s ease-in-out infinite}.god-detail{padding:20px 14px;border-radius:22px;text-align:center}.god-detail h2{font-size:22px;margin:10px 0}.god-detail b{font-size:12px;color:var(--gold)}.god-detail .kv{text-align:left}.god-emblem{display:block;font-size:64px}.god-detail .btn{margin-top:9px}@property --god-angle{syntax:'<angle>';initial-value:0deg;inherits:false}@keyframes god-border{to{--god-angle:360deg}}@keyframes god-sparkle{50%{opacity:.2;transform:scale(.6)}}
 .vip-mark,.vip-mark small,.vip-mark b{color:var(--gold)!important}.thief-mark small{color:var(--bad)!important;font-weight:800}.god-hidden .t-e,.god-hidden .t-n{filter:blur(1px);opacity:.55}.god-hidden{opacity:.65}
+.balance-json{white-space:pre-wrap;overflow-wrap:anywhere;max-height:240px;overflow:auto;padding:10px;background:var(--surface2);border-radius:10px;font-size:11px}details summary{cursor:pointer;font-size:12px;padding:8px 0}
+.automation-panel .automation-summary{font-size:11px;line-height:1.5;color:var(--ink2);margin:4px 0 7px}.automation-panel .automation-row{min-height:40px}.automation-meta{display:inline-block;font-size:10px;color:var(--gold);margin-left:7px;white-space:nowrap}.automation-panel .camera-alert{font-size:11px;margin-top:8px}.control-subtitle{margin-top:18px}.control-history{display:flex;flex-direction:column;gap:4px;border-bottom:1px dashed var(--line);padding:10px 0;font-size:12px}.control-history small{color:var(--ink2);font-size:10px}
+
+/* Product frames: preserve the GOD rainbow; silver distinguishes premium stock. */
+@property --frame-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes frame-orbit{to{--frame-angle:360deg}}
+@keyframes frame-spark{0%,100%{opacity:.25}50%{opacity:1}}
+.fx-gold,.fx-platinum,.fx-silver{position:relative;isolation:isolate;border:2px solid transparent!important;background:linear-gradient(var(--surface),var(--surface)) padding-box,conic-gradient(from var(--frame-angle),var(--frame-palette)) border-box;animation:frame-orbit 5s linear infinite}
+.fx-gold{--frame-palette:#a96912,#ffe88b,#ffc83a,#fff5c6,#d68c19,#a96912;--frame-glow:#ffc83a30;--frame-spark:#ffe89b;box-shadow:0 0 14px var(--frame-glow)}
+.fx-platinum{--frame-palette:#7f93a8,#e7f1fa,#ffffff,#b5c6d8,#f5faff,#7f93a8;--frame-glow:#d4e8ff30;--frame-spark:#eff8ff;box-shadow:0 0 14px var(--frame-glow)}
+.fx-silver{--frame-palette:#7c8b9e,#b9c9d9,#f5faff,#98aabd,#d6e0ea,#7c8b9e;border-width:1px!important;animation-duration:6s}
+.fx-gold:after,.fx-platinum:after{content:'✦';position:absolute;top:3px;right:6px;font-size:12px;color:var(--frame-spark);pointer-events:none;animation:frame-spark 1.8s ease-in-out infinite}
+.fx-silver-spark:after{content:'✦';position:absolute;top:3px;right:6px;font-size:11px;color:#e8f3ff;pointer-events:none;animation:frame-spark 1.8s ease-in-out infinite}
+.product-title.fx-silver,.special-bag-preview{padding:12px;border-radius:16px}.special-bag-preview{display:flex;align-items:center;justify-content:center}
+/* Orange and gold highlights travel around their frames; red only sparkles. */
+:is(.tile,.slot.lst,.store-preview-item,.live-result):is(.r4,.r5),.hero-item:is(.r4,.r5) .big,.rv:is(.r4,.r5) .rv-card{border-color:transparent;background:linear-gradient(color-mix(in srgb,var(--rc) 11%,var(--surface)),color-mix(in srgb,var(--rc) 11%,var(--surface))) padding-box,conic-gradient(from var(--frame-angle),var(--rc) 0deg 270deg,color-mix(in srgb,var(--rc) 35%,white) 300deg,#fff9e9 318deg,var(--rc) 350deg) border-box;animation:frame-orbit 3s linear infinite}
+.rv.r4.open .rv-card{animation:cardin .6s cubic-bezier(.2,.9,.3,1.25) forwards,frame-orbit 3s linear infinite}
+.rv.r5.open .rv-card{animation:cardin .6s cubic-bezier(.2,.9,.3,1.25) forwards,glow 1.6s ease-in-out .6s infinite,frame-orbit 3s linear infinite}
+/* Edge glints include red, orange and gold, including appraised cards. */
+:is(.tile,.slot.lst,.store-preview-item,.live-result):is(.r3,.r4,.r5),.hero-item:is(.r3,.r4,.r5) .big,.rv:is(.r3,.r4,.r5) .rv-card{position:relative;box-shadow:0 0 10px color-mix(in srgb,var(--rc) 22%,transparent)}
+:is(.tile,.slot.lst,.store-preview-item,.live-result):is(.r3,.r4,.r5):after,.hero-item:is(.r3,.r4,.r5) .big:after,.rv:is(.r3,.r4,.r5) .rv-card:after{content:'';position:absolute;inset:-2px;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at 16% 1%,#fff8d4 0 1px,transparent 3px),radial-gradient(circle at 99% 30%,#fff 0 1px,transparent 3px),radial-gradient(circle at 76% 99%,#fff5d7 0 1px,transparent 3px),radial-gradient(circle at 1% 68%,#fff 0 1px,transparent 3px);animation:frame-spark 1.8s ease-in-out infinite}
+:is(.tile,.slot.lst,.store-preview-item,.live-result).r4:after,.hero-item.r4 .big:after,.rv.r4 .rv-card:after{animation-delay:-.6s}
+/* Locked collection slots stay anonymous and never advertise their real rarity. */
+.tile.unk:is(.r3,.r4,.r5){background:var(--surface2);border:2px dashed var(--line);box-shadow:none;animation:none}.tile.unk:after{display:none}
+/* Independent moving light on God-items keeps the rainbow and corner star intact. */
+@property --god-run-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes god-border-run{to{--god-run-angle:360deg}}
+.tile.god-glow:not([data-a="adItemInfo"]):before,.god-detail.god-glow:before{content:'';position:absolute;inset:-2px;padding:2px;border-radius:inherit;pointer-events:none;z-index:1;background:conic-gradient(from var(--god-run-angle),transparent 0deg 295deg,#fff0ba 315deg,#fff 325deg,transparent 345deg);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:god-border-run 3s linear infinite}
+@media(prefers-reduced-motion:reduce){.fx-gold,.fx-platinum,.fx-silver,:is(.tile,.slot.lst,.store-preview-item,.live-result):is(.r4,.r5){animation:none!important}.fx-gold:after,.fx-platinum:after,.fx-silver-spark:after{animation:none!important;opacity:.8}.tile.god-glow:before,.god-detail.god-glow:before{animation:none!important}}
+.trash-card{--rc:#8d96a8;background:color-mix(in srgb,#8d96a8 9%,var(--surface));border-color:#8d96a8;box-shadow:none}.trash-preview{border-style:dashed;opacity:.75}.trash-card .t-n{font-size:11px}.trash-reveal{text-align:center;padding:16px 0}.trash-reveal .btn{width:100%;margin-top:8px}
 </style>
 </head>
 <body>
@@ -618,6 +648,8 @@ const bagName=ci=>'Túi mù: '+COL_SHORT[ci];
 
 /* ============ BOX, KHO TỒN VÀ BỔ SUNG HÀNG ============ */
 const isPremium=ci=>ci>=16&&ci<=22;
+const boxFrame=ci=>isPremium(ci)?' fx-silver':'';
+function catalogFrame(key){if(key==='gold')return ' fx-gold';if(key==='dia')return ' fx-platinum';if(/^royalbag\d+$/.test(key))return ' fx-silver fx-silver-spark';if(/^godbox\d+$/.test(key))return ' god-glow';const match=/^box(\d+)$/.exec(key);return match?boxFrame(+match[1]):'';}
 const boxSize=ci=>isPremium(ci)?8:12;
 const boxName=ci=>'Box: '+COLS[ci].name;
 const boxPrice=ci=>Math.round(bagPrice(ci)*boxSize(ci)*.72/5000)*5000;
@@ -702,18 +734,18 @@ function autoRestock(force=false){
   if(changed){save();renderTop();if(ui.tab==='shop'&&$('#modal').hidden)renderView();}
 }
 function stockCards(entries,kind){
-  return '<div class="shop-grid">'+entries.map(ci=>{const c=COLS[ci],isBox=kind==='box',qty=isBox?S.boxes[ci]:S.bags[ci];return '<button class="bagcard" data-a="'+(isBox?'boxOpen':'bagOpen')+'" data-c="'+ci+'"><span class="stock-art">'+(isBox?'📦':c.icon)+'</span><span class="bc-n">'+esc(isBox?boxName(ci):bagName(ci))+'</span><span class="bc-q">×'+qty+'</span><small>'+(isBox?boxSize(ci)+' túi / box':fmt(bagMarket(ci))+' ₫')+'</small></button>';}).join('')+'</div>';
+  return '<div class="shop-grid">'+entries.map(ci=>{const c=COLS[ci],isBox=kind==='box',qty=isBox?S.boxes[ci]:S.bags[ci];return '<button class="bagcard'+(isBox?boxFrame(ci):'')+'" data-a="'+(isBox?'boxOpen':'bagOpen')+'" data-c="'+ci+'"><span class="stock-art">'+(isBox?'📦':c.icon)+'</span><span class="bc-n">'+esc(isBox?boxName(ci):bagName(ci))+'</span><span class="bc-q">×'+qty+'</span><small>'+(isBox?boxSize(ci)+' túi / box':fmt(bagMarket(ci))+' ₫')+'</small></button>';}).join('')+'</div>';
 }
 function viewStock(){
   const boxes=Object.keys(S.boxes).map(Number).filter(ci=>S.boxes[ci]>0),bags=Object.keys(S.bags).map(Number).filter(ci=>S.bags[ci]>0);
   let h=godStockHTML()+'<div class="card"><h3>📦 Box trong kho</h3>'+(boxes.length?stockCards(boxes,'box'):'<p class="muted">Chưa có box. Nhập box để nhận túi mù.</p>'+shoppingEmptyLinks())+'</div>';
   h+='<div class="card"><h3>🎁 Túi mù</h3>'+(bags.length?stockCards(bags,'bag'):'<p class="muted">Chưa có túi mù. Mở box trong kho để nhận túi.</p>')+'</div>';
-  if(S.sp.gold||S.sp.dia)h+='<div class="card"><h3>Túi đặc biệt</h3><div class="grid2">'+(S.sp.gold?'<button class="bagrow" data-a="spOpen" data-t="gold">✨ Hoàng kim ×'+S.sp.gold+'</button>':'')+(S.sp.dia?'<button class="bagrow" data-a="spOpen" data-t="dia">💎 Kim cương ×'+S.sp.dia+'</button>':'')+'</div></div>';
+  if(S.sp.gold||S.sp.dia)h+='<div class="card"><h3>Túi đặc biệt</h3><div class="grid2">'+(S.sp.gold?'<button class="bagrow fx-gold" data-a="spOpen" data-t="gold">✨ Hoàng kim ×'+S.sp.gold+'</button>':'')+(S.sp.dia?'<button class="bagrow fx-platinum" data-a="spOpen" data-t="dia">💎 Kim cương ×'+S.sp.dia+'</button>':'')+'</div></div>';
   return h;
 }
 function showBox(ci){
   if(!COLS[ci]||!(S.boxes[ci]>0))return;
-  sheet('<h2>📦 '+esc(boxName(ci))+'</h2><p class="muted">Đang có '+S.boxes[ci]+' box. Mỗi box chứa '+boxSize(ci)+' túi mù; túi nhận được nằm trong Kho tồn.'+(isPremium(ci)?' Xác suất từ Hiếm trở lên gấp đôi túi thường ở cùng mức may mắn.':'')+'</p><div class="btnrow"><button class="btn primary" data-a="boxUnpack" data-ci="'+ci+'" data-q="1">Mở 1 box</button><button class="btn" data-a="boxUnpack" data-ci="'+ci+'" data-q="all">Mở tất cả</button><button class="btn" data-a="closeM">Đóng</button></div>');
+  sheet('<h2 class="product-title'+boxFrame(ci)+'">📦 '+esc(boxName(ci))+'</h2><p class="muted">Đang có '+S.boxes[ci]+' box. Mỗi box chứa '+boxSize(ci)+' túi mù; túi nhận được nằm trong Kho tồn.'+(isPremium(ci)?' Xác suất từ Hiếm trở lên gấp đôi túi thường ở cùng mức may mắn.':'')+'</p><div class="btnrow"><button class="btn primary" data-a="boxUnpack" data-ci="'+ci+'" data-q="1">Mở 1 box</button><button class="btn" data-a="boxUnpack" data-ci="'+ci+'" data-q="all">Mở tất cả</button><button class="btn" data-a="closeM">Đóng</button></div>');
 }
 function showBagListing(ci){
   const stock=S.bags[ci]||0;if(!stock)return;
@@ -735,6 +767,7 @@ function addHot(delta){S.hot=Math.max(0,Math.round((S.hot||0)+delta));ui.dirty=t
 function finishCustomerExit(c){
   if(c.thief){escapeThief(c);return;}
   if(c.exitSettled)return;c.exitSettled=true;
+  if(c.paid&&c.liveResult){S.live.history.unshift({day:S.day,clock:fmtClock(),uid:c.uid,name:c.name,face:c.face,total:c.liveResult.total,bestId:c.liveResult.bestId,trash:c.liveResult.trash||0,god:c.liveResult.god||0,bestGodKey:c.liveResult.bestGodKey||null,high:c.liveResult.high,hot:c.exitHot});S.live.history.length=Math.min(50,S.live.history.length);}
   if(c.paid&&c.exitHot){addHot(c.exitHot);logTx('HOT · '+c.name+' · '+(c.exitHot>0?'+':'')+c.exitHot+' HOT'+(c.liveResult?' (livestream)':' (mua hàng)'),0);}
 }
 function sendPaidCustomer(c,bags){
@@ -744,9 +777,12 @@ function sendPaidCustomer(c,bags){
   }else{c.exitHot=1+Math.floor(Math.random()*3);customerState(c,'leaving',2.5,'Mua được hàng rồi, vui quá!');}
 }
 function rollCustomerLive(c){
-  const result={total:0,bestId:null,high:false,counts:[0,0,0,0,0,0]};
+  const result={total:0,bestId:null,high:false,trash:0,god:0,bestGodKey:null,counts:[0,0,0,0,0,0]};
   // Customer-owned bags use their collection odds. Player pity, XP and inventory are untouched.
   for(const line of c.liveBags)for(let n=0;n<line.qty;n++){
+    const specialRoll=Math.random();
+    if(specialRoll<.01){result.total++;result.trash++;continue;}
+    if(specialRoll<.02){result.total++;result.god++;result.high=true;result.bestGodKey=result.bestGodKey||'god:'+line.ci+':'+Math.floor(Math.random()*3);continue;}
     const r=pickW(bagRates(line.ci),0),id=pick(COLS[line.ci].byR[r]);
     result.total++;result.counts[r]++;
     if(result.bestId==null||ITEMS[id].r>ITEMS[result.bestId].r)result.bestId=id;
@@ -771,8 +807,8 @@ function tickLive(){
   }
   return changed;
 }
-function autoCheckbox(label,action,checked,settings){
-  return '<div class="automation-row"><label><input type="checkbox" data-a="'+action+'"'+(checked?' checked':'')+'><span>'+label+'</span></label>'+(settings?'<button class="automation-settings" data-a="'+settings+'" aria-label="Cài đặt '+label+'">⚙️</button>':'')+'</div>';
+function autoCheckbox(label,action,checked,settings,meta){
+  return '<div class="automation-row"><label><input type="checkbox" data-a="'+action+'"'+(checked?' checked':'')+'><span>'+label+(meta?'<small class="automation-meta">'+meta+'</small>':'')+'</span></label>'+(settings?'<button class="automation-settings" data-a="'+settings+'" aria-label="Cài đặt '+label+'">⚙️</button>':'')+'</div>';
 }
 const STAFF_MODES={checkout:'Tự động thanh toán',bags:'Tự bổ sung túi mù',cards:'Tự bổ sung thẻ item',live:'Tự livestream'};
 function recordAutomation(){
@@ -780,9 +816,10 @@ function recordAutomation(){
   const used=S.day$.staffUsed||(S.day$.staffUsed={});
   if(S.customers.auto)used.checkout=true;if(S.restock.bagsOn)used.bags=true;if(S.restock.cardsOn)used.cards=true;if(S.live.enabled)used.live=true;
 }
+const staffRate=()=>Math.min(100,S.staffRate+Math.floor(S.lvl/10));
 function staffEstimate(){
-  const used=S.day$.staffUsed||{},revenue=Math.max(0,S.day$.earned||0),rows=Object.keys(STAFF_MODES).filter(k=>used[k]).map(key=>({key,name:STAFF_MODES[key],fee:Math.round(revenue*S.staffRate/100)}));
-  return {rate:S.staffRate,revenue,rows,total:rows.reduce((n,r)=>n+r.fee,0)};
+  const used=S.day$.staffUsed||{},revenue=Math.max(0,S.day$.earned||0),rows=Object.keys(STAFF_MODES).filter(k=>used[k]).map(key=>({key,name:STAFF_MODES[key],fee:Math.round(revenue*staffRate()/100)}));
+  return {rate:staffRate(),revenue,rows,total:rows.reduce((n,r)=>n+r.fee,0)};
 }
 function settleStaff(){
   const bill=staffEstimate();bill.paid=0;bill.seized=[];
@@ -790,8 +827,38 @@ function settleStaff(){
     logTx('Phí nhân viên · '+bill.rows.map(r=>r.name+' '+fmt(r.fee)+'₫').join(' · ')+(r.seized.length?' (gán nợ '+r.seized.length+' thẻ)':''),-bill.paid);
   }return bill;
 }
+// Shared compact layout: all shop automations belong here, with details in popups.
+const STORE_AUTOMATIONS=[
+  {label:'Tự động thanh toán',action:'checkoutAuto',on:()=>S.customers.auto,settings:'automationInfo'},
+  {label:'Tự bổ sung túi mù',action:'bagAutoToggle',on:()=>S.restock.bagsOn,settings:'bagAutoSettings'},
+  {label:'Tự bổ sung thẻ item',action:'cardAutoToggle',on:()=>S.restock.cardsOn,settings:'cardAutoSettings'},
+  {label:'Tự livestream',action:'liveAutoToggle',on:()=>S.live.enabled,settings:'liveControl'},
+  {label:'Camera an ninh',action:'cameraToggle',on:()=>S.camera.on,settings:'cameraSettings',visible:()=>S.camera.level>0,meta:()=>'Cấp '+S.camera.level}
+];
 function automationPanel(){
-  return '<div class="card automation-panel"><h3>Điều hành cửa hàng</h3><p class="muted">Mỗi chế độ dùng trong ngày: '+S.staffRate+'% doanh thu/ngày, thu riêng khi kết ngày. Tắt giữa ngày vẫn tính phí. Dự tính: '+fmt(staffEstimate().total)+' ₫.</p>'+autoCheckbox('Tự động thanh toán','checkoutAuto',S.customers.auto)+autoCheckbox('Tự bổ sung túi mù','bagAutoToggle',S.restock.bagsOn,'bagAutoSettings')+autoCheckbox('Tự bổ sung thẻ item','cardAutoToggle',S.restock.cardsOn,'cardAutoSettings')+autoCheckbox('Tự livestream','liveAutoToggle',S.live.enabled,S.adminCard?'liveSettings':null)+'</div>';
+  return '<div class="card automation-panel"><div class="row"><h3>Điều hành cửa hàng</h3><button class="chip" data-a="automationInfo" aria-label="Chi tiết phí tự động">ⓘ</button></div><p class="automation-summary">Phí '+staffRate()+'% / chế độ · Dự tính <b>'+fmt(staffEstimate().total)+' ₫</b></p>'+STORE_AUTOMATIONS.filter(row=>!row.visible||row.visible()).map(row=>autoCheckbox(row.label,row.action,row.on(),row.settings,row.meta?row.meta():null)).join('')+cameraAlertHTML()+'</div>';
+}
+function showAutomationInfo(){
+  const bill=staffEstimate();sheet('<h2>Điều hành & phí nhân viên</h2><p class="muted">Mỗi chế độ tự động đã dùng trong ngày tính riêng theo doanh thu. Tắt giữa ngày vẫn tính phí khi kết toán. Camera an ninh không có phí nhân viên.</p><div class="kv"><span>Phí cơ bản mỗi chế độ</span><b>'+S.staffRate+'%</b></div><div class="kv"><span>Tăng theo cấp '+S.lvl+'</span><b>+'+Math.floor(S.lvl/10)+' điểm %</b></div><div class="kv"><span>Phí hiện tại / chế độ</span><b>'+staffRate()+'%</b></div><p class="muted">Mặc định LV1–9: 1%, LV10–19: 2%, LV20–29: 3%… Mỗi 10 cấp thêm 1 điểm %, tối đa 100% mỗi chế độ. Admin có thể chỉnh phí cơ bản.</p><div class="kv"><span>Doanh thu hôm nay</span><b>'+fmt(bill.revenue)+' ₫</b></div>'+bill.rows.map(row=>'<div class="kv"><span>'+row.name+'</span><b>'+fmt(row.fee)+' ₫</b></div>').join('')+'<div class="kv"><span>Phí tạm tính</span><b>'+fmt(bill.total)+' ₫</b></div><p class="muted">Phí được tính theo cấp tại lúc kết toán. Thiếu tiền sẽ gán nợ bằng thẻ như ngân hàng.</p><button class="btn block" data-a="closeM">Đóng</button>');
+}
+const liveBest=result=>GOD_ITEMS[result.bestGodKey]?{...GOD_ITEMS[result.bestGodKey],r:5,isGod:true}:ITEMS[result.bestId];
+function liveHistoryHTML(){
+  const rows=S.live.history||[];
+  return '<h3 class="control-subtitle">Lịch sử livestream</h3>'+(rows.length?rows.map(row=>{const it=liveBest(row);return '<div class="control-history"><small>Ngày '+row.day+' · '+esc(row.clock)+'</small><b>'+row.face+' '+esc(row.name)+' · '+row.total+' túi</b><span>'+ (row.high?'🤩 Hài lòng':'😞 Thất vọng')+' · '+(row.hot>0?'+':'')+row.hot+' HOT</span>'+(it?'<small>'+it.e+' '+esc(it.n)+'</small>':'<small>🗑️ Thẻ rác · 0 ₫</small>')+(row.trash?'<small>'+row.trash+' thẻ rác</small>':'')+(row.god?'<small>'+row.god+' God-item</small>':'')+'</div>';}).join(''):'<p class="muted">Chưa có lượt livestream hoàn tất được ghi lại.</p>');
+}
+function showLiveControl(){
+  sheet('<div class="row"><h2>📹 Livestream</h2><button class="chip" data-a="closeM">Đóng</button></div><div id="live-panel">'+livePanelHTML()+'</div><div id="live-history">'+liveHistoryHTML()+'</div>');
+}
+function securityHistoryHTML(){
+  const d=S.day$.theft,rows=S.securityHistory||[],last=S.lastSum;
+  return '<h3 class="control-subtitle">Lịch sử an ninh</h3><p class="muted">Hôm nay: mất '+d.lost+' túi · Đuổi '+d.caught+' trộm (camera: '+d.auto+').</p>'+(last&&last.theft?'<p class="muted">Kết ngày '+last.day+': mất '+last.theft.lost+' túi · Đuổi '+last.theft.caught+' trộm.</p>':'')+(rows.length?rows.map(row=>'<div class="control-history"><small>Ngày '+row.day+' · '+esc(row.clock)+'</small><b>'+esc(row.name)+'</b><span>'+(row.kind==='escape'?'Mất '+row.qty+' túi mù':(row.automatic?'Camera tự đánh đuổi':'Người chơi đánh đuổi')+' · Thu hồi '+row.qty+' túi')+'</span></div>').join(''):'<p class="muted">Chưa có sự việc an ninh được ghi lại.</p>');
+}
+function showCameraSettings(){
+  if(!S.camera.level)return;
+  sheet('<div class="row"><h2>📹 Camera an ninh</h2><button class="chip" data-a="closeM">Đóng</button></div><div id="camera-control-body">'+cameraPanel()+securityHistoryHTML()+'</div>');
+}
+function recordSecurity(kind,c,qty,automatic=false){
+  S.securityHistory.unshift({kind,day:S.day,clock:fmtClock(),name:c.name,qty,automatic});S.securityHistory.length=Math.min(50,S.securityHistory.length);
 }
 function livePanelHTML(){
   const active=S.customers.people.find(c=>c.state==='liveOpening'||c.state==='liveReact'),queue=liveWaiting();
@@ -799,10 +866,10 @@ function livePanelHTML(){
   if(active){
     const total=active.liveBags.reduce((n,L)=>n+L.qty,0),opening=active.state==='liveOpening';
     body='<div class="live-performance"><span class="live-face">'+active.face+'</span><div><b>'+esc(active.name)+'</b><small>'+ (opening?'🌀 Đang mở '+total+' túi':(active.liveResult.high?'🤩 Vui vẻ':'😞 Thất vọng'))+'</small></div></div><p class="muted">“'+esc(active.line)+'”</p>';
-    if(!opening){const it=ITEMS[active.liveResult.bestId];body+='<div class="live-result r'+it.r+'">'+it.e+' '+esc(it.n)+'<small>'+total+' túi · '+(active.exitHot>0?'+':'')+active.exitHot+' HOT khi khách rời tiệm</small></div>';}
+    if(!opening){const it=liveBest(active.liveResult);body+='<div class="live-result '+(it?(it.isGod?'god-glow':'r'+it.r):'trash-card')+'">'+(it?it.e+' '+esc(it.n):'🗑️ Thẻ rác · 0 ₫')+'<small>'+total+' túi · '+(active.exitHot>0?'+':'')+active.exitHot+' HOT khi khách rời tiệm</small></div>';}
   }
   if(queue.length)body+='<div class="live-waiting">Đang chờ: '+queue.map(c=>c.face+' '+esc(c.name)).join(' · ')+'</div>';
-  if(!active&&S.live.last){const result=S.live.last,it=ITEMS[result.bestId];if(it)body+='<small class="muted">Lượt gần nhất: '+esc(result.name)+' · '+result.total+' túi · '+it.e+' '+esc(it.n)+'</small>';}
+  if(!active&&S.live.last){const result=S.live.last,it=liveBest(result);body+='<small class="muted">Lượt gần nhất: '+esc(result.name)+' · '+result.total+' túi · '+(it?it.e+' '+esc(it.n):'🗑️ Thẻ rác · 0 ₫')+'</small>';}
   return '<div class="row"><h3>📹 Livestream</h3>'+(S.adminCard?'<button class="chip" data-a="liveSettings">⚙️ Cài đặt</button>':'')+'</div>'+body;
 }
 function hotCircle(){
@@ -882,7 +949,7 @@ function openRoyalBag(ci){
 function godStockHTML(){
   const boxes=Object.keys(S.godBoxes).map(Number).filter(ci=>S.godBoxes[ci]>0),bags=Object.keys(S.royalBags).map(Number).filter(ci=>S.royalBags[ci]>0);
   if(!boxes.length&&!bags.length)return '';
-  return '<div class="card"><h3>✨ GOD-BOX & túi cao cấp</h3><div class="shop-grid">'+boxes.map(ci=>'<button class="bagcard god-glow" data-a="godBoxInfo" data-ci="'+ci+'"><span class="stock-art">🌟</span><span class="bc-n">'+esc(godBoxName(ci))+'</span><small>×'+S.godBoxes[ci]+' · 6 túi / box</small></button>').join('')+bags.map(ci=>'<button class="bagcard god-glow" data-a="royalBagInfo" data-ci="'+ci+'"><span class="stock-art">💠</span><span class="bc-n">Túi cao cấp: '+esc(COLS[ci].name)+'</span><small>×'+S.royalBags[ci]+' · Không giao dịch</small></button>').join('')+'</div></div>';
+  return '<div class="card"><h3>✨ GOD-BOX & túi cao cấp</h3><div class="shop-grid">'+boxes.map(ci=>'<button class="bagcard god-glow" data-a="godBoxInfo" data-ci="'+ci+'"><span class="stock-art">🌟</span><span class="bc-n">'+esc(godBoxName(ci))+'</span><small>×'+S.godBoxes[ci]+' · 6 túi / box</small></button>').join('')+bags.map(ci=>'<button class="bagcard fx-silver fx-silver-spark" data-a="royalBagInfo" data-ci="'+ci+'"><span class="stock-art">💠</span><span class="bc-n">Túi cao cấp: '+esc(COLS[ci].name)+'</span><small>×'+S.royalBags[ci]+' · Không giao dịch</small></button>').join('')+'</div></div>';
 }
 function showGodBox(ci){
   if(!(S.godBoxes[ci]>0))return;
@@ -890,7 +957,7 @@ function showGodBox(ci){
 }
 function showRoyalBag(ci){
   if(!(S.royalBags[ci]>0))return;
-  sheet('<h2>💠 Túi cao cấp: '+esc(COLS[ci].name)+'</h2><p class="muted">Đang có '+S.royalBags[ci]+' túi. Bảo đảm Cực hiếm trở lên; '+S.godConfig.chance+'% ra một trong 3 God-item ẩn. Túi không thể đăng bán.</p><div class="btnrow"><button class="btn" data-a="closeM">Đóng</button><button class="btn primary" data-a="royalTear" data-ci="'+ci+'">Mở x1 túi</button><button class="btn" data-a="royalQuick" data-ci="'+ci+'">Mở nhanh ('+S.royalBags[ci]+')</button></div>');
+  sheet('<h2 class="product-title fx-silver fx-silver-spark">💠 Túi cao cấp: '+esc(COLS[ci].name)+'</h2><p class="muted">Đang có '+S.royalBags[ci]+' túi. Bảo đảm Cực hiếm trở lên; '+S.godConfig.chance+'% ra một trong 3 God-item ẩn. Túi không thể đăng bán.</p><div class="btnrow"><button class="btn" data-a="closeM">Đóng</button><button class="btn primary" data-a="royalTear" data-ci="'+ci+'">Mở x1 túi</button><button class="btn" data-a="royalQuick" data-ci="'+ci+'">Mở nhanh ('+S.royalBags[ci]+')</button></div>');
 }
 function godInventoryHTML(){
   const raw=Object.keys(S.godCards).filter(key=>GOD_ITEMS[key]&&S.godCards[key]>0);
@@ -963,10 +1030,11 @@ function escapeThief(c){
   if(c.theftSettled||c.caught)return;c.theftSettled=true;
   const qty=c.cart.reduce((n,L)=>n+L.qty,0);S.day$.theft.lost+=qty;
   for(const L of c.cart)S.day$.theft.byCol[L.ci]=(S.day$.theft.byCol[L.ci]||0)+L.qty;
-  c.cart=[];if(qty)logTx('Thất thoát do trộm · '+qty+' túi mù',0);
+  c.cart=[];if(qty)recordSecurity('escape',c,qty);if(qty)logTx('Thất thoát do trộm · '+qty+' túi mù',0);
 }
 function catchThief(uid,automatic=false){
   const c=S.customers.people.find(c=>c.uid===uid&&c.thief&&!c.caught&&!c.theftSettled);if(!c)return false;
+  const recovered=c.cart.reduce((n,L)=>n+L.qty,0);recordSecurity('caught',c,recovered,automatic);
   restoreCustomerCart(c);c.caught=true;S.day$.theft.caught++;if(automatic)S.day$.theft.auto++;
   customerState(c,'leaving',1,'');save();return true;
 }
@@ -975,10 +1043,14 @@ function cameraSweep(){
   for(const c of S.customers.people.slice())if(c.thief&&!c.caught&&!c.theftSettled){toast('📹 Camera phát hiện có trộm đã đến cửa hàng.');catchThief(c.uid,true);changed=true;}
   return changed;
 }
+function cameraAlertHTML(){
+  const intruders=S.customers.people.filter(c=>c.thief&&!c.caught&&!c.theftSettled);
+  return cameraActive()&&S.camera.level===2&&intruders.length?'<div class="warn camera-alert">🚨 Có '+intruders.length+' kẻ trộm trong cửa hàng. Bấm người giấu mặt để đánh đuổi.</div>':'';
+}
 function cameraPanel(){
   if(!S.camera.level)return '';
   const intruders=S.customers.people.filter(c=>c.thief&&!c.caught&&!c.theftSettled),alert=cameraActive()&&S.camera.level===2&&intruders.length;
-  return '<div class="card"><h3>📹 Camera an ninh · Cấp '+S.camera.level+'</h3>'+autoCheckbox('Camera an ninh','cameraToggle',S.camera.on)+'<p class="muted">'+['','Đánh dấu tên trộm màu đỏ.','Đánh dấu đỏ và cảnh báo tại Cửa hàng.','Tự phát hiện và đánh đuổi trộm; báo cáo khi kết ngày.'][S.camera.level]+' Không tính phí nhân viên hằng ngày.</p>'+(alert?'<div class="warn">🚨 Camera phát hiện '+intruders.length+' kẻ trộm trong cửa hàng. Bấm vào người giấu mặt để đánh đuổi.</div>':'')+(S.camera.level<3?'<button class="btn" data-a="cameraUpgrade">Nâng cấp · 500.000 ₫</button>':'')+'</div>';
+  return '<div class="card"><h3>📹 Camera an ninh · Cấp '+S.camera.level+'</h3><p class="muted">'+['','Đánh dấu tên trộm màu đỏ.','Đánh dấu đỏ và cảnh báo tại Cửa hàng.','Tự phát hiện và đánh đuổi trộm; báo cáo khi kết ngày.'][S.camera.level]+' Không tính phí nhân viên hằng ngày.</p>'+(alert?'<div class="warn">🚨 Camera phát hiện '+intruders.length+' kẻ trộm trong cửa hàng. Bấm vào người giấu mặt để đánh đuổi.</div>':'')+(S.camera.level<3?'<button class="btn" data-a="cameraUpgrade">Nâng cấp · 500.000 ₫</button>':'')+'</div>';
 }
 function buyCamera(){
   if(S.camera.level)return 'Bạn đã có Camera an ninh.';
@@ -994,12 +1066,12 @@ function upgradeCamera(){
 function supermarketEquipment(){return '<div class="card"><h3>📹 Camera an ninh</h3><p class="muted">Cần cấp 5 · Giá 500.000 ₫. Cấp 1 nhận diện tên trộm màu đỏ; nâng cấp để cảnh báo và tự đánh đuổi. Mỗi lần nâng cấp 500.000 ₫; không thu phí hằng ngày.</p>'+(S.camera.level?'<b>Đã sở hữu · Cấp '+S.camera.level+'</b>'+(S.camera.level<3?'<button class="btn block" data-a="cameraUpgrade">Nâng cấp · 500.000 ₫</button>':''):'<button class="btn primary" data-a="cameraBuy"'+(S.lvl<5||S.money<500000?' disabled':'')+'>Mua Camera · 500.000 ₫</button>')+'</div>';}
 function godCollectionHTML(ci){
   const owned=key=>(S.godCards[key]||0)>0||S.godCert.some(c=>c.key===key)||S.godAppr.some(c=>c.key===key);
-  return '<h4 class="rh">✨ God-item · 3 thẻ ẩn</h4><p class="muted">Chỉ nhận được khi mở túi mù cao cấp, túi Hoàng kim hoặc túi Kim cương. Không tính vào tiến độ 36 thẻ.</p><div class="tiles">'+Object.values(GOD_ITEMS).filter(it=>it.ci===ci).map(it=>{const known=S.admin||owned(it.key),cert=S.godCert.find(c=>c.key===it.key);return '<button class="tile '+(known?'god-glow':'unk god-hidden')+'" data-a="godPreview" data-key="'+it.key+'"'+(cert?' data-uid="'+cert.uid+'"':'')+'><span class="t-e">'+(known?it.e:'❔')+'</span><span class="t-n">'+(known?esc(it.n):'??')+'</span><span class="t-d">'+(known?'God-item':'Chưa khám phá')+'</span></button>';}).join('')+'</div>';
+  return '<h4 class="rh">✨ God-item · 3 thẻ ẩn</h4><p class="muted">Có thể nhận từ túi mù thường (1%), túi cao cấp của GOD-BOX (mặc định 3%, Admin chỉnh được), Hoàng kim hoặc Kim cương (2%). Không tính vào tiến độ 36 thẻ.</p><div class="tiles">'+Object.values(GOD_ITEMS).filter(it=>it.ci===ci).map(it=>{const known=S.admin||owned(it.key),cert=S.godCert.find(c=>c.key===it.key);return '<button class="tile '+(known?'god-glow':'unk god-hidden')+'" data-a="godPreview" data-key="'+it.key+'"'+(cert?' data-uid="'+cert.uid+'"':'')+'><span class="t-e">'+(known?it.e:'❔')+'</span><span class="t-n">'+(known?esc(it.n):'??')+'</span><span class="t-d">'+(known?'God-item':'Chưa khám phá')+'</span></button>';}).join('')+'</div>';
 }
 function showGodReward(r,actions){const it=GOD_ITEMS[r.key];sheet('<div class="god-detail god-glow"><span class="god-emblem">'+it.e+'</span><h2>'+esc(it.n)+'</h2><b>✨ GOD-ITEM'+(r.isNew?' · MỚI':'')+'</b><p>'+fmt(godPrice(r.key))+' ₫ · +'+r.xp+' XP</p><p class="muted">Thẻ ẩn · Chỉ sưu tầm và thẩm định</p>'+actions+'</div>');sfxRare(5);}
 function gainGod(ci){
   const key='god:'+ci+':'+randInt(0,2),isNew=!(S.godCards[key]>0)&&!S.godCert.some(c=>c.key===key)&&!S.godAppr.some(c=>c.key===key),xp=XPR[5]*CFG.XP_SCALE;
-  S.godCards[key]=(S.godCards[key]||0)+1;addXp(xp);logTx('Mở túi đặc biệt: '+GOD_ITEMS[key].n+' (God-item)',0);return {kind:'god',key,isNew,xp};
+  S.godCards[key]=(S.godCards[key]||0)+1;addXp(xp);logTx('Mở túi: '+GOD_ITEMS[key].n+' (God-item)',0);return {kind:'god',key,isNew,xp};
 }
 function admVisitorSettings(){
   const fields=[['vipMin','VIP: cách ít nhất (ngày)'],['vipMax','VIP: cách tối đa (ngày)'],['vipCount','Số VIP mỗi đợt'],['thiefMin','Trộm: cách ít nhất (ngày)'],['thiefMax','Trộm: cách tối đa (ngày)'],['thiefCountMin','Ít nhất số trộm / đợt'],['thiefCountMax','Tối đa số trộm / đợt'],['stealMin','Ít nhất túi / trộm'],['stealMax','Tối đa túi / trộm']];
@@ -1060,25 +1132,130 @@ function viewDuel(kind){
 }
 function admDuelSettings(){return '<div class="card"><h3>Tỉ lệ thắng NPC · Đấu thẻ</h3><p class="muted">Mặc định 50/50. Tăng tỉ lệ sẽ tăng khả năng NPC chọn thẻ mạnh hơn. Kết quả luôn so sánh giá/điểm thật; nếu thẻ đã ở cực trị, có thể hòa.</p>'+['arena','legend'].map(k=>'<label>'+(k==='arena'?'Đấu trường':'Thách đấu Huyền thoại')+' (%)<input class="rin" id="duel-'+k+'" type="number" min="0" max="100" value="'+S.duels.npcWin[k]+'"></label>').join('')+'<button class="btn primary" data-a="duelConfigSave">Lưu tỉ lệ</button></div>';}
 
+/* Shared balancing values are embedded in this HTML, never in player inventory data. */
+const LOCAL_BALANCE=/*BINK_BALANCE_START*/{"version":1,"revision":"","settings":null}/*BINK_BALANCE_END*/;
+function validateSystemSettings(input){
+  if(!input||typeof input!=='object'||Array.isArray(input))throw Error('Bộ thông số không hợp lệ.');
+  const number=(v,min,max,label,integer=false)=>{if(typeof v!=='number'||!Number.isFinite(v)||v<min||v>max||(integer&&!Number.isSafeInteger(v)))throw Error('Thông số không hợp lệ: '+label);return v;};
+  const weights=(a,n,label)=>{if(!Array.isArray(a)||a.length!==n)throw Error('Sai số bậc: '+label);const out=a.map(v=>number(v,0,100,label));if(out.reduce((a,b)=>a+b,0)<=0)throw Error('Tổng tỉ lệ phải lớn hơn 0: '+label);return out;};
+  const x=input,out={};
+  out.realDaySec=number(x.realDaySec,6,7200,'Thời gian ngày',true);out.staffRate=number(x.staffRate,0,100,'Phí nhân viên');
+  out.customerMax=x.customerMax===null?null:number(x.customerMax,1,500,'Sức mua tối đa',true);
+  out.customerBuyRate=x.customerBuyRate===null?null:number(x.customerBuyRate,0,100,'Tỉ lệ mua');
+  out.ddWin=number(x.ddWin,0,100,'Tỉ lệ Đu đỉnh');
+  if(!x.godConfig||!x.visitorConfig||!x.duelNpcWin||!x.live||!x.adConf)throw Error('Thiếu nhóm thông số cân bằng.');
+  out.godConfig={normal:number(x.godConfig.normal,1,Number.MAX_SAFE_INTEGER,'Mốc GOD-BOX thường',true),premium:number(x.godConfig.premium,1,Number.MAX_SAFE_INTEGER,'Mốc GOD-BOX cao cấp',true),chance:number(x.godConfig.chance,0,100,'Tỉ lệ God-item')};
+  out.visitorConfig={};for(const key of Object.keys(newVisitorConfig()))out.visitorConfig[key]=number(x.visitorConfig[key],1,100,key,true);
+  for(const [a,b] of [['vipMin','vipMax'],['thiefMin','thiefMax'],['thiefCountMin','thiefCountMax'],['stealMin','stealMax']])if(out.visitorConfig[a]>out.visitorConfig[b])throw Error('Mốc tối thiểu vượt tối đa: '+a);
+  out.duelNpcWin={arena:number(x.duelNpcWin.arena,0,100,'NPC Đấu trường'),legend:number(x.duelNpcWin.legend,0,100,'NPC Huyền thoại')};
+  out.live={chance:number(x.live.chance,0,100,'Tỉ lệ livestream'),openSec:number(x.live.openSec,.5,5,'Tốc độ mở livestream')};
+  out.adRates=null;if(x.adRates!==null){if(!x.adRates||typeof x.adRates!=='object'||Array.isArray(x.adRates))throw Error('Tỉ lệ mở túi không hợp lệ.');out.adRates={};for(const key of Object.keys(x.adRates)){if(!['1','2','3','4','5'].includes(key))throw Error('Sai mức may mắn.');out.adRates[key]=weights(x.adRates[key],6,'Tỉ lệ túi '+key);}}
+  const c=x.adConf;
+  if(!Array.isArray(c.base)||c.base.length!==6)throw Error('Cần đủ 6 hệ số giá thẻ.');
+  out.adConf={base:c.base.map(v=>number(v,Number.MIN_VALUE,1e9,'Hệ số giá')),spread:number(c.spread,0,.45,'Chênh lệch giá'),apW:c.apW===null?null:weights(c.apW,4,'Điểm thẩm định')};
+  for(const key of ['mkMin','mkMax','fmGamma','fmKappa','fmVol','fmShock','fmDepth','fmFill','fmTol'])out.adConf[key]=number(c[key],0,1e9,key);
+  if(out.adConf.mkMax<=0||out.adConf.mkMin>out.adConf.mkMax)throw Error('Biên độ thị trường không hợp lệ.');
+  return out;
+}
+function captureSystemSettings(state){
+  const adConf={};for(const key of Object.keys(CONF_DEF))adConf[key]=state.adConf&&state.adConf[key]!=null?state.adConf[key]:CONF_DEF[key];
+  return validateSystemSettings({realDaySec:state.realDaySec,staffRate:state.staffRate,customerMax:state.customerMax,customerBuyRate:state.customerBuyRate,ddWin:state.ddWin,godConfig:state.godConfig,visitorConfig:state.visitorConfig,duelNpcWin:state.duels.npcWin,live:{chance:state.live.chance,openSec:state.live.openSec},adRates:state.adRates,adConf});
+}
+function validateBalanceProfile(profile){
+  if(!profile||profile.version!==1||typeof profile.revision!=='string'||!/^[a-z0-9-]{1,100}$/i.test(profile.revision))throw Error('Phiên bản cấu hình không hợp lệ.');
+  return {version:1,revision:profile.revision,settings:validateSystemSettings(profile.settings)};
+}
+function applySystemBalance(state,profile=LOCAL_BALANCE){
+  if(!profile.revision||!profile.settings||state.balanceRevision===profile.revision)return false;
+  let checked;try{checked=validateBalanceProfile(profile);}catch(e){return false;}
+  const x=checked.settings,visitorsChanged=JSON.stringify(state.visitorConfig)!==JSON.stringify(x.visitorConfig);
+  for(const key of ['realDaySec','staffRate','customerMax','customerBuyRate','ddWin','godConfig','visitorConfig','adRates','adConf'])state[key]=JSON.parse(JSON.stringify(x[key]));
+  state.duels.npcWin={...x.duelNpcWin};state.live.chance=x.live.chance;state.live.openSec=x.live.openSec;
+  if(visitorsChanged&&state.visitors){state.visitors.vipNext=state.day+randInt(x.visitorConfig.vipMin,x.visitorConfig.vipMax);state.visitors.thiefNext=state.day+randInt(x.visitorConfig.thiefMin,x.visitorConfig.thiefMax);}
+  state.balanceRevision=checked.revision;return true;
+}
+function readBalanceFromHTML(source){
+  const matches=[...source.matchAll(/\/\*BINK_BALANCE_START\*\/([\s\S]*?)\/\*BINK_BALANCE_END\*\//g)];
+  if(matches.length!==1||!source.includes("const KEY='blinkshop.save.v1'"))throw Error('Hãy chọn đúng file HTML của bản game này.');
+  let current;try{current=JSON.parse(matches[0][1]);}catch(e){throw Error('File HTML có cấu hình bị lỗi.');}
+  if(current.version!==1||typeof current.revision!=='string')throw Error('File HTML chưa hỗ trợ bộ cấu hình này.');
+  return {current,marker:matches[0][0]};
+}
+function patchBalanceHTML(source,profile,expectedRevision=LOCAL_BALANCE.revision){
+  const checked=validateBalanceProfile(profile),{current,marker}=readBalanceFromHTML(source);
+  if(current.revision!==expectedRevision)throw Error('File đã được áp dụng cấu hình khác. Hãy tải lại đúng file đó trước khi ghi tiếp.');
+  const json=JSON.stringify(checked).replace(/</g,'\\u003c');
+  // A callback preserves literal characters instead of treating replacement text as patterns.
+  const start='/*BINK_'+'BALANCE_START*/',end='/*BINK_'+'BALANCE_END*/';
+  return source.replace(marker,()=>start+json+end);
+}
+function localBalanceOverview(settings){
+  return '<div class="kv"><span>Một ngày game</span><b>'+Number((settings.realDaySec/60).toFixed(2))+' phút thực</b></div><div class="kv"><span>Phí cơ bản mỗi chế độ tự động</span><b>'+settings.staffRate+'%</b></div><div class="kv"><span>Mốc GOD-BOX thường / cao cấp</span><b>'+settings.godConfig.normal+' / '+settings.godConfig.premium+'</b></div><div class="kv"><span>God-item / túi cao cấp</span><b>'+settings.godConfig.chance+'%</b></div><div class="kv"><span>NPC Đấu trường / Huyền thoại</span><b>'+settings.duelNpcWin.arena+'% / '+settings.duelNpcWin.legend+'%</b></div><p class="muted">Bao gồm tỉ lệ mở túi, thẩm định, Đu đỉnh, giá cơ bản, sức mua khách, lịch VIP/trộm và thông số livestream.</p>';
+}
+function showPublishBalance(){
+  if(!S||!S.adminCard)return;
+  let settings;try{settings=captureSystemSettings(S);}catch(e){toast(e.message,'bad');return;}
+  ui.balanceDraft={version:1,revision:Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10),settings};
+  sheet('<h2>Áp dụng lên toàn hệ thống</h2><p class="muted">Ghi bộ thông số hiện tại vào file HTML game được chọn. Sau khi tải lại file đã ghi, người chơi mới và bản lưu cũ đều dùng cấu hình này. Hãy bấm Áp dụng ở từng mục Admin trước khi mở bảng này.</p>'+localBalanceOverview(settings)+'<p class="muted">Chỉ phát hành thông số cân bằng. Tiền, cấp, vật phẩm, ép sao thử nghiệm, biến động thị trường hiện tại và các công tắc tự động của m không được chép sang người chơi khác.</p><details><summary>Xem đầy đủ thông số</summary><pre class="balance-json">'+esc(JSON.stringify(settings,null,2))+'</pre></details><div class="btnrow"><button class="btn" data-a="adminCard">Quay lại</button><button class="btn primary" data-a="balanceWrite">Chọn file và ghi đè</button></div><p class="muted">Trình duyệt sẽ yêu cầu chọn file và cấp quyền ghi. File được cập nhật cấu hình, giữ nguyên phần code còn lại. Phần máy chủ đang tạm ngưng.</p>');
+}
+function finishBalancePublish(profile,name){
+  Object.assign(LOCAL_BALANCE,profile);applySystemBalance(S,profile);S.balanceRevision=profile.revision;applyBase();COLS.forEach(c=>grantGodRewards(c.id));save();
+  ui.balanceDraft=null;sheet('<h2>Đã áp dụng vào file</h2><p>'+esc(name)+' đã chứa bộ thông số cân bằng mới.</p><p class="muted">Tải lại file vừa chọn để kiểm tra. Khi chia sẻ file đã cập nhật cho người khác, bản lưu cũ của họ vẫn được giữ; thông số mới được nhận khi tải lại.</p><button class="btn primary block" data-a="closeM">Xong</button>');
+}
+async function writeLocalBalance(){
+  if(!S||!S.adminCard||!ui.balanceDraft||ui.balanceWriting)return;
+  if(typeof window.showOpenFilePicker!=='function'){showBalanceFileFallback();return;}
+  const profile=JSON.parse(JSON.stringify(ui.balanceDraft));let writable;
+  ui.balanceWriting=true;
+  try{
+    const [handle]=await window.showOpenFilePicker({multiple:false,types:[{description:'File HTML game',accept:{'text/html':['.html','.htm']}}]});
+    const original=await (await handle.getFile()).text(),updated=patchBalanceHTML(original,profile);
+    const script=updated.match(/<script>([\s\S]*?)<\/script>/);if(!script)throw Error('Không tìm thấy code game.');new Function(script[1]);
+    writable=await handle.createWritable();await writable.write(updated);await writable.close();writable=null;
+    const saved=readBalanceFromHTML(await (await handle.getFile()).text()).current;
+    if(JSON.stringify(saved)!==JSON.stringify(validateBalanceProfile(profile)))throw Error('Chưa xác nhận được file đã ghi. Hãy kiểm tra lại file.');
+    finishBalancePublish(profile,handle.name);
+  }catch(e){if(writable)try{await writable.abort();}catch(ignore){}if(e.name!=='AbortError')toast(e.message||'Không thể ghi file. Hãy kiểm tra quyền truy cập.','bad');}
+  finally{ui.balanceWriting=false;}
+}
+function showBalanceFileFallback(){
+  sheet('<h2>Trình duyệt chưa hỗ trợ ghi trực tiếp</h2><p class="muted">Dùng Chrome/Edge hỗ trợ quyền ghi file để ghi đè trực tiếp. Hoặc chọn file HTML bên dưới để tải một bản đã áp dụng; sau đó tự thay file cũ bằng bản tải về.</p><input class="txt" type="file" id="balance-source" accept=".html,.htm,text/html"><div id="balance-download"></div><button class="btn block" data-a="closeM">Đóng</button>');
+}
+async function prepareBalanceDownload(file){
+  if(!S||!S.adminCard||!ui.balanceDraft||!file)return;
+  try{const updated=patchBalanceHTML(await file.text(),ui.balanceDraft);if(ui.balanceDownloadURL)window.URL.revokeObjectURL(ui.balanceDownloadURL);ui.balanceDownloadURL=window.URL.createObjectURL(new Blob([updated],{type:'text/html;charset=utf-8'}));$('#balance-download').innerHTML='<a class="btn primary block" href="'+esc(ui.balanceDownloadURL)+'" download="index.html">Tải file HTML đã áp dụng</a><p class="muted">Chưa ghi đè file gốc. Hãy thay file cũ bằng bản tải về và tải lại game.</p>';}catch(e){toast(e.message,'bad');}
+}
+
+/* Collectible-only trash cards deliberately live outside ITEMS and every trading pool. */
+const trashName=ci=>'Thẻ rác '+COLS[ci].name;
+function trashTile(ci,preview=false){const qty=S.trashCards[ci]||0;return '<button class="tile trash-card'+(!qty&&preview?' trash-preview':'')+'" data-a="trashInfo" data-ci="'+ci+'"><span class="t-e">🗑️</span><span class="t-n">'+esc(trashName(ci))+'</span><span class="t-q">'+(qty?'×'+qty:'Chưa sở hữu')+'</span><span class="t-d">0 ₫ · Chỉ sưu tầm</span></button>';}
+function trashCollectionHTML(ci){return '<h4 class="rh" style="color:var(--ink2)">🗑️ Thẻ rác sưu tầm</h4><p class="muted">1% khi xé túi mù thường của BST này. Giá trị 0 ₫, không tính vào 36 thẻ chính. Không giao dịch, bán, cược, ghép, thẩm định hoặc gán nợ.</p><div class="tiles">'+trashTile(ci,true)+'</div>';}
+function trashInventoryHTML(){const ids=Object.keys(S.trashCards).map(Number).filter(ci=>COLS[ci]&&S.trashCards[ci]>0);return ids.length?'<div class="card"><h3>🗑️ Thẻ rác sưu tầm</h3><div class="tiles">'+ids.map(ci=>trashTile(ci)).join('')+'</div></div>':'';}
+function showTrashInfo(ci){if(!COLS[ci])return;sheet('<h2>🗑️ '+esc(trashName(ci))+'</h2><div class="kv"><span>Đang có</span><b>'+ (S.trashCards[ci]||0)+'</b></div><div class="kv"><span>Giá trị</span><b>0 ₫</b></div><p class="muted">Chỉ để sưu tầm. Tỉ lệ 1% khi mở túi mù thường của '+esc(COLS[ci].name)+'. Không tính vào 36 thẻ chính, không thể giao dịch, bán, cược, ghép, thẩm định hoặc dùng trả nợ.</p><button class="btn block" data-a="closeM">Đóng</button>');}
+function showTrashReveal(result,actions){sheet('<div class="trash-reveal"><span class="god-emblem">🗑️</span><h2>'+esc(trashName(result.ci))+'</h2><p>0 ₫'+(result.isNew?' · <b>MỚI</b>':'')+'</p><p class="muted">Thẻ sưu tầm ngoài BST · Không giao dịch hoặc thẩm định</p>'+actions+'</div>');}
 /* ============ TRẠNG THÁI ============ */
 let S=null;
 let storageOK=true;
 const ui={askId:null,askPct:5,bulkPct:5,feedI:0,back:'shop',last:{market:'bm',community:'bank'},sel:{},selMode:false,selKeep:false,suppress:false,screen:'title',tab:'shop',sub:{market:'bm',shop:'home',kho:'stock',bag:'bags',char:'bag',sys:'sys',adm:'lv',bmx:'tr'},bstCol:null,isort:'col',irar:-1,icol:-1,sig:'',buy:{c:0,q:1},conf:null,lastSave:0,dirty:false};
 
 function newState(name){
-  const s={v:1,name,lvl:1,xp:0,lp:20.3,forced:0,money:CFG.START_MONEY,day:1,clock:CFG.DAY_START,
-    camera:{level:0,on:false},visitorConfig:newVisitorConfig(),visitors:{day:0,plan:[],vipNext:0,thiefNext:0,vipToday:false},duels:newDuels(),godBoxes:{},royalBags:{},godCards:{},godCert:[],godAppr:[],boxImports:{},godRewards:{},godConfig:{normal:180,premium:150,chance:1},realDaySec:CFG.REAL_DAY_SEC,bags:{},boxes:{},bagP:{},bagO:{},restock:{bagsOn:false,cardsOn:false,budgetPct:20,rarities:[],watch:{},notice:{},next:0},inv:{},disc:{},market:{},pity:0,stats:{got:[0,0,0,0,0,0],bags:0,peak:CFG.START_MONEY},
-    day$:null,bm:null,au:null,trade:null,dd:null,ddCount:0,ddLast:null,cert:[],appr:[],uid:1,locked:{},staffRate:2,capital:CFG.START_MONEY,news:[],codes:{},adConf:null,paidCols:{},sp:{gold:0,dia:0},chk:{last:0,streak:0},mkP:{},mkS:{},mkD:{},mkO:{},mkH:Array(COLS.length).fill(1),macro:1,hourN:0,safe:0,listings:[],sales:[],cost:{},autoLock:{},mkEv:[],ddWin:50,adRates:null,loans:[],bankrupt:false,closed:false,log:[],lastSum:null,shelfSlots:{bags:36,cards:24},shopPaused:false,hot:0,live:{enabled:false,chance:40,openSec:1,reactionSec:3,last:null},customers:newCustomerState(),customerMax:null,customerBuyRate:null,dayStarted:false,adminCard:false,admin:false,overNote:false,savedAt:0};
+  const s={v:1,balanceRevision:"",name,lvl:1,xp:0,lp:20.3,forced:0,money:CFG.START_MONEY,day:1,clock:CFG.DAY_START,
+    camera:{level:0,on:false},visitorConfig:newVisitorConfig(),visitors:{day:0,plan:[],vipNext:0,thiefNext:0,vipToday:false},duels:newDuels(),trashCards:{},godBoxes:{},royalBags:{},godCards:{},godCert:[],godAppr:[],boxImports:{},godRewards:{},godConfigVersion:2,godConfig:{normal:180,premium:150,chance:3},realDaySec:CFG.REAL_DAY_SEC,bags:{},boxes:{},bagP:{},bagO:{},restock:{bagsOn:false,cardsOn:false,budgetPct:20,rarities:[],watch:{},notice:{},next:0},inv:{},disc:{},market:{},pity:0,stats:{got:[0,0,0,0,0,0],bags:0,peak:CFG.START_MONEY},
+    day$:null,bm:null,au:null,trade:null,dd:null,ddCount:0,ddLast:null,cert:[],appr:[],uid:1,locked:{},staffRate:1,staffRateVersion:2,securityHistory:[],capital:CFG.START_MONEY,news:[],codes:{},adConf:null,paidCols:{},sp:{gold:0,dia:0},chk:{last:0,streak:0},mkP:{},mkS:{},mkD:{},mkO:{},mkH:Array(COLS.length).fill(1),macro:1,hourN:0,safe:0,listings:[],sales:[],cost:{},autoLock:{},mkEv:[],ddWin:50,adRates:null,loans:[],bankrupt:false,closed:false,log:[],lastSum:null,shelfSlots:{bags:36,cards:24},shopPaused:false,hot:0,live:{enabled:false,chance:40,openSec:1,reactionSec:3,last:null,history:[]},customers:newCustomerState(),customerMax:null,customerBuyRate:null,dayStarted:false,adminCard:false,admin:false,overNote:false,savedAt:0};
   ITEMS.forEach(it=>{const pr=Math.round(it.anchor*(0.95+0.15*Math.random())/10)*10;s.mkP[it.id]=pr;s.mkO[it.id]=pr;s.mkS[it.id]=1;s.mkD[it.id]=1;});
   COLS.forEach(c=>{s.bagP[c.id]=bagPrice(c.id);s.bagO[c.id]=bagPrice(c.id);});
+  applySystemBalance(s);
   return s;
 }
 function migrate(o){
   const d=newState(o.name||'Người chơi');
   const s=Object.assign(d,Object.fromEntries(Object.entries(o).filter(([key])=>key in d)));
-  s.godConfig=Object.assign({normal:180,premium:150,chance:1},o.godConfig||{});
+  s.godConfig=Object.assign({normal:180,premium:150,chance:3},o.godConfig||{});
+  if(o.godConfigVersion!==2&&o.godConfig?.chance===1)s.godConfig.chance=3;
+  s.godConfigVersion=2;
   s.godConfig.normal=Math.max(1,Math.floor(Number(s.godConfig.normal)||180));s.godConfig.premium=Math.max(1,Math.floor(Number(s.godConfig.premium)||150));s.godConfig.chance=clamp(Number(s.godConfig.chance)||0,0,100);
   for(const field of ['godBoxes','royalBags','boxImports','godRewards']){s[field]=Object.fromEntries(Object.entries(s[field]||{}).filter(([ci,n])=>COLS[+ci]&&Number.isSafeInteger(n)&&n>0));}
+  s.trashCards=Object.fromEntries(Object.entries(o.trashCards||{}).filter(([ci,n])=>/^(0|[1-9]\d*)$/.test(ci)&&COLS[+ci]&&Number.isSafeInteger(n)&&n>0));
   s.godCards=Object.fromEntries(Object.entries(s.godCards||{}).filter(([key,n])=>GOD_ITEMS[key]&&Number.isSafeInteger(n)&&n>0));
   s.godCert=(Array.isArray(s.godCert)?s.godCert:[]).filter(c=>GOD_ITEMS[c.key]);s.godAppr=(Array.isArray(s.godAppr)?s.godAppr:[]).filter(c=>GOD_ITEMS[c.key]);
   s.camera=Object.assign({level:0,on:false},o.camera||{});s.camera.level=clamp(Math.floor(Number(s.camera.level)||0),0,3);s.camera.on=!!s.camera.on&&s.camera.level>0;
@@ -1097,7 +1274,9 @@ function migrate(o){
   if(o.restock?.on!=null){if(o.restock.bagsOn==null)s.restock.bagsOn=!!o.restock.on;if(o.restock.cardsOn==null)s.restock.cardsOn=!!o.restock.on;}
   delete s.restock.on;
   s.hot=Math.max(0,Math.round(Number(o.hot)||0));s.shopPaused=!!o.shopPaused;
-  s.live=Object.assign({enabled:false,chance:40,openSec:1,reactionSec:3,last:null},o.live||{});
+  s.live=Object.assign({enabled:false,chance:40,openSec:1,reactionSec:3,last:null,history:[]},o.live||{});
+  s.live.history=(Array.isArray(s.live.history)?s.live.history:[]).filter(row=>row&&row.total>0&&(ITEMS[row.bestId]||row.trash>0||GOD_ITEMS[row.bestGodKey])).slice(0,50);
+  s.securityHistory=(Array.isArray(s.securityHistory)?s.securityHistory:[]).filter(row=>['caught','escape'].includes(row.kind)).slice(0,50);
   s.live.chance=clamp(Number(s.live.chance)||0,0,100);s.live.openSec=clamp(Number(s.live.openSec)||1,.5,5);s.live.reactionSec=3;
   s.restock.budgetPct=clamp(Number(s.restock.budgetPct)||0,0,100);
   s.restock.rarities=(Array.isArray(s.restock.rarities)?s.restock.rarities:[]).filter(r=>Number.isInteger(r)&&r>=0&&r<=5);
@@ -1137,7 +1316,10 @@ function migrate(o){
   s.capital=o.capital!=null?o.capital:500000;
   if(!Array.isArray(s.news)) s.news=[];
   if(!s.codes) s.codes={};
-  s.staffRate=Number.isFinite(Number(s.staffRate))?clamp(Number(s.staffRate),0,100):2;
+  const oldStaffRate=Number(o.staffRate);
+  s.staffRate=Number.isFinite(oldStaffRate)&&o.staffRate!=null?clamp(oldStaffRate,0,100):1;
+  if(o.staffRateVersion!==2&&(o.staffRate==null||oldStaffRate===2))s.staffRate=1;
+  s.staffRateVersion=2;
   s.loans=Array.isArray(s.loans)?s.loans:[];
   s.loans.forEach(l=>{if(!Number.isInteger(l.dueDay))l.dueDay=s.day;});
   if(s.au&&!s.au.list) s.au=null;
@@ -1145,6 +1327,8 @@ function migrate(o){
   if(!s.day$) s.day$={startWorth:s.money,spent:0,earned:0,bags:0,bestR:-1,bestId:null};
   s.day$.theft=Object.assign({lost:0,caught:0,auto:0,byCol:{}},s.day$.theft||{});
   normalizeShelfStock(s);
+  s.balanceRevision=typeof o.balanceRevision==='string'?o.balanceRevision:'';
+  applySystemBalance(s);
   return s;
 }
 function save(){
@@ -1239,6 +1423,9 @@ function rollRarity(ci){
 function openBag(ci){
   if(!(S.bags[ci]>0)) return null;
   S.bags[ci]--; if(S.bags[ci]<=0) delete S.bags[ci];
+  const specialRoll=Math.random();
+  if(specialRoll<.01){const isNew=!(S.trashCards[ci]>0);S.trashCards[ci]=(S.trashCards[ci]||0)+1;S.stats.bags++;S.day$.bags++;S.pity=Math.min(CFG.PITY-1,S.pity+1);logTx('Xé túi: '+trashName(ci)+' · 0 ₫',0);return {kind:'trash',ci,r:-1,isNew,xp:0};}
+  if(specialRoll<.02){S.stats.bags++;S.day$.bags++;S.pity=0;return {...gainGod(ci),ci};}
   const r=rollRarity(ci);
   const id=pick(COLS[ci].byR[r]);
   S.pity=r>=2?0:S.pity+1;
@@ -1256,7 +1443,7 @@ function openSpecial(kind,ci){
   if(kind==='gold'){if(!(S.sp.gold>0))return null;S.sp.gold--;}
   else{if(!(S.sp.dia>0)||!unlocked(ci))return null;S.sp.dia--;}
   const col=kind==='gold'?pick(unlockedCols()):ci;
-  if(Math.random()<.01)return gainGod(col);
+  if(Math.random()<.02)return gainGod(col);
   const r=pickW(SP_W,3),id=pick(COLS[col].byR[r]);
   const isNew=giveItem(id);
   S.lp=clamp(S.lp+LPD[r],0,100);
@@ -1470,6 +1657,8 @@ function updateCustomerUI(changed){
     else scene.querySelectorAll('[data-avatar]').forEach(el=>{const c=S.customers.people.find(c=>c.uid===+el.dataset.avatar);if(c){const [x,y]=customerPosition(c);el.style.left=x+'%';el.style.top=y+'%';}});
   }
   const live=$('#live-panel');if(live&&changed)live.innerHTML=livePanelHTML();
+  const liveHistory=$('#live-history');if(liveHistory&&changed)liveHistory.innerHTML=liveHistoryHTML();
+  const cameraDetails=$('#camera-control-body');if(cameraDetails&&changed)cameraDetails.innerHTML=cameraPanel()+securityHistoryHTML();
   const queue=$('#checkout-queue-panel');if(queue&&changed)queue.innerHTML=checkoutQueueHTML();
   document.querySelectorAll('[data-patience]').forEach(el=>{const c=S.customers.people.find(c=>c.uid===+el.dataset.patience);el.textContent=c&&c.state==='waiting'?Math.max(0,Math.ceil(c.patience-(S.customers.time-c.since)))+'s':'Đã rời hàng';});
   if(changed&&ui.customerUid&&$('#modal').classList.contains('checkout-popup')&&!$('#modal').hidden)showCustomer(ui.customerUid);
@@ -2136,7 +2325,7 @@ function viewBank(){
 function viewShop(){
   let h=supermarketEquipment()+'<p class="muted">Nhập box giá sỉ cố định. Box thường có 12 túi; box cao cấp có 8 túi. Mở box tại Kho tồn.</p><div class="shop-grid">',nextLocked=null;
   for(const c of COLS){
-    if(unlocked(c.id))h+='<button class="bagcard" data-a="buy" data-c="'+c.id+'"><span class="stock-art">📦</span><span class="bc-n">'+esc(boxName(c.id))+'</span><small>'+boxSize(c.id)+' túi / box</small><small>GOD-BOX: '+((S.boxImports[c.id]||0)%godMilestone(c.id))+'/'+godMilestone(c.id)+' box</small><span class="bc-p">'+fmt(boxPrice(c.id))+' ₫</span><span class="bc-q">Kho: '+(S.boxes[c.id]||0)+'</span></button>';
+    if(unlocked(c.id))h+='<button class="bagcard'+boxFrame(c.id)+'" data-a="buy" data-c="'+c.id+'"><span class="stock-art">📦</span><span class="bc-n">'+esc(boxName(c.id))+'</span><small>'+boxSize(c.id)+' túi / box</small><small>GOD-BOX: '+((S.boxImports[c.id]||0)%godMilestone(c.id))+'/'+godMilestone(c.id)+' box</small><span class="bc-p">'+fmt(boxPrice(c.id))+' ₫</span><span class="bc-q">Kho: '+(S.boxes[c.id]||0)+'</span></button>';
     else if(c.fee&&S.lvl>=c.unlock)h+='<div class="bagcard"><span class="stock-art">🔒</span><span class="bc-n">'+esc(boxName(c.id))+'</span><button class="btn primary" data-a="colBuy" data-c="'+c.id+'">Mở BST · '+fmt(c.fee)+' ₫</button></div>';
     else if(!nextLocked||c.unlock<nextLocked.unlock)nextLocked=c;
   }
@@ -2203,7 +2392,7 @@ function viewShopTab(){
   if(ui.sub.shop==='sell')return '<button class="back" data-a="shopHome">‹ Về cửa hàng</button><h2 class="page-heading">Khu mua sắm</h2><div class="card"><h3>🎁 Khu bán túi mù</h3>'+viewSell('bag')+'</div><div class="card"><h3>💎 Khu bán thẻ</h3>'+viewSell('card')+'</div>';
   const bags=S.listings.filter(L=>L.kind==='bag'),cards=S.listings.filter(L=>L.kind!=='bag');
   const preview=cards.slice(0,4).map(L=>'<span class="store-preview-item r'+listingProduct(L).r+'">'+listingProduct(L).e+'</span>').join('');
-  return '<section class="store-hub customer-store" aria-label="Cửa hàng của bạn">'+storeIdentityHTML()+'<div class="store-floor"><div class="store-zone shopping-zone"><span class="zone-heading"><span class="zone-icon">🏪</span><b>KHU MUA SẮM</b></span><div class="shopping-aisles"><div class="shopping-aisle"><button class="aisle-open" data-a="shopSales"><b>🎁 Túi mù</b><span class="store-preview">🎁</span><small>'+bags.reduce((n,L)=>n+L.qty,0)+' túi · '+shelfCount('bag')+'/'+shelfLimit('bag')+' sức chứa · Xem →</small></button>'+(!bags.length?shoppingEmptyLinks():'')+'</div><div class="shopping-aisle"><button class="aisle-open" data-a="shopSales"><b>💎 Thẻ</b><span class="store-preview">'+(preview||'<span class="store-empty-icon">🃏</span>')+'</span><small>'+cards.reduce((n,L)=>n+L.qty,0)+' thẻ · '+shelfCount('card')+'/'+shelfLimit('card')+' sức chứa · Xem →</small></button>'+(!cards.length?shoppingEmptyLinks():'')+'</div></div></div><div class="store-lower"><div class="store-zone live-zone live-marker"><span class="zone-icon">📹</span><b>LIVESTREAM</b><small>'+liveCustomers().length+' khách · '+(S.live.enabled?'Đang mở':'Đang tắt')+'</small></div><div class="store-zone checkout-zone checkout-marker"><span class="zone-icon">🧾</span><b>THANH TOÁN</b><small>Khách xếp hàng tại đây</small></div></div><div class="store-door">🚪 LỐI VÀO / RA</div><div id="customer-layer" class="customer-layer">'+customerSceneHTML()+'</div></div>'+automationPanel()+cameraPanel()+'<div id="live-panel" class="card live-panel">'+livePanelHTML()+'</div><div id="checkout-queue-panel" class="checkout-panel">'+checkoutQueueHTML()+'</div><p class="muted store-status">'+(isStoreOpen()?(S.shopPaused?'⏸ Tạm đóng cửa · Đồng hồ vẫn chạy':'🟢 Đang mở cửa · Khách vào theo thời gian'):isOver()?'🌙 Ngừng đón khách mới · Vẫn phục vụ hàng chờ':'📋 Chuẩn bị · Nhập box và sắp hàng trước khi mở cửa')+'</p><button class="btn primary store-supply" data-a="nav" data-k="supply">📦 SIÊU THỊ ↗</button></section>';
+  return '<section class="store-hub customer-store" aria-label="Cửa hàng của bạn">'+storeIdentityHTML()+'<div class="store-floor"><div class="store-zone shopping-zone"><span class="zone-heading"><span class="zone-icon">🏪</span><b>KHU MUA SẮM</b></span><div class="shopping-aisles"><div class="shopping-aisle"><button class="aisle-open" data-a="shopSales"><b>🎁 Túi mù</b><span class="store-preview">🎁</span><small>'+bags.reduce((n,L)=>n+L.qty,0)+' túi · '+shelfCount('bag')+'/'+shelfLimit('bag')+' sức chứa · Xem →</small></button>'+(!bags.length?shoppingEmptyLinks():'')+'</div><div class="shopping-aisle"><button class="aisle-open" data-a="shopSales"><b>💎 Thẻ</b><span class="store-preview">'+(preview||'<span class="store-empty-icon">🃏</span>')+'</span><small>'+cards.reduce((n,L)=>n+L.qty,0)+' thẻ · '+shelfCount('card')+'/'+shelfLimit('card')+' sức chứa · Xem →</small></button>'+(!cards.length?shoppingEmptyLinks():'')+'</div></div></div><div class="store-lower"><div class="store-zone live-zone live-marker"><span class="zone-icon">📹</span><b>LIVESTREAM</b><small>'+liveCustomers().length+' khách · '+(S.live.enabled?'Đang mở':'Đang tắt')+'</small></div><div class="store-zone checkout-zone checkout-marker"><span class="zone-icon">🧾</span><b>THANH TOÁN</b><small>Khách xếp hàng tại đây</small></div></div><div class="store-door">🚪 LỐI VÀO / RA</div><div id="customer-layer" class="customer-layer">'+customerSceneHTML()+'</div></div>'+automationPanel()+'<div id="checkout-queue-panel" class="checkout-panel">'+checkoutQueueHTML()+'</div><p class="muted store-status">'+(isStoreOpen()?(S.shopPaused?'⏸ Tạm đóng cửa · Đồng hồ vẫn chạy':'🟢 Đang mở cửa · Khách vào theo thời gian'):isOver()?'🌙 Ngừng đón khách mới · Vẫn phục vụ hàng chờ':'📋 Chuẩn bị · Nhập box và sắp hàng trước khi mở cửa')+'</p><button class="btn primary store-supply" data-a="nav" data-k="supply">📦 SIÊU THỊ ↗</button></section>';
 }
 const kfmt=n=>n>=1e6?(n/1e6).toFixed(1).replace('.',',')+'tr':n>=1e3?Math.round(n/1e3)+'k':String(n);
 function viewSell(kind){
@@ -2238,7 +2427,7 @@ function viewBST(){
     const c=COLS[ui.bstCol];
     const have=c.byR.reduce((n,a)=>n+a.filter(id=>S.disc[id]).length,0);
     let h='<button class="back" data-a="bstBack">‹ Tất cả bộ sưu tập</button><div class="card"><div class="row"><div><h3 style="margin:0">'+c.icon+' '+c.name+'</h3><small>Đã sưu tầm '+have+'/36</small></div></div><div class="bar" style="margin-top:8px"><i style="width:'+(have/36*100)+'%"></i></div></div>';
-    h+=godCollectionHTML(c.id);
+    h+=godCollectionHTML(c.id)+trashCollectionHTML(c.id);
     for(let r=5;r>=0;r--){
       const arr=c.byR[r],n=arr.filter(id=>S.disc[id]).length;
       h+='<h4 class="rh r'+r+'">'+RAR[r]+' <small>'+n+'/'+arr.length+'</small></h4><div class="tiles">'+arr.map(id=>tile(id)).join('')+'</div>';
@@ -2267,7 +2456,7 @@ function viewItems(){
    '<div class="chips" style="margin-bottom:8px"><button class="chip'+(ui.irar<0?' on':'')+'" data-a="irar" data-v="-1">Tất cả</button>'+RAR.map((t,r)=>'<button class="chip'+(ui.irar===r?' on':'')+'" data-a="irar" data-v="'+r+'">'+t+'</button>').join('')+'</div>'+
    '<div style="margin-bottom:12px"><select class="sel" data-a="icol" aria-label="Lọc theo bộ"><option value="-1">Tất cả bộ sưu tập</option>'+COLS.filter(c=>unlocked(c.id)).map(c=>'<option value="'+c.id+'"'+(ui.icol===c.id?' selected':'')+'>'+c.icon+' '+c.name+'</option>').join('')+'</select></div>';
   const certs=(S.cert||[]).filter(c=>(ui.irar<0||ITEMS[c.id].r===ui.irar)&&(ui.icol<0||ITEMS[c.id].ci===ui.icol));
-  if(!owned.length&&!certs.length) return h+'<div class="card empty"><b>Chưa có vật phẩm</b>Xé túi mù để nhận item đầu tiên.</div>';
+  if(!owned.length&&!certs.length) return h+'<div class="card empty"><b>Chưa có thẻ thuộc 6 bậc chính</b>Xé túi mù để bổ sung thẻ vào BST.</div>';
   if(certs.length) h+='<h4 class="rh" style="color:var(--ink)">🏅 Item đã thẩm định <small>'+certs.length+'</small></h4><div class="tiles">'+certs.map(certTile).join('')+'</div>';
   h+='<p class="muted" style="margin:0 0 6px">'+(ui.selMode?'Chạm để chọn hoặc bỏ chọn item.':'Nhấn giữ một item để chọn nhiều và bán hàng loạt.')+'</p>';
   ui.shown=owned.slice();
@@ -2310,7 +2499,7 @@ function progressCircle(label,value,locked){
 }
 function viewBagInv(){
   const xpPct=S.lvl>=CFG.MAX_LV?100:clamp(S.xp/xpNeed(S.lvl)*100,0,100);
-  return '<div class="card bag-status"><div class="bag-money"><small>Tiền đang có</small><div class="cash">'+fmt(S.money)+' ₫</div></div><div class="status-rings">'+progressCircle('XP',xpPct)+progressCircle('May mắn',luckDisp())+hotCircle()+'</div></div>'+adminCardHTML()+godInventoryHTML()+'<h3 class="page-heading">🎒 Túi thẻ của bạn</h3>'+viewItems();
+  return '<div class="card bag-status"><div class="bag-money"><small>Tiền đang có</small><div class="cash">'+fmt(S.money)+' ₫</div></div><div class="status-rings">'+progressCircle('XP',xpPct)+progressCircle('May mắn',luckDisp())+hotCircle()+'</div></div>'+adminCardHTML()+godInventoryHTML()+trashInventoryHTML()+'<h3 class="page-heading">🎒 Túi thẻ của bạn</h3>'+viewItems();
 }
 function viewChar(){
   const head=seg('char',[['bag','Túi'],['log','Nhật ký']]);
@@ -2341,7 +2530,7 @@ function admRate(){
   h+='<div class="card"><h3>Tỉ lệ điểm thẩm định</h3><p class="muted" style="margin:0 0 8px">Trọng số xuất hiện của từng mức điểm; sau khi áp dụng, tổng được chuẩn hóa về 100%.</p>'+
    ['7,0–7,9đ','8,0–8,9đ','9,0–9,9đ','10,0đ'].map((s,i)=>nin('apin',s,apw[i])).join('')+
    '<div class="btnrow"><button class="btn" data-a="adApReset">Mặc định</button><button class="btn primary" data-a="adApSave">Áp dụng</button></div></div>';
-  h+='<div class="card"><h3>Phí nhân viên tự động</h3><p class="muted">Mỗi chế độ đã bật trong ngày tính riêng theo doanh thu ngày, dù tắt trước khi kết toán. Thiếu tiền sẽ gán nợ bằng thẻ như ngân hàng.</p><label>Tỉ lệ cho mỗi chế độ (%)<input class="rin" id="staff-rate" type="number" min="0" max="100" step="0.1" value="'+S.staffRate+'"></label><button class="btn primary" data-a="staffRateSave">Áp dụng</button></div>';
+  h+='<div class="card"><h3>Phí nhân viên tự động</h3><p class="muted">Phí hiện tại = phí cơ bản + 1 điểm % mỗi 10 cấp (tối đa 100%). Mỗi chế độ dùng trong ngày tính riêng, dù tắt trước khi kết toán. Camera miễn phí nhân viên.</p><label>Phí cơ bản / chế độ (%)<input class="rin" id="staff-rate" type="number" min="0" max="100" step="0.1" value="'+S.staffRate+'"></label><button class="btn primary" data-a="staffRateSave">Áp dụng</button></div>';
   const base=cf('base');
   h+='<div class="card"><h3>Thị trường tự do</h3><p class="muted" style="margin:0 0 8px">Điều chỉnh tổng thể: tăng, giảm hoặc đưa thị trường về cân bằng. Chỉ số hôm nay: <b>'+(marketIndex()>=0?'+':'')+marketIndex().toFixed(1)+'%</b> · hệ số chung <b>'+S.macro.toFixed(2)+'</b></p>'+
    '<div class="grid2"><button class="btn" data-a="adMkMode" data-m="up">📈 Thị trường tăng</button><button class="btn" data-a="adMkMode" data-m="down">📉 Thị trường giảm</button></div><button class="btn block" style="margin-top:8px" data-a="adMkMode" data-m="bal">⚖️ Thị trường cân bằng</button></div>';
@@ -2356,6 +2545,7 @@ function admAct(){
 }
 // Add future usable items here to expose them in the Admin catalog.
 const ADMIN_ITEMS=[
+  ...COLS.map(c=>({key:'trash'+c.id,name:trashName(c.id),icon:'🗑️',desc:'Thẻ sưu tầm giá 0 ₫, tỉ lệ 1% từ túi thường. Không giao dịch, thẩm định hoặc ghép.',count:()=>S.trashCards[c.id]||0,grant:()=>S.trashCards[c.id]=(S.trashCards[c.id]||0)+1})),
   {key:'camera',name:'Camera an ninh',icon:'📹',desc:'Thiết bị an ninh cấp 1. Bật/tắt tại điều hành cửa hàng, nâng tối đa cấp 3. Không có phí hằng ngày.',count:()=>S.camera.level?1:0,grant:()=>{if(!S.camera.level)S.camera={level:1,on:false};}},
   {key:'gold',name:'Túi mù hoàng kim lấp lánh',icon:'✨',desc:'Nhận một item ngẫu nhiên từ cực hiếm trở lên trong các bộ sưu tập đã mở khóa.',count:()=>S.sp.gold,grant:()=>S.sp.gold++,undo:()=>S.sp.gold--},
   {key:'dia',name:'Túi mù kim cương lấp lánh',icon:'💎',desc:'Chọn một bộ sưu tập đã mở khóa, nhận một item ngẫu nhiên từ cực hiếm trở lên.',count:()=>S.sp.dia,grant:()=>S.sp.dia++,undo:()=>S.sp.dia--},
@@ -2365,7 +2555,7 @@ const ADMIN_ITEMS=[
 ];
 function admItems(){
   const item=ADMIN_ITEMS.find(x=>x.key===ui.adminItem);
-  if(item)return '<button class="back" data-a="adItemBack">‹ Tất cả vật phẩm</button><div class="card"><div class="hero-item"><div class="big" style="border-color:var(--gold)">'+item.icon+'</div><h3>'+esc(item.name)+'</h3></div><p class="muted">'+esc(item.desc)+'</p><div class="kv"><span>Đang có trong túi</span><b>'+item.count()+'</b></div><button class="btn primary block" data-a="adItemTake" data-key="'+item.key+'" style="margin-top:12px">Lấy ×1</button></div>';
+  if(item)return '<button class="back" data-a="adItemBack">‹ Tất cả vật phẩm</button><div class="card"><div class="hero-item"><div class="big'+catalogFrame(item.key)+'" style="border-color:var(--gold)">'+item.icon+'</div><h3>'+esc(item.name)+'</h3></div><p class="muted">'+esc(item.desc)+'</p><div class="kv"><span>Đang có trong túi</span><b>'+item.count()+'</b></div><button class="btn primary block" data-a="adItemTake" data-key="'+item.key+'" style="margin-top:12px">Lấy ×1</button></div>';
   const query=adminSearchKey(ui.adminSearch||'');
   const matches=ADMIN_ITEMS.filter(x=>adminSearchKey(x.name).includes(query));
   return '<input id="admin-search" class="txt" type="search" placeholder="Tìm vật phẩm theo tên…" aria-label="Tìm vật phẩm theo tên" value="'+esc(ui.adminSearch||'')+'" style="margin-bottom:12px"><div id="admin-search-results">'+adminItemResults(matches)+'</div>';
@@ -2373,11 +2563,13 @@ function admItems(){
 const adminSearchKey=value=>String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/gi,'d').toLowerCase().trim();
 function adminItemResults(matches){
   if(!matches.length)return '<div class="empty">Không tìm thấy vật phẩm.</div>';
-  return '<div class="tiles">'+matches.map(x=>'<button class="tile" style="--rc:var(--gold)" data-a="adItemInfo" data-key="'+x.key+'"><span class="t-e">'+x.icon+'</span><span class="t-n">'+esc(x.name)+'</span></button>').join('')+'</div>';
+  return '<div class="tiles">'+matches.map(x=>'<button class="tile'+catalogFrame(x.key)+'" style="--rc:var(--gold)" data-a="adItemInfo" data-key="'+x.key+'"><span class="t-e">'+x.icon+'</span><span class="t-n">'+esc(x.name)+'</span></button>').join('')+'</div>';
 }
+const SHOW_SYSTEM_BALANCE_PUBLISH=false; // Tạm ẩn nút phát hành cấu hình toàn hệ thống.
 function viewAdmin(){
   const tabs=seg('adm',[['lv','Tăng cấp'],['rate','Tỉ lệ'],['act','Hoạt động'],['items','Vật phẩm'],['customers','Khách hàng']]);
-  return tabs+(ui.sub.adm==='customers'?admCustomers()+admVisitorSettings():ui.sub.adm==='items'?admItems():ui.sub.adm==='rate'?admRate():ui.sub.adm==='act'?admAct():admLv());
+  const publish='<div class="card"><h3>Cân bằng toàn hệ thống · Bản local</h3><p class="muted">'+(LOCAL_BALANCE.revision?'File đang có bộ cấu hình đã phát hành.':'Chưa phát hành bộ thông số riêng trong file.')+'</p><button class="btn primary block" data-a="balancePublish">Áp dụng lên toàn hệ thống</button></div>';
+  return (SHOW_SYSTEM_BALANCE_PUBLISH?publish:'')+tabs+(ui.sub.adm==='customers'?admCustomers()+admVisitorSettings():ui.sub.adm==='items'?admItems():ui.sub.adm==='rate'?admRate():ui.sub.adm==='act'?admAct():admLv());
 }
 function viewSys(){
   const back='<button class="back" data-a="goBack">‹ Quay lại</button>';
@@ -2413,22 +2605,24 @@ function after(){
 /* ============ SHEETS ============ */
 function showBuy(){
   const c=COLS[ui.buy.c],q=ui.buy.q,total=boxPrice(c.id)*q;
-  sheet('<h2>📦 '+esc(boxName(c.id))+'</h2><p class="muted">'+boxSize(c.id)+' túi / box · Giá sỉ '+fmt(boxPrice(c.id))+' ₫ / box (cố định). Tổng giá túi cơ bản: '+fmt(bagPrice(c.id)*boxSize(c.id))+' ₫. '+(isPremium(c.id)?'Xác suất từ Hiếm trở lên gấp đôi box thường.':'')+'</p><h4>Số box: '+q+'</h4><div class="chips">'+[1,5,10].map(n=>'<button class="chip" data-a="buyQ" data-q="'+n+'"'+(q+n>Math.floor(S.money/boxPrice(c.id))?' disabled':'')+'>+'+n+'</button>').join('')+'<button class="chip" data-a="buyMax"'+(Math.floor(S.money/boxPrice(c.id))<1?' disabled':'')+'>+ Tối đa ('+Math.floor(S.money/boxPrice(c.id))+')</button><button class="chip" data-a="buyOne">Về 1 box</button></div><div class="kv"><span>Thành tiền</span><b>'+fmt(total)+' ₫</b></div><div class="kv"><span>Nhận vào Kho tồn</span><b>'+q+' box</b></div><div class="btnrow"><button class="btn" data-a="closeM">Hủy</button><button class="btn primary" data-a="buyOk"'+(S.money<total?' disabled':'')+'>Nhập box</button></div>');
+  sheet('<h2 class="product-title'+boxFrame(c.id)+'">📦 '+esc(boxName(c.id))+'</h2><p class="muted">'+boxSize(c.id)+' túi / box · Giá sỉ '+fmt(boxPrice(c.id))+' ₫ / box (cố định). Tổng giá túi cơ bản: '+fmt(bagPrice(c.id)*boxSize(c.id))+' ₫. '+(isPremium(c.id)?'Xác suất từ Hiếm trở lên gấp đôi box thường.':'')+'</p><h4>Số box: '+q+'</h4><div class="chips">'+[1,5,10].map(n=>'<button class="chip" data-a="buyQ" data-q="'+n+'"'+(q+n>Math.floor(S.money/boxPrice(c.id))?' disabled':'')+'>+'+n+'</button>').join('')+'<button class="chip" data-a="buyMax"'+(Math.floor(S.money/boxPrice(c.id))<1?' disabled':'')+'>+ Tối đa ('+Math.floor(S.money/boxPrice(c.id))+')</button><button class="chip" data-a="buyOne">Về 1 box</button></div><div class="kv"><span>Thành tiền</span><b>'+fmt(total)+' ₫</b></div><div class="kv"><span>Nhận vào Kho tồn</span><b>'+q+' box</b></div><div class="btnrow"><button class="btn" data-a="closeM">Hủy</button><button class="btn primary" data-a="buyOk"'+(S.money<total?' disabled':'')+'>Nhập box</button></div>');
 }
 function showBag(ci){
   const c=COLS[ci],n=S.bags[ci]||0;
   if(!n){closeModal();return;}
   sheet('<div class="row" style="justify-content:flex-start;gap:14px">'+bagSVG(c.hue,c.icon,84)+'<div><h2>'+bagName(c.id)+'</h2><div class="qty">×'+n+'</div><div class="muted">Thị trường: '+fmt(bagMarket(ci))+' ₫</div><div class="muted">Bảo hiểm hiếm: '+S.pity+'/'+CFG.PITY+' túi</div></div></div>'+
-   '<h4 style="margin:12px 0 4px">Tỉ lệ rơi hiện tại ('+stars()+' sao)</h4>'+rateRows(ci)+
+   '<p class="muted">1% ra '+esc(trashName(ci))+'. 1% ra God-item. 98% còn lại áp dụng tỉ lệ độ hiếm bên dưới.</p><h4 style="margin:12px 0 4px">Tỉ lệ rơi hiện tại ('+stars()+' sao)</h4>'+rateRows(ci)+
    '<button class="btn primary block" style="margin-top:10px" data-a="bagListOpen" data-ci="'+ci+'">Đăng bán túi mù</button><div class="btnrow"><button class="btn" data-a="tear1" data-c="'+ci+'">Xé 1 túi</button><button class="btn" data-a="tearN" data-c="'+ci+'"'+(n<2?' disabled':'')+'>Xé nhanh ×'+Math.min(10,n)+'</button></div>'+
    '<button class="btn block" style="margin-top:8px" data-a="closeM">Đóng</button>');
 }
 function showReveal(o){
+  if(o.kind==='trash'){showTrashReveal(o,o.actions||'');return;}
+  if(o.kind==='god'){showGodReward(o,o.actions||'');return;}
   const it=ITEMS[o.id],ci=it.ci,c=COLS[ci];
   const burst=it.r>=3?'<div class="burst">'+Array.from({length:18},(_,i)=>'<i style="--a:'+(i*20)+'deg;--d:'+(110+(i%3)*30)+'px"></i>').join('')+'</div>':'';
-  const acts=o.actions||'';
+  const acts=o.actions||'',bagFrame=o.art?.frame||'';
   openModal('<div class="rv r'+it.r+'" id="rv">'+
-   '<div class="rv-stage" data-a="rvSkip">'+(o.bag?'<div class="rv-bag">'+bagSVG((o.art||c).hue,(o.art||c).icon,150)+'</div>':'')+
+   '<div class="rv-stage" data-a="rvSkip">'+(o.bag?'<div class="rv-bag">'+(bagFrame?'<div class="special-bag-preview '+bagFrame+'">':'')+bagSVG((o.art||c).hue,(o.art||c).icon,150)+(bagFrame?'</div>':'')+'</div>':'')+
    '<div class="rv-card"><span class="rv-rar">'+RAR[it.r]+'</span><div class="rv-e">'+it.e+'</div><div class="rv-n">'+it.n+'</div>'+
    '<div class="rv-meta">'+c.name+(o.isNew?' · <b class="new">MỚI</b>':'')+'</div>'+(o.xp?'<div class="rv-xp">+'+o.xp+' XP</div>':'')+(o.note?'<div class="rv-meta">'+o.note+'</div>':'')+'</div>'+burst+
    (o.bag?'<div class="rv-hint">Chạm để mở nhanh</div>':'')+'</div>'+
@@ -2441,7 +2635,7 @@ function showReveal(o){
 function tear1(ci){
   const res=openBag(ci); if(!res){closeModal();return;}
   const left=S.bags[ci]||0;
-  showReveal({id:res.id,bag:true,isNew:res.isNew,xp:res.xp,actions:
+  showReveal({...res,ci,id:res.id,bag:true,isNew:res.isNew,xp:res.xp,actions:
     (left>0?'<button class="btn primary" data-a="tear1" data-c="'+ci+'">Mở tiếp (còn '+left+' túi)</button>':'')+
     (left>1?'<button class="btn" data-a="tearN" data-c="'+ci+'">Xé nhanh ×'+Math.min(10,left)+'</button>':'')+
     '<button class="btn" data-a="closeM">'+(left>0?'Dừng lại':'Xong')+'</button>'});
@@ -2453,11 +2647,15 @@ function tearN(ci){
   if(!list.length){closeModal();return;}
   const left=S.bags[ci]||0,cnt=[0,0,0,0,0,0],grp={};
   let xp=0,val=0,newN=0;
-  list.forEach(r=>{cnt[r.r]++;xp+=r.xp;val+=price(r.id);if(r.isNew)newN++;const g=grp[r.id]||(grp[r.id]={n:0,isNew:false});g.n++;if(r.isNew)g.isNew=true;});
+  const trashCount=list.filter(r=>r.kind==='trash').length,gods={};
+  list.filter(r=>r.kind==='god').forEach(r=>{xp+=r.xp;val+=godPrice(r.key);gods[r.key]=(gods[r.key]||0)+1;});
+  list.filter(r=>r.kind!=='trash'&&r.kind!=='god').forEach(r=>{cnt[r.r]++;xp+=r.xp;val+=price(r.id);if(r.isNew)newN++;const g=grp[r.id]||(grp[r.id]={n:0,isNew:false});g.n++;if(r.isNew)g.isNew=true;});
   const ids=Object.keys(grp).map(Number).sort((a,b)=>ITEMS[b].r-ITEMS[a].r);
-  const best=Math.max(...list.map(r=>r.r));
-  sheet('<h2>Đã xé '+list.length+' × '+bagName(ci)+'</h2><div class="muted">Hiếm nhất: <span class="rtag r'+best+'">'+RAR[best]+'</span></div>'+
+  const best=Math.max(-1,...list.filter(r=>r.kind!=='trash'&&r.kind!=='god').map(r=>r.r));
+  sheet('<h2>Đã xé '+list.length+' × '+bagName(ci)+'</h2><div class="muted">Hiếm nhất: '+(Object.keys(gods).length?'✨ God-item':best>=0?'<span class="rtag r'+best+'">'+RAR[best]+'</span>':'Thẻ rác sưu tầm')+'</div>'+
    '<div class="chips" style="margin:10px 0">'+cnt.map((v,r)=>v?'<span class="chip r'+r+'" style="border-color:var(--rc);color:var(--rc)">'+RAR[r]+' ×'+v+'</span>':'').join('')+'</div>'+
+   (Object.keys(gods).length?'<div class="tiles">'+Object.entries(gods).map(([key,qty])=>'<div class="tile god-glow"><span class="t-e">'+GOD_ITEMS[key].e+'</span><span class="t-n">'+esc(GOD_ITEMS[key].n)+'</span><span class="t-q">×'+qty+'</span><span class="t-d">God-item</span></div>').join('')+'</div>':'')+
+   (trashCount?'<div class="kv"><span>Thẻ rác nhận được (ngoài BST)</span><b>'+trashCount+'</b></div><div class="tiles">'+trashTile(ci)+'</div>':'')+
    '<div class="kv"><span>Item mới vào BST</span><b>'+newN+'</b></div><div class="kv"><span>Kinh nghiệm nhận được</span><b>+'+xp+' XP</b></div><div class="kv"><span>Giá trị thị trường</span><b>'+fmt(val)+' ₫</b></div>'+
    '<div class="tiles" style="margin-top:10px">'+ids.map(id=>{const it=ITEMS[id],g=grp[id];return '<div class="tile r'+it.r+'"><span class="t-e">'+it.e+'</span><span class="t-n">'+it.n+'</span><span class="t-q">×'+g.n+'</span>'+(g.isNew?'<span class="new" style="position:absolute;bottom:3px">MỚI</span>':'')+'</div>';}).join('')+'</div>'+
    '<div class="btnrow">'+(left>0?'<button class="btn primary" data-a="tearN" data-c="'+ci+'">Xé nhanh tiếp ×'+Math.min(10,left)+'</button>':'')+'<button class="btn" data-a="closeM">Xong</button></div>');
@@ -2587,9 +2785,9 @@ function showHelp(){
     '<li><b>Thanh toán và livestream</b><p>Khách chọn hàng rồi xếp hàng ở quầy thanh toán. Bấm khách đứng đầu hàng, xem đơn và chọn Hoàn tất đơn hàng để nhận tiền. Khách hết kiên nhẫn sẽ bỏ đi, trả hàng về quầy và làm giảm 1 HOT.</p><p>Bật Tự livestream để một số khách mua túi đến nhờ nhân viên mở. Xét toàn bộ túi của khách: có ít nhất một thẻ từ Hiếm trở lên được +3–5 HOT; không có bị −1 HOT. Thẻ này thuộc về khách. Khách mua hàng và rời đi không livestream được +1–3 HOT. HOT không xuống dưới 0; HOT cao giúp thu hút khách và tăng khả năng mua hàng.</p></li>'+
     '<li><b>Kết toán và sang ngày mới</b><p>Đến 21:00, tiệm ngừng đón khách mới. Hoàn tất hàng chờ và livestream, rồi bấm HÃY KẾT THÚC NGÀY để xem thu chi, lời/lỗ và trả nợ nếu có. Chọn Sang ngày tiếp theo để trở lại Cửa hàng trong giai đoạn chuẩn bị.</p></li></ol>'+
     '<h3 class="guide-heading">VIP, trộm và camera</h3><p class="muted">Mỗi 3–5 ngày có khách VIP tên vàng, sức mua tối đa và được báo trước trong ngày. Mỗi 3–5 ngày cũng có thể có 1–3 kẻ giấu mặt lấy 3–10 túi mù rồi rời đi không thanh toán. Bấm kẻ trộm trước khi thoát để đánh đuổi, trả túi về quầy. Cuối ngày có báo cáo thất thoát.</p><p class="muted">Cấp 5 có thể mua Camera an ninh tại Siêu thị với 500.000₫, nâng cấp thêm 500.000₫ mỗi lần. Bật ở điều hành cửa hàng: cấp 1 đánh dấu tên trộm đỏ, cấp 2 cảnh báo tại Cửa hàng, cấp 3 tự đánh đuổi. Camera không tính phí nhân viên.</p>'+
-    '<h3 class="guide-heading">Đấu thẻ và God-item</h3><p class="muted">Đấu trường cấp 40 có hai hạng Cực hiếm/Cực phẩm, thẻ có giá thị trường cao hơn thắng. Thách đấu Huyền thoại cấp 50 chỉ nhận thẻ đã thẩm định, điểm cao hơn thắng. Mỗi sự kiện tối đa 3 lượt/ngày: hai bên úp thẻ 5 giây rồi lật, thắng nhận thẻ đối phương, hòa trả lại thẻ; thẻ khóa và God-item không thể cược.</p><p class="muted">Mỗi BST có thêm 3 God-item bí ẩn ngoài 36 thẻ thường, xem trước dạng ?? tại BST. Túi cao cấp từ GOD-BOX có thể cho God-item; túi Hoàng kim và Kim cương cũng có xác suất 1% mỗi túi. God-item chỉ sưu tầm và thẩm định.</p>'+
-    '<h3 class="guide-heading">Các chế độ tự động</h3><p class="muted">Trong Cửa hàng, bật/tắt từng checkbox: Tự động thanh toán, Tự bổ sung túi mù, Tự bổ sung thẻ item và Tự livestream. Nút ⚙️ mở tùy chỉnh; cài đặt livestream chỉ dành cho người có Thẻ bài Admin. Mỗi chế độ dùng trong ngày tính riêng phí nhân viên 2% doanh thu khi kết ngày (Admin có thể điều chỉnh). Thiếu tiền sẽ gán nợ bằng thẻ như ngân hàng.</p><p class="muted">Tự bổ sung túi dùng hàng trong kho trước, rồi mới nhập box trong giới hạn ngân sách (mặc định 20% tiền đầu mỗi lượt). Thẻ chỉ tự bán ở các bậc đã cho phép; thẻ khóa luôn được giữ. Chỉ tắt livestream khi không còn khách đang đến, chờ mở, mở túi hoặc phản ứng.</p>'+
-    '<h3 class="guide-heading">Sự kiện, cộng đồng và BST</h3><p class="muted">Người chơi có thể tham gia Giao dịch đen, Chợ đen, Đấu giá và Đu đỉnh khi đạt cấp yêu cầu và trong giờ cửa hàng hoạt động; một số sự kiện có khung giờ riêng. Chợ đen có 3 lượt/ngày (10:00, 12:40, 15:20), mỗi lượt 3–5 thẻ khác nhau; mỗi thẻ được săn 1 lần, có thể mua tất cả hoặc chờ lượt sau. Cộng đồng có Ngân hàng và Thẩm định, không bị ràng buộc bởi giờ mở cửa.</p><p class="muted">Xé túi của mình để nhận thẻ, XP và ghi nhận vào Kho tồn → BST. Mỗi BST có 36 thẻ với 6 độ hiếm. Khám phá đủ các thẻ để hoàn thành BST; bán hay dùng thẻ đã khám phá không xóa ghi nhận. Một số BST cần đủ cấp và trả phí mở khóa. Có 10 thẻ giống nhau thì có thể nâng thành một thẻ ngẫu nhiên ở bậc hiếm cao hơn trong cùng BST (trừ Huyền thoại).</p><p class="muted">Game tự lưu trên trình duyệt. Dùng Hệ thống → Sao lưu để giữ mã tiến trình khi cần chuyển thiết bị.</p><button class="btn primary block" data-a="closeM">Đã hiểu</button>');
+    '<h3 class="guide-heading">Đấu thẻ và God-item</h3><p class="muted">Đấu trường cấp 40 có hai hạng Cực hiếm/Cực phẩm, thẻ có giá thị trường cao hơn thắng. Thách đấu Huyền thoại cấp 50 chỉ nhận thẻ đã thẩm định, điểm cao hơn thắng. Mỗi sự kiện tối đa 3 lượt/ngày: hai bên úp thẻ 5 giây rồi lật, thắng nhận thẻ đối phương, hòa trả lại thẻ; thẻ khóa và God-item không thể cược.</p><p class="muted">Mỗi BST có thêm 3 God-item bí ẩn ngoài 36 thẻ thường, xem trước dạng ?? tại BST. Túi cao cấp từ GOD-BOX có thể cho God-item; túi thường có 1%, túi cao cấp của GOD-BOX mặc định 3% (Admin chỉnh được), Hoàng kim và Kim cương có 2% mỗi túi. God-item chỉ sưu tầm và thẩm định.</p>'+
+    '<h3 class="guide-heading">Các chế độ tự động</h3><p class="muted">Trong Cửa hàng, bật/tắt từng checkbox: Tự động thanh toán, Tự bổ sung túi mù, Tự bổ sung thẻ item và Tự livestream. Nút ⚙️ mở tùy chỉnh; cài đặt livestream chỉ dành cho người có Thẻ bài Admin. Mỗi chế độ dùng trong ngày tính riêng phí nhân viên theo doanh thu khi kết ngày: mặc định 1%, tăng 1 điểm % mỗi 10 cấp (LV10: 2%, LV20: 3%…). Admin có thể chỉnh phí cơ bản. Thiếu tiền sẽ gán nợ bằng thẻ như ngân hàng.</p><p class="muted">Tự bổ sung túi dùng hàng trong kho trước, rồi mới nhập box trong giới hạn ngân sách (mặc định 20% tiền đầu mỗi lượt). Thẻ chỉ tự bán ở các bậc đã cho phép; thẻ khóa luôn được giữ. Chỉ tắt livestream khi không còn khách đang đến, chờ mở, mở túi hoặc phản ứng.</p>'+
+    '<h3 class="guide-heading">Sự kiện, cộng đồng và BST</h3><p class="muted">Người chơi có thể tham gia Giao dịch đen, Chợ đen, Đấu giá và Đu đỉnh khi đạt cấp yêu cầu và trong giờ cửa hàng hoạt động; một số sự kiện có khung giờ riêng. Chợ đen có 3 lượt/ngày (10:00, 12:40, 15:20), mỗi lượt 3–5 thẻ khác nhau; mỗi thẻ được săn 1 lần, có thể mua tất cả hoặc chờ lượt sau. Cộng đồng có Ngân hàng và Thẩm định, không bị ràng buộc bởi giờ mở cửa.</p><p class="muted">Xé túi của mình để nhận thẻ, XP và ghi nhận vào Kho tồn → BST. Mỗi BST có 36 thẻ với 6 độ hiếm. Khám phá đủ các thẻ để hoàn thành BST; bán hay dùng thẻ đã khám phá không xóa ghi nhận. Một số BST cần đủ cấp và trả phí mở khóa. Có 10 thẻ giống nhau thì có thể nâng thành một thẻ ngẫu nhiên ở bậc hiếm cao hơn trong cùng BST (trừ Huyền thoại).</p><p class="muted">Mỗi BST còn có một Thẻ rác giá 0₫, tỉ lệ 1% từ túi mù thường, xem trước tại BST; thẻ này chỉ sưu tầm và không tính vào 36 thẻ chính.</p><p class="muted">Game tự lưu trên trình duyệt. Dùng Hệ thống → Sao lưu để giữ mã tiến trình khi cần chuyển thiết bị.</p><button class="btn primary block" data-a="closeM">Đã hiểu</button>');
 }
 function showSettings(){
   sheet('<h2>Cài đặt</h2>'+togRow('Âm thanh game','Bật hoặc tắt hiệu ứng âm thanh','setSound',SET.sound)+'<button class="btn block" style="margin-top:12px" data-a="closeM">Đóng</button>');
@@ -2604,7 +2802,7 @@ function showContact(){
 }
 function enterGame(){
   ui.screen='game';$('#title').hidden=true;$('#app').hidden=false;
-  S.admin=!!S.adminCard;applyBase();planVisitors();recordAutomation();resolveDuel();ui.feedI=0;
+  S.admin=!!S.adminCard;applyBase();COLS.forEach(c=>grantGodRewards(c.id));planVisitors();recordAutomation();resolveDuel();ui.feedI=0;
   ensureEvents();auSync();
   if(S.au&&S.au.list) S.au.list.forEach((a,i)=>{if(a.status==='joined'&&a.holder==='you')auResolve(i);});
   ui.sig=marketSig();last=performance.now();
@@ -2621,7 +2819,13 @@ function startNew(name){
 
 /* ============ SỰ KIỆN ============ */
 const A={
-  godPreview(d){const key=d.key,owned=S.godCards[key]>0||S.godCert.some(c=>c.key===key)||S.godAppr.some(c=>c.key===key);if(!GOD_ITEMS[key])return;if(!S.admin&&!owned){sheet('<h2>❔ God-item bí ẩn</h2><p class="muted">Một thẻ ẩn của '+esc(COLS[GOD_ITEMS[key].ci].name)+'. Chỉ nhận được khi mở túi mù cao cấp, túi Hoàng kim hoặc túi Kim cương. Mỗi túi Hoàng kim/Kim cương có 1% cơ hội.</p><button class="btn block" data-a="closeM">Đóng</button>');return;}if(S.godAppr.some(c=>c.key===key)&&!S.godCards[key]&&!d.uid){const it=GOD_ITEMS[key];sheet('<h2>'+it.e+' '+esc(it.n)+'</h2><p class="muted">Đang gửi thẩm định.</p><button class="btn" data-a="closeM">Đóng</button>');return;}showGodCard(key,+d.uid);},
+  trashInfo(d){showTrashInfo(+d.ci);},
+  automationInfo(){showAutomationInfo();},
+  cameraSettings(){showCameraSettings();},
+  liveControl(){showLiveControl();},
+  balancePublish(){showPublishBalance();},
+  balanceWrite(){return writeLocalBalance();},
+  godPreview(d){const key=d.key,owned=S.godCards[key]>0||S.godCert.some(c=>c.key===key)||S.godAppr.some(c=>c.key===key);if(!GOD_ITEMS[key])return;if(!S.admin&&!owned){sheet('<h2>❔ God-item bí ẩn</h2><p class="muted">Một thẻ ẩn của '+esc(COLS[GOD_ITEMS[key].ci].name)+'. Có thể nhận từ túi mù thường (1%), túi cao cấp của GOD-BOX (mặc định 3%, Admin chỉnh được), Hoàng kim hoặc Kim cương (2%). Túi thường: 1%. Hoàng kim/Kim cương: 2%. Túi cao cấp từ GOD-BOX: mặc định 3%, Admin chỉnh được.</p><button class="btn block" data-a="closeM">Đóng</button>');return;}if(S.godAppr.some(c=>c.key===key)&&!S.godCards[key]&&!d.uid){const it=GOD_ITEMS[key];sheet('<h2>'+it.e+' '+esc(it.n)+'</h2><p class="muted">Đang gửi thẩm định.</p><button class="btn" data-a="closeM">Đóng</button>');return;}showGodCard(key,+d.uid);},
   cameraBuy(){const e=buyCamera();after();toast(e||'Đã mua Camera an ninh. Bật tại điều hành cửa hàng.',e?'bad':'good');},
   cameraUpgrade(){confirmBox('Nâng cấp Camera?','Chi 500.000 ₫ để nâng Camera an ninh thêm 1 cấp.','Nâng cấp',()=>{const e=upgradeCamera();closeModal();after();if(e)toast(e,'bad');});},
   cameraToggle(){if(!S.camera.level)return;S.camera.on=!S.camera.on;cameraSweep();after();},
@@ -2637,7 +2841,7 @@ const A={
     const ci=+d.ci,result=openRoyalBag(ci);if(!result)return;after();
     const actions=(S.royalBags[ci]>0?'<button class="btn primary" data-a="royalTear" data-ci="'+ci+'">Mở tiếp ('+S.royalBags[ci]+')</button>':'')+'<button class="btn" data-a="closeM">Xong</button>';
     if(result.kind==='god'){const it=GOD_ITEMS[result.key];sheet('<div class="god-detail god-glow"><span class="god-emblem">'+it.e+'</span><h2>'+esc(it.n)+'</h2><b>✨ GOD-ITEM'+(result.isNew?' · MỚI':'')+'</b><p>'+fmt(godPrice(result.key))+' ₫ · +'+result.xp+' XP</p><p class="muted">Thẻ ẩn ngoài BST · Chỉ sưu tầm và thẩm định</p>'+actions+'</div>');sfxRare(5);}
-    else showReveal({id:result.id,bag:true,art:{hue:45,icon:'💠'},isNew:result.isNew,xp:result.xp,note:'Túi cao cấp từ GOD-BOX',actions});
+    else showReveal({id:result.id,bag:true,art:{hue:45,icon:'💠',frame:'fx-silver fx-silver-spark'},isNew:result.isNew,xp:result.xp,note:'Túi cao cấp từ GOD-BOX',actions});
   },
   royalQuick(d){
     const ci=+d.ci,count=S.royalBags[ci]||0;if(!count||!COLS[ci])return;
@@ -2787,10 +2991,10 @@ const A={
   spOpen(d){
     const k=d.t;
     if(k==='gold'){
-      sheet('<div class="row" style="justify-content:flex-start;gap:14px">'+bagSVG(45,'✨',84)+'<div><h2>Túi mù hoàng kim lấp lánh</h2><div class="qty">×'+S.sp.gold+'</div></div></div><p class="muted">Đảm bảo mở ra 1 item từ cực hiếm trở lên, ngẫu nhiên trong các bộ sưu tập bạn đã mở khóa. Mỗi túi có 1% ra God-item.</p><div class="btnrow"><button class="btn primary" data-a="tearGold"'+(S.sp.gold>0?'':' disabled')+'>Xé túi</button><button class="btn" data-a="closeM">Đóng</button></div>');
+      sheet('<div class="row special-bag-preview fx-gold" style="justify-content:flex-start;gap:14px">'+bagSVG(45,'✨',84)+'<div><h2>Túi mù hoàng kim lấp lánh</h2><div class="qty">×'+S.sp.gold+'</div></div></div><p class="muted">Đảm bảo mở ra 1 item từ cực hiếm trở lên, ngẫu nhiên trong các bộ sưu tập bạn đã mở khóa. Mỗi túi có 2% ra God-item.</p><div class="btnrow"><button class="btn primary" data-a="tearGold"'+(S.sp.gold>0?'':' disabled')+'>Xé túi</button><button class="btn" data-a="closeM">Đóng</button></div>');
     }else{
       const un=unlockedCols();if(!un.includes(ui.diaCi))ui.diaCi=null;
-      sheet('<div class="row" style="justify-content:flex-start;gap:14px">'+bagSVG(190,'💎',84)+'<div><h2>Túi mù kim cương lấp lánh</h2><div class="qty">×'+S.sp.dia+'</div></div></div><p class="muted">Chọn một bộ sưu tập đã mở khóa. Item mở ra sẽ ngẫu nhiên từ cực hiếm trở lên thuộc bộ bạn chọn. Mỗi túi có 1% ra God-item của BST này.</p><div class="chips" style="margin:8px 0">'+un.map(ci=>'<button class="chip'+(ui.diaCi===ci?' on':'')+'" data-a="diaPick" data-c="'+ci+'">'+COLS[ci].icon+' '+COLS[ci].name+'</button>').join('')+'</div><div class="btnrow"><button class="btn primary" data-a="tearDia"'+(S.sp.dia>0&&ui.diaCi!=null?'':' disabled')+'>Xé túi</button><button class="btn" data-a="closeM">Đóng</button></div>');
+      sheet('<div class="row special-bag-preview fx-platinum" style="justify-content:flex-start;gap:14px">'+bagSVG(190,'💎',84)+'<div><h2>Túi mù kim cương lấp lánh</h2><div class="qty">×'+S.sp.dia+'</div></div></div><p class="muted">Chọn một bộ sưu tập đã mở khóa. Item mở ra sẽ ngẫu nhiên từ cực hiếm trở lên thuộc bộ bạn chọn. Mỗi túi có 2% ra God-item của BST này.</p><div class="chips" style="margin:8px 0">'+un.map(ci=>'<button class="chip'+(ui.diaCi===ci?' on':'')+'" data-a="diaPick" data-c="'+ci+'">'+COLS[ci].icon+' '+COLS[ci].name+'</button>').join('')+'</div><div class="btnrow"><button class="btn primary" data-a="tearDia"'+(S.sp.dia>0&&ui.diaCi!=null?'':' disabled')+'>Xé túi</button><button class="btn" data-a="closeM">Đóng</button></div>');
     }
   },
   diaPick(d){ui.diaCi=+d.c;A.spOpen({t:'dia'});},
@@ -2798,7 +3002,7 @@ const A={
     const r=openSpecial('gold');if(!r){closeModal();return;}
     const left=S.sp.gold;
     if(r.kind==='god'){showGodReward(r,(left>0?'<button class="btn primary" data-a="tearGold">Mở tiếp</button>':'')+'<button class="btn" data-a="closeM">Xong</button>');after();return;}
-    showReveal({id:r.id,bag:true,art:{hue:45,icon:'✨'},isNew:r.isNew,xp:r.xp,actions:(left>0?'<button class="btn primary" data-a="tearGold">Mở tiếp (còn '+left+' túi)</button>':'')+'<button class="btn" data-a="closeM">'+(left>0?'Dừng lại':'Xong')+'</button>'});
+    showReveal({id:r.id,bag:true,art:{hue:45,icon:'✨',frame:'fx-gold'},isNew:r.isNew,xp:r.xp,actions:(left>0?'<button class="btn primary" data-a="tearGold">Mở tiếp (còn '+left+' túi)</button>':'')+'<button class="btn" data-a="closeM">'+(left>0?'Dừng lại':'Xong')+'</button>'});
     after();
   },
   tearDia(){
@@ -2806,7 +3010,7 @@ const A={
     const r=openSpecial('dia',ci);if(!r){closeModal();return;}
     const left=S.sp.dia;
     if(r.kind==='god'){showGodReward(r,(left>0?'<button class="btn primary" data-a="spOpen" data-t="dia">Mở tiếp</button>':'')+'<button class="btn" data-a="closeM">Xong</button>');after();return;}
-    showReveal({id:r.id,bag:true,art:{hue:190,icon:'💎'},isNew:r.isNew,xp:r.xp,actions:(left>0?'<button class="btn primary" data-a="spOpen" data-t="dia">Mở tiếp (còn '+left+' túi)</button>':'')+'<button class="btn" data-a="closeM">'+(left>0?'Dừng lại':'Xong')+'</button>'});
+    showReveal({id:r.id,bag:true,art:{hue:190,icon:'💎',frame:'fx-platinum'},isNew:r.isNew,xp:r.xp,actions:(left>0?'<button class="btn primary" data-a="spOpen" data-t="dia">Mở tiếp (còn '+left+' túi)</button>':'')+'<button class="btn" data-a="closeM">'+(left>0?'Dừng lại':'Xong')+'</button>'});
     after();
   },
   buyOk(){
@@ -3068,6 +3272,7 @@ document.addEventListener('input',e=>{
 });
 document.addEventListener('change',e=>{
   const el=e.target;
+  if(el.id==='balance-source'){prepareBalanceDownload(el.files&&el.files[0]);return;}
   if(el.dataset&&el.dataset.a==='icol'){ui.icol=+el.value;renderView();}
   if(el.dataset&&el.dataset.a==='askSet'){ui.askPct=Math.round(clamp(parseFloat(el.value)||0,-60,300));reAsk();}
 });
@@ -3165,4 +3370,5 @@ renderTitle();
 </script>
 </body>
 </html>
+
 
